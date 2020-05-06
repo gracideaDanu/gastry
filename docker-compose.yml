@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+
+  ########## BACKEND ##########
+
+  backend:
+    container_name: backend
+    restart: always
+    build: ./backend
+    ports:
+      - 4000:4000
+    volumes:
+      - ./backend/src:/usr/src/backend/src
+    links:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./backend/data:/data/db
+    ports:
+      - "27018:27017"
+
+  ########## FRONTEND ##########
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+
+    ## Docker interactive mode
+    stdin_open: true
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/src:/usr/src/frontend/src
+      - ./frontend/public:/usr/src/frontend/public
