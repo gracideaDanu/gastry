@@ -4,12 +4,21 @@ const router = express.Router()
 // Item Model
 const Item = require('../../models/Item')
 
-router.post('/', (req, res) => {
-    const newItem = new Item({
-        name: req.body.name
-    })
+router.post('/', async (req, res) => {
+    console.log(req.body);
 
-    newItem.save().then(item => res.json(item))
+    try {
+        const newItem = await new Item({
+            name: req.body.name
+        });
+        newItem.save().then(item => res.json(item))
+
+    } catch (e) {
+        res.send({
+            error: e
+        })
+
+    }
 })
 
 router.get('/', (req, res) => {

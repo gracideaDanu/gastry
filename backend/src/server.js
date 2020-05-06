@@ -8,7 +8,11 @@ const items = require('./routes/api/items')
 const app = express();
 
 // BodyParser Middleware
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 // Connect to Mongo
 mongoose.connect('mongodb://mongo:27017/', {
