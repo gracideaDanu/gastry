@@ -1,36 +1,38 @@
-const express = require("express");
-const mongoose = require("mongoose");
-// it will allow us to take requests and get data from the body
-const bodyParser = require('body-parser')
-
-const items = require('./routes/api/items')
-
+const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const PORT = 4000;
+const supplierRouter = require('./routers/api/supplier.router');
+const customerRouter = require('./routers/api/customer.router');
+const config = require('./config/keys');
 
-// BodyParser Middleware
+//Added to prevent use of deprecated method
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+
+
+app.use(cors());
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-// Connect to Mongo
-mongoose.connect('mongodb://mongo:27017/', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-    })
-    .then(() => console.log('MongoDB Connected...'))
-    .catch(err => console.log(err))
+mongoose.connect(config.mongoURI, { useNewUrlParser: true });
+const connection = mongoose.connection;
 
-// Use Routes
-app.use('/api/items', items)
+connection.once('open', function() {
+    console.log("MongoDB database connection established successfully");
+});
 
-app.get('/', (req, res) => {
-    res.send('BACKEND')
-})
+app.listen(PORT, function() {
+    console.log("Server is running on Port: " + PORT);
+});
 
-const port = process.env.PORT || 4000
+app.use('/supplier',supplierRouter);
+app.use('/customer',customerRouter);
 
-app.listen(port, function() {
-    console.log(`Server is running on Port: ${port}`);
-})
+
