@@ -41,7 +41,7 @@ const Home = () => {
         <Layout 
             className='container-fluid' 
             title='Home Page' 
-            description='Node React E-Commerce App'
+            description='Node React Gastry App'
         >
 
         <Search />
