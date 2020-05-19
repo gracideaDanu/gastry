@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import Layout from './Layout';
-import Card from './card';
+import Card from '../components/home/card';
 import { getCategories, getFilteredProducts } from './apiCore';
 import  Checkbox from './Checkbox';
 import  RadioBox from './RadioBox';

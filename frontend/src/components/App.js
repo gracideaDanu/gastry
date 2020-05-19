@@ -4,7 +4,7 @@ import {Provider} from "react-redux";
 import store from "../store";
 import Navbar from "react-bootstrap/Navbar";
 import { LinkContainer } from 'react-router-bootstrap';
-import NavItem from 'react-bootstrap/lib/NavItem';
+import Nav from "react-bootstrap/Nav";
 
 
 
@@ -14,13 +14,13 @@ class App extends Component {
                 <Navbar>
                     <Nav className="justify-content-center">
                         <LinkContainer>
-                            <NavItem href="/home">Home</NavItem>
+                            <Nav.Item href="/home">Home</Nav.Item>
                         </LinkContainer>
                         <LinkContainer>
-                            <NavItem href="/search">Home</NavItem>
+                            <Nav.Item href="/search">Home</Nav.Item>
                         </LinkContainer>
                         <LinkContainer>
-                            <NavItem href="/profile">Home</NavItem>
+                            <Nav.Item href="/profile">Home</Nav.Item>
                         </LinkContainer>
                     </Nav>
                 </Navbar>

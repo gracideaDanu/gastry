@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ShowImage from './showImage';
+import ShowImage from '../../core/showImage';
 import moment from 'moment';
 import { Link, Redirect } from 'react-router-dom';
-import { addItem, updateItem, removeItem } from './cartHelper';
+import { addItem, updateItem, removeItem } from '../../core/cartHelper';
 
 
 const Card = ({

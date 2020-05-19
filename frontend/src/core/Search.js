@@ -1,8 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import { getCategories, list } from './apiCore';
-import Card from './card';
-
-
+import Card from '../components/home/card';
 
 
 const Search = () => {

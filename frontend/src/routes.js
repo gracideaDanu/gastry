@@ -1,54 +1,53 @@
-import React, {useEffect} from 'react';
-import Route from "react-router/modules/Route";
-import App from "./components/App";
-import Login from "./components/login/Login";
-import BrowserRouter from "react-router-dom/modules/BrowserRouter";
+import React from 'react';
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+
+import Signup from './user/signup';
+import Login from './user/login';
+import Home from './components/home/Home';
+
+import PrivateRoute from './auth/PrivateRoutes';
+import AdminRoute from './auth/AdminRoute';
+import Dashboard from './user/UserDashboard';
+import Profile from './user/Profile';
+import adminDashboard from './user/AdminDashboard';
+import AddCategory from './admin/AddCategory';
+import AddProduct from './admin/AddProduct';
+import Orders from './admin/Orders';
+
+import ManageProducts from './admin/ManageProducts';
+import UpdateProduct from './admin/UpdateProduct';
+
+import Shop from './core/Shop';
+import Product from './core/Product';
+import Cart from './components/home/Cart';
+
 
 
 const Routes = () => {
-
-    let loggedIn= false;
-
-    const requireLogin = (nextState, replace, cb) => {
-        function checkAuth() {
-            const { auth: { user }} = store.getState();
-            if (!user) {
-                // oops, not logged in, so can't be here!
-                replace('/');
-            }
-            cb();
-        }
-
-        if (!isAuthLoaded(store.getState())) {
-            store.dispatch(loadAuth()).then(checkAuth);
-        } else {
-            checkAuth();
-        }
-    };
-
-
     return (
-        <BrowserRouter>
-            {loggedIn && <Redirect to='/login'/>}
+    <BrowserRouter>
+       
+        <Switch>
+            <Route path='/' exact component={Home} />
+            <Route path='/product/:productId' exact component={Product} />
+            <Route path='/cart' exact component={Cart} />
+            <Route path='/shop' exact component={Shop} />
+            <Route path='/signup' exact component={Signup} />
+            <Route path='/login' exact component={Login} />
 
-            <Route path="login" component={Login}/>
+            <PrivateRoute path='/user/dashboard' exact component={Dashboard}/>
+            <PrivateRoute path='/profile/:userId' exact component={Profile}/>
 
-            { /* Routes requiring login */}
-            <Route onEnter={requireLogin}>
-                <Route path={"/"} component={App}>
-                    { /* Home (main) route */}
-                    <IndexRoute component={Home}/>
-                    { /* Routes */}
-                    <Route path="about" component={About}/>
-                    <Route path="pagination" component={Pagination}/>
-
-                    { /* Catch all route */}
-                </Route>
-            </Route>
-            <Route path="*" component={NotFound} status={404}/>
-
-        </BrowserRouter>
+            <AdminRoute path='/admin/dashboard' exact component={adminDashboard} /> 
+            <AdminRoute path='/create/category' exact component={AddCategory} /> 
+            <AdminRoute path='/create/product' exact component={AddProduct} /> 
+            <AdminRoute path='/admin/product/update/:productId' exact component={UpdateProduct} /> 
+            <AdminRoute path='/admin/orders' exact component={Orders} /> 
+            <AdminRoute path='/admin/products' exact component={ManageProducts} /> 
+           
+        </Switch>
+    </BrowserRouter>
     );
-};
+}
 
 export default Routes;

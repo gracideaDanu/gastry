@@ -1,9 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import Layout from './Layout';
-import { getCart, removeItem }  from './cartHelper';
+import Layout from '../../core/Layout';
+import { getCart, removeItem }  from '../../core/cartHelper';
 import Card from './card';
-import Checkout from './CheckOut';
+import Checkout from '../../core/CheckOut';
 
 
 const Cart = () => {
