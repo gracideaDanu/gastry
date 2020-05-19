@@ -1,10 +1,10 @@
 const express = require('express');
 const supplierRouter = express.Router();
 const supplierModel = require('../../models/supplier.model');
-const Supplier = supplierModel.sup
+const Supplier = supplierModel.sup;
 
 //GET all suppliers
-supplierRouter.get('/',async (req, res) => {
+supplierRouter.get('/all',async (req, res) => {
     try {
         const suppliers = await Supplier.find({});
         res.status(200).send({
@@ -19,7 +19,7 @@ supplierRouter.get('/',async (req, res) => {
 });
 
 //POST a new supplier
-supplierRouter.post('/', async (req, res) => {
+supplierRouter.post('/new', async (req, res) => {
     console.log(req.body);
     try {
         await Supplier.create(req.body).then(data => {

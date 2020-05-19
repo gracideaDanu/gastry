@@ -1,53 +1,43 @@
-import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
-import Signup from './user/signup';
-import Login from './user/login';
-import Home from './core/Home';
-
-import PrivateRoute from './auth/PrivateRoutes';
-import AdminRoute from './auth/AdminRoute';
-import Dashboard from './user/UserDashboard';
-import Profile from './user/Profile';
-import adminDashboard from './user/AdminDashboard';
-import AddCategory from './admin/AddCategory';
-import AddProduct from './admin/AddProduct';
-import Orders from './admin/Orders';
-
-import ManageProducts from './admin/ManageProducts';
-import UpdateProduct from './admin/UpdateProduct';
-
-import Shop from './core/Shop';
-import Product from './core/Product';
-import Cart from './core/Cart';
-
+import React, {useEffect} from 'react';
+import Login from "./containers/login/Login";
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
+import Home from "./containers/home/Home";
+import Notfound from "./containers/error/Notfound";
+import store from "./redux/store";
+import Search from "./containers/search/Search";
+import Navigation from "./components/navigation/Navigation";
+import Profilepage from "./containers/profile/Profilepage";
 
 
 const Routes = () => {
+
+    //TODO : ask for authtoken and redirect to login if necessary
+    let loggedIn = false;
+
+
     return (
-    <BrowserRouter>
-       
-        <Switch>
-            <Route path='/' exact component={Home} />
-            <Route path='/product/:productId' exact component={Product} />
-            <Route path='/cart' exact component={Cart} />
-            <Route path='/shop' exact component={Shop} />
-            <Route path='/signup' exact component={Signup} />
-            <Route path='/login' exact component={Login} />
+        <>
+            <Navigation></Navigation>
+            <BrowserRouter>
+                {loggedIn && <Redirect to='/login'/>}
 
-            <PrivateRoute path='/user/dashboard' exact component={Dashboard}/>
-            <PrivateRoute path='/profile/:userId' exact component={Profile}/>
+                <Switch>
 
-            <AdminRoute path='/admin/dashboard' exact component={adminDashboard} /> 
-            <AdminRoute path='/create/category' exact component={AddCategory} /> 
-            <AdminRoute path='/create/product' exact component={AddProduct} /> 
-            <AdminRoute path='/admin/product/update/:productId' exact component={UpdateProduct} /> 
-            <AdminRoute path='/admin/orders' exact component={Orders} /> 
-            <AdminRoute path='/admin/products' exact component={ManageProducts} /> 
-           
-        </Switch>
-    </BrowserRouter>
+                    { /* Routes requiring login */}
+                    <Route exact path={"/"} component={Home}></Route>
+                    <Route exact path={"/home"} component={Home}></Route>
+                    <Route exact path={"/search"} component={Search}></Route>
+                    <Route exact path={"/profile"} component={Profilepage}></Route>
+
+
+                    <Route path="login" component={Login}/>
+
+                    { /* Catch all route */}
+                    <Route path="/*" component={Notfound} status={404}/>
+                </Switch>
+            </BrowserRouter>
+        </>
     );
-}
+};
 
 export default Routes;

@@ -3,13 +3,16 @@ const customerRouter = express.Router();
 const Customer = require('../../models/customer.model');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const keys = require("../../config/keys");
+const checkAuth = require('../../middleware/verification').checkToken;
+
 
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
 
 //GET all customer
-customerRouter.get('/',async (req, res) => {
+customerRouter.get('/', checkAuth, async (req, res) => {
     try {
         const customer = await Customer.find({});
         res.status(200).send({
@@ -24,7 +27,7 @@ customerRouter.get('/',async (req, res) => {
 });
 
 //POST a new customer
-customerRouter.post('/register', async (req, res) => {
+customerRouter.post('/register',  (req, res) => {
     console.log(req.body);
     const { errors, isValid } = validateRegisterInput(req.body);
     // Check validation
@@ -32,7 +35,7 @@ customerRouter.post('/register', async (req, res) => {
         return res.status(400).json(errors);
     }
     try{
-       await Customer.findOne({email: req.body.email}).then(customer => {
+       Customer.findOne({email: req.body.email}).then(customer => {
             if (customer){
                 return res.status(400).json({ email: "Email already exists" });
             }
@@ -71,7 +74,6 @@ customerRouter.post('/register', async (req, res) => {
     } catch (e) {
         res.status(400).send(e);
     }
-    console.log(req.body);
     /*try {
         await Customer.create(req.body).then(data => {
             res.status(200).send({
@@ -85,6 +87,55 @@ customerRouter.post('/register', async (req, res) => {
             error: e
         })
     } '*/
+});
+
+// @route POST api/users/login
+// @desc Login user and return JWT token
+// @access Public
+customerRouter.post("/login",  (req, res) => {
+    // Form validation
+    const { errors, isValid } = validateLoginInput(req.body);
+// Check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+    const email = req.body.email;
+    const password = req.body.password;
+// Find user by email
+     Customer.findOne({ email }).then(user => {
+        // Check if user exists
+        if (!user) {
+            return res.status(404).json({ emailnotfound: "Email not found" });
+        }
+// Check password
+        bcrypt.compare(password, user.password).then(isMatch => {
+            if (isMatch) {
+                // User matched
+                // Create JWT Payload
+                const payload = {
+                    id: user.id
+                };
+// Sign token
+                jwt.sign(
+                    payload,
+                    keys.secretOrKey,
+                    {
+                        expiresIn: 31556926 // 1 year in seconds
+                    },
+                    (err, token) => {
+                        res.json({
+                            success: true,
+                            token: "Bearer " + token
+                        });
+                    }
+                );
+            } else {
+                return res
+                    .status(400)
+                    .json({ passwordincorrect: "Password incorrect" });
+            }
+        });
+    });
 });
 
 

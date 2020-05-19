@@ -4,10 +4,7 @@ WORKDIR /usr/src/backend
 
 COPY package*.json ./
 
-RUN npm install && \
-       rsync
-
-ADD init.sh /init.sh
+RUN npm install -g nodemon
 
 COPY . .
 

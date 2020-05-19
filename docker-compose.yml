@@ -12,16 +12,7 @@ services:
       - 4000:4000
     volumes:
       - ./backend/src:/usr/src/backend/src
-    links:
-      - mongo
 
-  mongo:
-    container_name: mongo
-    image: mongo
-    volumes:
-      - ./backend/data:/data/db
-    ports:
-      - "27018:27017"
 
   ########## FRONTEND ##########
 

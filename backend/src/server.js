@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const PORT = 4000;
 const supplierRouter = require('./routers/api/supplier.router');
 const customerRouter = require('./routers/api/customer.router');
+
 const config = require('./config/keys');
 
 //Added to prevent use of deprecated method
@@ -15,16 +16,23 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
 
+// Passport config
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-mongoose.connect(config.mongoURI, { useNewUrlParser: true });
-const connection = mongoose.connection;
 
-connection.once('open', function() {
+app.get("/", (req, res) => res.json({ message: "Server is running." }));
+
+mongoose.connect(config.mongoURI)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+const connectione = mongoose.connection;
+
+connectione.once('open', function() {
     console.log("MongoDB database connection established successfully");
 });
 
