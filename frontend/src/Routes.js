@@ -3,7 +3,6 @@ import Login from "./containers/login/Login";
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import Home from "./containers/home/Home";
 import Notfound from "./containers/error/Notfound";
-import store from "./redux/store";
 import Search from "./containers/search/Search";
 import Navigation from "./components/navigation/Navigation";
 import Profilepage from "./containers/profile/Profilepage";
