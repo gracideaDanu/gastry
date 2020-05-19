@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Input from "../../components/auth/input";
 //import axios from '../../axios/axios';
+import {connect} from "react-redux";
+import * as actions  from '../../redux/actions/index'
 
 const signInState = {
     form: {
@@ -21,7 +23,7 @@ const signInState = {
 };
 
 
-export default class Login extends Component {
+ class Login extends Component {
     state = signInState;
 
     onSubmit = (event) => {
@@ -30,14 +32,7 @@ export default class Login extends Component {
             email: this.state.form.email.value,
             password: this.state.form.password.value
         }
-        /*
-        axios.post("customer/login",loginData)
-            .then(res => {
-                console.log(res.data);
-                console.log(res.data.token.split(" ")[1]);
-            })
-
-         */
+        this.props.login(loginData);
 
     };
 
@@ -85,3 +80,17 @@ export default class Login extends Component {
         );
     }
 }
+
+const mapsStateToProps =(state) => {
+     return{
+         token:state.auth.token
+     }
+}
+
+const mapDispatchToProps =(dispatch)=> {
+     return{
+         login:(data) => dispatch(actions.login(data))
+     }
+}
+
+export default connect(mapsStateToProps,mapDispatchToProps)(Login);

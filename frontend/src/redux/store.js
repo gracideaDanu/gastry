@@ -10,7 +10,9 @@ const middleware = [thunk];
 const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(...middleware)
+    compose(applyMiddleware(...middleware),
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
 );
 
 export default store;

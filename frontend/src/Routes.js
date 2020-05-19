@@ -14,12 +14,9 @@ const Routes = () => {
     //TODO : ask for authtoken and redirect to login if necessary
     let loggedIn = true;
 
-
     return (
         <>
             <Navigation></Navigation>
-            <BrowserRouter>
-
                 <Switch>
 
                     { /* Routes requiring login */}
@@ -36,7 +33,6 @@ const Routes = () => {
                     { /* Catch all route */}
                     <Route path="/*" component={Notfound} status={404}/>
                 </Switch>
-            </BrowserRouter>
         </>
     );
 };

@@ -97,7 +97,7 @@ customerRouter.post("/login",  (req, res) => {
     const { errors, isValid } = validateLoginInput(req.body);
 // Check validation
     if (!isValid) {
-        return res.status(400).json(errors);
+        return res.status(400).json({message : errors});
     }
     const email = req.body.email;
     const password = req.body.password;
@@ -105,7 +105,7 @@ customerRouter.post("/login",  (req, res) => {
      Customer.findOne({ email }).then(user => {
         // Check if user exists
         if (!user) {
-            return res.status(404).json({ emailnotfound: "Email not found" });
+            return res.status(404).json({ message: "Email not found" });
         }
 // Check password
         bcrypt.compare(password, user.password).then(isMatch => {
@@ -123,7 +123,9 @@ customerRouter.post("/login",  (req, res) => {
                         expiresIn: 31556926 // 1 year in seconds
                     },
                     (err, token) => {
-                        res.json({
+                        res
+                            .status(200)
+                            .json({
                             success: true,
                             token: "Bearer " + token
                         });
@@ -131,8 +133,8 @@ customerRouter.post("/login",  (req, res) => {
                 );
             } else {
                 return res
-                    .status(400)
-                    .json({ passwordincorrect: "Password incorrect" });
+                    .status(401)
+                    .json({ message: "Password incorrect" });
             }
         });
     });
