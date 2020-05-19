@@ -6,19 +6,19 @@ import Notfound from "./containers/error/Notfound";
 import Search from "./containers/search/Search";
 import Navigation from "./components/navigation/Navigation";
 import Profilepage from "./containers/profile/Profilepage";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 
 const Routes = () => {
 
     //TODO : ask for authtoken and redirect to login if necessary
-    let loggedIn = false;
+    let loggedIn = true;
 
 
     return (
         <>
             <Navigation></Navigation>
             <BrowserRouter>
-                {loggedIn && <Redirect to='/login'/>}
 
                 <Switch>
 
@@ -28,8 +28,10 @@ const Routes = () => {
                     <Route exact path={"/search"} component={Search}></Route>
                     <Route exact path={"/profile"} component={Profilepage}></Route>
 
+                    <Route exact path={"/login"} component={Login}/>
 
-                    <Route path="login" component={Login}/>
+
+                    {loggedIn && <Redirect to='/login'/>}
 
                     { /* Catch all route */}
                     <Route path="/*" component={Notfound} status={404}/>
