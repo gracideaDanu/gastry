@@ -26,9 +26,11 @@ class Routes extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("hi");
         if ( prevProps.token !== this.props.token && this.props.token === null){
             this.props.history.replace("/login");
+        }
+        if ( prevProps.token !== this.props.token && this.props.token !== null){
+            this.props.history.replace("/home");
         }
     }
 
@@ -37,15 +39,19 @@ class Routes extends Component {
 
 
     render() {
+        const privateRoutes = [];
+        if (this.props.token !== null) {
+            privateRoutes.push(<Route exact path={"/home"} component={Home}></Route>)
+            privateRoutes.push(<Route exact path={"/search"} component={Search}></Route>)
+            privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
+
+        }
         return (
             <>
                 <Switch>
 
                     { /* Routes requiring login */}
-                    <Route exact path={"/"} component={Home}></Route>
-                    <Route exact path={"/home"} component={Home}></Route>
-                    <Route exact path={"/search"} component={Search}></Route>
-                    <Route exact path={"/profile"} component={Profilepage}></Route>
+                    {privateRoutes}
 
                     <Route exact path={"/login"} component={Login}/>
                     <Route exact path={"/register"} component={Signup}/>

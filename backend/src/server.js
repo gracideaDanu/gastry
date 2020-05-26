@@ -28,7 +28,6 @@ app.use(bodyParser.urlencoded({
 app.get("/", (req, res) => res.json({ message: "Server is running." }));
 
 mongoose.connect(config.mongoURI)
-    .then(res => console.log(res))
     .catch(err => console.log(err));
 const connectione = mongoose.connection;
 
