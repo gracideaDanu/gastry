@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Layout from "../common/Layout";
+import {Link} from "react-router-dom";
+import UserLayout from "../common/UserLayout";
 
 
 const Profilepage = (props) => {
@@ -10,6 +12,7 @@ const Profilepage = (props) => {
     const token = true;
 
     const init = (userId, token) => {
+        //TODO: get token
 
     }
 
@@ -31,16 +34,14 @@ const Profilepage = (props) => {
     }
 
     return (
-        <Layout
+        <UserLayout
             className='container-fluid'
             title={`${name} Profile Page`}
             description='Update Profile'
         >
             <h2 className='mb-4'>Profile Update</h2>
-        </Layout>
+        </UserLayout>
     );
 };
-
-
 
 export default Profilepage;

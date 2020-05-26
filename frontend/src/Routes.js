@@ -28,7 +28,7 @@ class Routes extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("hi");
-        if ( prevProps.token !== null && this.props.token === null){
+        if ( prevProps.token !== this.props.token && this.props.token === null){
             this.props.history.replace("/login");
         }
     }
@@ -40,7 +40,6 @@ class Routes extends Component {
     render() {
         return (
             <>
-                <Navigation></Navigation>
                 <Switch>
 
                     { /* Routes requiring login */}

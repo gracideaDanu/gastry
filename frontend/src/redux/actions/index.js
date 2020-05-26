@@ -4,3 +4,7 @@ export {
     tokenInvalid,
     login
 } from './login';
+
+export {
+    logout
+} from './logout';
