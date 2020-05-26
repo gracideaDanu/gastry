@@ -1,31 +1,34 @@
-import React, { useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import Layout from '../common/Layout';
 
-const Home = () => {
-    const [productsBySell, setProductsBySell] = useState([]);
-    const [productsByArrival, setProductsByArrival] = useState([]);
-    const [error, setError] = useState(false);
-
-    return  (
-        <Layout
-            className='container-fluid'
-            title='Home Page'
-            description='Node React Gastry Navigation'
-        >
+class Home extends Component{
 
 
-            <h2 className='mb-4'>New Arrivals</h2>
+
+    render() {
+        return  (
+            <Layout
+                className='container-fluid'
+                title='Home Page'
+                description='Node React Gastry Navigation'
+            >
+
+
+                <h2 className='mb-4'>New Arrivals</h2>
                 <div className='row'>
 
                 </div>
-        
-            <h2 className='mb-4'>Best Sellers</h2>
-               <div className='row'>
 
-               </div>
-            
-        </Layout>
-    )
+                <h2 className='mb-4'>Best Sellers</h2>
+                <div className='row'>
+
+                </div>
+
+            </Layout>
+        )
+    }
+
+
 }
 
 

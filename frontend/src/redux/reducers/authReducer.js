@@ -11,7 +11,8 @@ export default function(state = initialState, action) {
         case LOGIN_SUCCESS:
             return {
                ...state,
-                token: action.logindata.token
+                token: action.logindata.token,
+                loaded: true
             };
         case LOGIN_FAILED:
             return {

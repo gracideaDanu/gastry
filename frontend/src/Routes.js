@@ -14,6 +14,7 @@ const Routes = () => {
     //TODO : ask for authtoken and redirect to login if necessary
     let loggedIn = true;
 
+
     return (
         <>
             <Navigation></Navigation>

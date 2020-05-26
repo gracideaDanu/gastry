@@ -26,7 +26,9 @@ const signInState = {
  class Login extends Component {
     state = signInState;
 
-    onSubmit = (event) => {
+
+
+     onSubmit = (event) => {
         event.preventDefault();
         const loginData = {
             email: this.state.form.email.value,
@@ -81,11 +83,7 @@ const signInState = {
     }
 }
 
-const mapsStateToProps =(state) => {
-     return{
-         token:state.auth.token
-     }
-}
+
 
 const mapDispatchToProps =(dispatch)=> {
      return{
@@ -93,4 +91,4 @@ const mapDispatchToProps =(dispatch)=> {
      }
 }
 
-export default connect(mapsStateToProps,mapDispatchToProps)(Login);
+export default connect(null,mapDispatchToProps)(Login);
