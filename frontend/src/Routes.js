@@ -8,6 +8,7 @@ import Navigation from "./components/navigation/Navigation";
 import Profilepage from "./containers/profile/Profilepage";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {connect} from "react-redux";
+import Signup from "./containers/register/Signup";
 
 
 class Routes extends Component {
@@ -49,6 +50,7 @@ class Routes extends Component {
                     <Route exact path={"/profile"} component={Profilepage}></Route>
 
                     <Route exact path={"/login"} component={Login}/>
+                    <Route exact path={"/register"} component={Signup}/>
 
                     { /* Catch all route */}
                     <Route path="/*" component={Notfound} status={404}/>
