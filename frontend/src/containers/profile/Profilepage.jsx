@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Layout from "../common/Layout";
 import {Link} from "react-router-dom";
+import UserLayout from "../common/UserLayout";
 
 const Profilepage = () => {
     const [ history, setHistory ] = useState([]);
@@ -33,13 +34,13 @@ const Profilepage = () => {
     }
 
     return (
-        <Layout
+        <UserLayout
             className='container-fluid'
             title={`${name} Profile Page`}
             description='Update Profile'
         >
             <h2 className='mb-4'>Profile Update</h2>
-        </Layout>
+        </UserLayout>
     );
 };
 

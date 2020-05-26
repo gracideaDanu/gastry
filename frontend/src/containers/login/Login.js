@@ -85,10 +85,10 @@ const signInState = {
 
 
 
-const mapDispatchToProps =(dispatch)=> {
+const mapDispatchToProps = (dispatch) => {
      return{
          login:(data) => dispatch(actions.login(data))
      }
-}
+};
 
 export default connect(null,mapDispatchToProps)(Login);

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, Component} from 'react';
-import Layout from '../common/Layout';
+import UserLayout from "../common/UserLayout";
 
 class Home extends Component{
 
@@ -7,7 +7,7 @@ class Home extends Component{
 
     render() {
         return  (
-            <Layout
+            <UserLayout
                 className='container-fluid'
                 title='Home Page'
                 description='Node React Gastry Navigation'
@@ -24,7 +24,7 @@ class Home extends Component{
 
                 </div>
 
-            </Layout>
+            </UserLayout>
         )
     }
 

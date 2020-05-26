@@ -17,7 +17,6 @@ const Routes = () => {
 
     return (
         <>
-            <Navigation></Navigation>
                 <Switch>
 
                     { /* Routes requiring login */}
