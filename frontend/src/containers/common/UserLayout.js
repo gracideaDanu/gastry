@@ -11,12 +11,12 @@ const UserLayout = ({
                         className,
                         children,
                         onClicklogout
-                    },props) => {
+                    }) => {
 
 
         return (
             <div>
-                <Topbar onClick={props.onClicklogout}/>
+                <Topbar onClick={onClicklogout}/>
                 <Navigation></Navigation>
                 <div className='jumbotron'>
                     <h2> {title} </h2>

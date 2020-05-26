@@ -40,7 +40,6 @@ class Routes extends Component {
     render() {
         return (
             <>
-                <Navigation></Navigation>
                 <Switch>
 
                     { /* Routes requiring login */}

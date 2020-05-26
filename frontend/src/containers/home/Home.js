@@ -1,5 +1,6 @@
 import React, {useState, useEffect, Component} from 'react';
 import Layout from '../common/Layout';
+import UserLayout from "../common/UserLayout";
 
 class Home extends Component{
 
