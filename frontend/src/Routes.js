@@ -4,7 +4,6 @@ import { Switch, Route, withRouter} from 'react-router-dom';
 import Home from "./containers/home/Home";
 import Notfound from "./containers/error/Notfound";
 import Search from "./containers/search/Search";
-import Navigation from "./components/navigation/Navigation";
 import Profilepage from "./containers/profile/Profilepage";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {connect} from "react-redux";
