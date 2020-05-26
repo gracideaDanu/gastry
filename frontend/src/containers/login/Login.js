@@ -26,6 +26,11 @@ const signInState = {
  class Login extends Component {
     state = signInState;
 
+     componentDidUpdate(prevProps, prevState, snapshot) {
+         if (this.props.token !== null) {
+             this.props.history.push("/home");
+         }
+     }
 
 
      onSubmit = (event) => {
@@ -83,7 +88,11 @@ const signInState = {
     }
 }
 
-
+const mapsStateToProps =(state) => {
+     return{
+         token:state.auth.token
+     }
+}
 
 const mapDispatchToProps =(dispatch)=> {
      return{
@@ -91,4 +100,4 @@ const mapDispatchToProps =(dispatch)=> {
      }
 }
 
-export default connect(null,mapDispatchToProps)(Login);
+export default connect(mapsStateToProps,mapDispatchToProps)(Login);

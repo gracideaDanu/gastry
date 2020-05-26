@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import Layout from "../common/Layout";
-import {Link} from "react-router-dom";
 
-const Profilepage = () => {
-    const [ history, setHistory ] = useState([]);
-    const [email, setEmail] = useState([]);
-    const [name, setName] = useState([]);
+
+const Profilepage = (props) => {
+    const [email] = useState([]);
+    const [name] = useState([]);
 
 
     const token = true;
 
     const init = (userId, token) => {
-        //TODO: get token
 
     }
 
@@ -42,5 +40,7 @@ const Profilepage = () => {
         </Layout>
     );
 };
+
+
 
 export default Profilepage;
