@@ -3,10 +3,10 @@ import Layout from "../common/Layout";
 import {Link} from "react-router-dom";
 import UserLayout from "../common/UserLayout";
 
-const Profilepage = () => {
-    const [ history, setHistory ] = useState([]);
-    const [email, setEmail] = useState([]);
-    const [name, setName] = useState([]);
+
+const Profilepage = (props) => {
+    const [email] = useState([]);
+    const [name] = useState([]);
 
 
     const token = true;

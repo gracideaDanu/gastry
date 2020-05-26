@@ -1,71 +1,19 @@
 const express = require('express');
 const supplierRouter = express.Router();
-const supplierModel = require('../../models/supplier.model');
-const Supplier = supplierModel.sup;
+const checkAuth = require('../../middleware/verification').checkToken;
 
-//GET all suppliers
-supplierRouter.get('/all',async (req, res) => {
-    try {
-        const suppliers = await Supplier.find({});
-        res.status(200).send({
-            message: 'Successfully fetched suppliers info',
-            data: suppliers
-        })
-    } catch (e) {
-        res.status(400).send({
-            error: e
-        })
-    }
-});
+const SupplierController = require('../../controller/supplier.controller');
 
-//POST a new supplier
-supplierRouter.post('/new', async (req, res) => {
-    console.log(req.body);
-    try {
-        await Supplier.create(req.body).then(data => {
-            res.status(200).send(data)
-        })
-    } catch (e) {
-        res.status(400).send({
-            error: e
-        })
-    }
-});
+// GET all customer
+supplierRouter.get('/', checkAuth, SupplierController.getAll);
 
-supplierRouter.post('/push', async (req, res) => {
-    console.log(req.body.tags);
-    let item = {
-        name: req.body.name,
-        price: req.body.price,
-        tags: req.body.tags
-    };
-    const filter = {"_id": "5eaf4f9f5759d6193dc304f9"};
+// POST a new customer
+supplierRouter.post('/register', SupplierController.register);
 
-    try {
-       await Supplier.findOneAndUpdate(filter,{$push: { 'catalog': item}}).then(data => {
-           res.status(200).send(data)
-       })
+// POST api/users/login
+supplierRouter.post("/login",  SupplierController.login);
 
-    } catch (e) {
-        res.status(400).send({
-            error: e
-        })
-    }
-});
-supplierRouter.delete('/', async (req, res) => {
-    try {
-        await Supplier.deleteMany({}).then(data => {
-            res.status(200).send(data)
-        })
-    }catch (e) {
-        res.status(400).send({
-            error: e
-        })
-    }
-});
+//Delete all customers
+supplierRouter.delete('/', SupplierController.deleteAll);
 
 module.exports = supplierRouter;
-
-
-
-

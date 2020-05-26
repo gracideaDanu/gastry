@@ -3,6 +3,9 @@ import axiosInstance from "../axiosInstance";
 
 export const login =(payload) =>{
 return dispatch => {
+
+    dispatch(loginStart());
+
     axiosInstance.post("/customer/login", payload)
         .then(res => {
             dispatch(loginSuccess(res.data))
@@ -14,10 +17,18 @@ return dispatch => {
 }
 }
 
-;export const loginSuccess =(data) =>{
+;
+
+export const loginSuccess =(data) =>{
     return{
         type: actionTypes.LOGIN_SUCCESS,
         logindata: data
+    };
+};
+
+export const loginStart =() =>{
+    return{
+        type: actionTypes.LOGIN_START
     };
 };
 

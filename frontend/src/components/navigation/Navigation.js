@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React, {} from 'react'
 import Navbar from "react-bootstrap/Navbar";
-import { LinkContainer } from 'react-router-bootstrap';
 import Nav from "react-bootstrap/Nav";
 import "./nav.scss";
 
