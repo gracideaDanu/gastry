@@ -3,6 +3,7 @@ const validateLoginInput = require("../validation/login");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/keys");
+const UserModel = require('../models/user.model.js')
 
 class UserController {
     constructor(model) {
@@ -35,9 +36,7 @@ class UserController {
             return res.status(400).json(errors);
         }
         try{
-            console.log(req.body);
-
-            this.model.findOne({email: req.body.email}).then(user => {
+            UserModel.findOne({email: req.body.email}).then(user => {
                 if (user) {
                     return res.status(400).json({ email: "Email already exists" });
                 }
