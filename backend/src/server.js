@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const PORT = 4000;
 const supplierRouter = require('./routers/api/supplier.router');
 const customerRouter = require('./routers/api/customer.router');
-
+const userRouter = require('./routers/api/user.router')
 const config = require('./config/keys');
 
 //Added to prevent use of deprecated method
@@ -41,5 +41,6 @@ app.listen(PORT, function() {
 
 app.use('/supplier',supplierRouter);
 app.use('/customer',customerRouter);
+app.use('/user',userRouter);
 
 
