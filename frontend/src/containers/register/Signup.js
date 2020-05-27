@@ -95,11 +95,13 @@ class Signup extends Component {
 
     optionHandler = (value) => {
         if (value === "customer"){
-            this.setState(signUpCState)
+            const state = signUpCState;
+            this.setState(state)
 
         }
         else {
-            this.setState(signUpSState)
+            const state = signUpSState;
+            this.setState(state)
         }
 
     };
@@ -155,6 +157,7 @@ class Signup extends Component {
                 <Input type={element.type}
                        name={element.name}
                        key={element.type}
+                       content={this.state.form[element.type].value}
                        change={(e) => this.onChange(e,element.type)}
 
                 />
@@ -163,7 +166,7 @@ class Signup extends Component {
         return (
             <div>
 
-                <h3>Sign Up Page</h3>
+                <h3>Sign Up Page {this.state.option.value}</h3>
                 <ToggleButtonGroup type="radio" name="registerToggle" onChange={this.optionHandler}>
                     <ToggleButton value="customer">Customer</ToggleButton>
                     <ToggleButton value="supplier">Supplier</ToggleButton>

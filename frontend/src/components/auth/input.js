@@ -44,7 +44,7 @@ const input = (props) => {
     return (
         <div className="form-group">
             <label>{form.label}</label>
-            <input onChange={props.change} type={form.type} className="form-control" placeholder={form.placeholder} />
+            <input onChange={props.change} type={form.type} className="form-control" placeholder={form.placeholder} value={props.content} />
         </div>
     );
 };

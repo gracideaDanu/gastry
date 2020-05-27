@@ -6,7 +6,7 @@ return dispatch => {
 
     dispatch(loginStart());
 
-    axiosInstance.post("/customer/login", payload)
+    axiosInstance.post("/user/login", payload)
         .then(res => {
             dispatch(loginSuccess(res.data))
         })
