@@ -9,10 +9,9 @@ module.exports = function validateRegisterInput(data) {
     data.password = !isEmpty(data.password) ? data.password : "";
     data.password2 = !isEmpty(data.password2) ? data.password2 : "";
     data.restaurant = !isEmpty(data.restaurant) ? data.restaurant : "";
-    data.street = !isEmpty(data.street) ? data.street : "";
-    data.city = !isEmpty(data.city) ? data.city : "";
-    data.state = !isEmpty(data.state) ? data.state : "";
-    data.code = !isEmpty(data.code) ? data.code : "";
+    data.company = !isEmpty(data.company) ? data.company : "";
+    data.option = !isEmpty(data.option) ? data.option : "";
+
 
 
 
@@ -32,25 +31,21 @@ module.exports = function validateRegisterInput(data) {
     }
 
     //Restaurant and Address checks
-    if (Validator.isEmpty(data.restaurant)) {
-        errors.restaurant = "Restaurant field is required";
+    if (data.option === "supplier"){
+        if (Validator.isEmpty(data.company)) {
+            errors.company = "Company field is required";
+
+        }
     }
 
-    if (Validator.isEmpty(data.street)) {
-        errors.street = "Address field is required";
+    else {
+
+    if (Validator.isEmpty(data.restaurant) ) {
+            errors.restaurant = "Restaurant field is required";
+        }
+
     }
 
-    if (Validator.isEmpty(data.city)) {
-        errors.city = "Address field is required";
-    }
-
-    if (Validator.isEmpty(data.state)) {
-        errors.state = "Address field is required";
-    }
-
-    if (Validator.isEmpty(data.code)) {
-        errors.code = "Address field is required";
-    }
 
 // Password checks
     if (Validator.isEmpty(data.password)) {

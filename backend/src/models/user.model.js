@@ -24,15 +24,11 @@ let userSchema =   new Schema({
         type: String,
         required: true
     },
-    restaurant: {
-        type: String,
-        required: true,
-        minlength: [1, 'Name must be at least one character long']
-    },
+
     address: {
         street: {
             type: String,
-            required: true,
+            required: false,
         },
         streetTwo: {
             type: String,
@@ -40,16 +36,17 @@ let userSchema =   new Schema({
         },
         city: {
             type: String,
-            required: true
+            required: false
         },
         state: {
             type: String,
-            required: true
+            required: false
         },
         code: {
             type: String,
-            required: true
-        }
+            required: false
+        },
+        required: false
     }
 }, options);
 

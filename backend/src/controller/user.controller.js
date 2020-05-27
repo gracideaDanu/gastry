@@ -30,7 +30,6 @@ class UserController {
     }
 
     async register(req, res) {
-        console.log(req.body);
         const { errors, isValid } = validateRegisterInput(req.body);
         // Check validation
         if (!isValid) {
@@ -42,25 +41,27 @@ class UserController {
                     return res.status(400).json({ email: "Email already exists" });
                 }
                 else {
-                    console.log("Creating newUser in else case");
+                    let bigName;
+                    if (req.body === "supplier"){
+                        bigName = "company"
+                    }
+                    else {
+                        bigName = "restaurant"
+                    }
+                    console.log(req.body);
                     const newUser = new this.model({
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
                         email: req.body.email,
                         password: req.body.password,
-                        restaurant: req.body.restaurant,
-                        'address.street': req.body.street,
-                        'address.city': req.body.city ,
-                        'address.state': req.body.state ,
-                        'address.code': req.body.code
+                        company: req.body.company,
+                        restaurant: req.body.restaurant
                     });
+
                     // Hash password before saving in database
-                    console.log("Hashing generate");
                     bcrypt.genSalt(10,(err, salt) => {
-                        console.log("Pre hasing hash");
                         bcrypt.hash(newUser.password,salt,(err1, hash) => {
                             if(err) throw err;
-                            console.log("Add newUser to save");
                             newUser.password = hash;
                             newUser
                                 .save()
