@@ -24,7 +24,11 @@ let userSchema =   new Schema({
         type: String,
         required: true
     },
-
+    company: {
+        type: String,
+        required: true,
+        minlength: [1, 'Name must be at least one character long']
+    },
     address: {
         street: {
             type: String,
