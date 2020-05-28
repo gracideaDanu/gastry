@@ -1,5 +1,4 @@
 let jwt = require('jsonwebtoken');
-const config = require('../config/keys');
 
 let checkToken = (req, res, next) => {
 
@@ -18,7 +17,7 @@ let checkToken = (req, res, next) => {
 
 
     if (token) {
-        jwt.verify(token, config.secretOrKey, (err, decoded) => {
+        jwt.verify(token, process.env.SECRET_OR_KEY, (err, decoded) => {
             if (err) {
                 return res.json({
                     success: false,

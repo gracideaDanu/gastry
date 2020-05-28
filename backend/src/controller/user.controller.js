@@ -2,7 +2,6 @@ const validateRegisterInput = require("../validation/register");
 const validateLoginInput = require("../validation/login");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../config/keys");
 const UserModel = require('../models/user.model.js')
 
 class UserController {
@@ -103,7 +102,7 @@ class UserController {
                     // Sign token
                     jwt.sign(
                         payload,
-                        keys.secretOrKey,
+                        process.env.SECRET_OR_KEY,
                         {
                             expiresIn: 31556926 // 1 year in seconds
                         },

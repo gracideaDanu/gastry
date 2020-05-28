@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/server.js"
+    "test": "env-cmd -f ./src/config/test.env jest --watchAll --runInBand",
+    "start": "env-cmd -f ./src/config/dev.env nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
     "validator": "^13.0.0"
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "nodemon": "^2.0.3"
   }
 }
