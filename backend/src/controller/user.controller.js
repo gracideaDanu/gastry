@@ -41,21 +41,12 @@ class UserController {
                     return res.status(400).json({ email: "Email already exists" });
                 }
                 else {
-                    let bigName;
-                    if (req.body === "supplier"){
-                        bigName = "company"
-                    }
-                    else {
-                        bigName = "restaurant"
-                    }
-                    console.log(req.body);
                     const newUser = new this.model({
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
                         email: req.body.email,
                         password: req.body.password,
-                        company: req.body.company,
-                        restaurant: req.body.restaurant
+                        company: req.body.company
                     });
 
                     // Hash password before saving in database
@@ -67,7 +58,6 @@ class UserController {
                                 .save()
                                 .then(customer => res.status(200).json(customer))
                                 .catch(err => res.status(400).send(err))
-    
                         })
                     })
                 }
