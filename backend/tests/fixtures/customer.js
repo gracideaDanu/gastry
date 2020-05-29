@@ -11,7 +11,7 @@ const customer_one = {
 	"street": "stuttgarter strasße",
 	"city": "Stuttgart",
 	"state": "bw",
-	"code": "70123"
+    "code": "70123"
 }
 
 const customer_two = {

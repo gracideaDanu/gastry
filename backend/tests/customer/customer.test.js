@@ -91,3 +91,25 @@ describe('Logging in', () =>{
             .expect(401)
     })
 })
+
+describe('Fetching', () => {
+    it('Should fetch all customers', async () => {
+        const login_response = await request(app)
+            .post('/user/login')
+            .send(login_customer)
+
+        const response = await request(app)
+            .get('/customer')
+            .set("Authorization", login_response.body.token)
+            .send()
+            .expect(200)
+        expect(response.body.data.length).toBeGreaterThan(0)
+    })
+
+    it('Should not fetch customers without a token', async () => {
+        await request(app)
+            .get('/customer')
+            .send()
+            .expect(404)
+    })
+});
