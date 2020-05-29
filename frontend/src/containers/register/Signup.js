@@ -2,6 +2,7 @@ import "./Signup.css";
 import React, { Component } from "react";
 import {connect} from "react-redux"
 import Input from "../../components/auth/input";
+import Errors from "../../components/auth/error";
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import * as actions from "../../redux/actions";
@@ -44,7 +45,14 @@ const signUpCState = {
     option: {
         value: "customer"
     },
-    errors: {}
+    errors: {
+        restaurant: 'Restaurant name is required',
+        firstName: 'First name is required',
+        lastName: 'Last name is required',
+        email: 'E-Mail is required',
+        password: 'Password is required',
+        passwordConfirm: 'Please confirm password'
+    }
 
 };
 
@@ -85,29 +93,138 @@ const signUpSState = {
     option: {
         value: "supplier"
     },
-    errors: {}
+    errors: {
+        company: 'Company name is required',
+        firstName: 'First name is required',
+        lastName: 'Last name is required',
+        email: 'E-Mail is required',
+        password: 'Password is required',
+        passwordConfirm: 'Please confirm password',
+        display: null
+    }
 
 };
+
+const validPasswordRegex = new RegExp(/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/);
+const validEmailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+const errorFormArray = [];
 
 class Signup extends Component {
 
     state = signUpCState;
 
+    validateForm = (errors) => {
+        let valid = true;
+        Object.values(errors).forEach(
+            // if we have an error string set valid to false
+            (val) => val.length > 0 && (valid = false)
+        );
+        return valid;
+    }
+
+    displayErrors = () => {
+
+        errorFormArray.length = 0;
+        for (let element in this.state.errors){
+            errorFormArray.push({
+                value: this.state.errors[element]
+                }
+
+            )
+        }
+        this.setState({
+            ...this.state,
+            errors: {
+                ...this.state.errors,
+                display: true
+            }
+        })
+
+    }
+
     optionHandler = (value) => {
         if (value === "customer"){
             const state = signUpCState;
-            this.setState(state)
+            this.setState( state
+            )
+
 
         }
         else {
             const state = signUpSState;
-            this.setState(state)
+            this.setState(state
+            )
         }
 
     };
 
+    validationHandler = (elementType, value) => {
+        let errors = this.state.errors;
+        switch (elementType) {
+            case 'restaurant':
+                errors.restaurant =
+                    value.length < 2
+                        ? 'Restaurant must be 2 characters long!'
+                        : '';
+                break;
+
+            case 'company':
+                errors.company =
+                    value.length < 2
+                        ? 'Company must be 2 characters long!'
+                        : '';
+                break;
+
+            case 'firstName':
+                errors.firstName =
+                    value.length < 1
+                        ? 'First Name is required!'
+                        : '';
+                break;
+            case 'lastName':
+                errors.lastName =
+                    value.length < 1
+                        ? 'Last Name is required!'
+                        : '';
+                break;
+            case 'email':
+                errors.email =
+                    validEmailRegex.test(value)
+                        ? ''
+                        : 'Email is not valid!';
+                break;
+            case 'password':
+                console.log(value);
+                errors.password =
+                    validPasswordRegex.test(value)
+                        ? ''
+                        : 'Password needs to contain at least one letter and one number and 6 characters!';
+                break;
+
+            case 'passwordConfirm':
+
+                errors.passwordConfirm =
+                    this.state.form.password.value !== value
+                        ? 'Passwords must match'
+                        : '';
+                break;
+            default:
+                break;
+        }
+        console.log(errors);
+        this.setState({
+            ...this.state,
+            errors: errors
+        })
+    }
+
     onChange = (event,elementType) => {
-        const value = {
+        event.preventDefault();
+        const value = event.target.value;
+        this.validationHandler(elementType,value);
+
+
+        const form = {
             ...this.state.form,
             [elementType]: {
                 ...this.state.form[elementType],
@@ -116,32 +233,46 @@ class Signup extends Component {
             }
         };
 
-        this.setState({form: value});
+        this.setState({form: form});
     };
 
     onSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state.option);
         const option = this.state.option.value;
+        if(this.validateForm(this.state.errors)) {
+            console.info('Valid Form')
+            let loginData = {
+                email: this.state.form.email.value,
+                password: this.state.form.password.value,
+                password2: this.state.form.passwordConfirm.value,
+                lastName: this.state.form.lastName.value,
+                firstName: this.state.form.firstName.value,
+                option: option
+            };
+            if (this.state.option.value === "supplier"){
+                loginData["company"] = this.state.form.company.value
+            }
+            else {
+                loginData["company"] = this.state.form.restaurant.value
 
-        let loginData = {
-            email: this.state.form.email.value,
-            password: this.state.form.password.value,
-            password2: this.state.form.passwordConfirm.value,
-            lastName: this.state.form.lastName.value,
-            firstName: this.state.form.firstName.value,
-            option: option
-        };
-        if (this.state.option.value === "supplier"){
-            loginData["company"] = this.state.form.company.value
+            }
+            this.setState({
+                ...this.state,
+                errors: {
+                    ...this.state.errors,
+                    display: false
+                }
+            })
+            this.props.register(loginData);
+        }else{
+            console.error('Invalid Form');
+            console.log(this.state.errors)
+            this.displayErrors();
         }
-        else {
-            loginData["restaurant"] = this.state.form.restaurant.value
 
-        }
-        console.log(loginData)
-        this.props.register(loginData);
+
     };
+
 
     render() {
         const formArray = [];
@@ -163,6 +294,13 @@ class Signup extends Component {
                 />
         ));
 
+        const errorDisplay = errorFormArray.map(error => (
+            <Errors
+            value={error.value}
+            />
+
+        ))
+
         return (
             <div>
 
@@ -175,6 +313,10 @@ class Signup extends Component {
                     {signInForm}
                     <button type="submit">Submit</button>
                 </form>
+                <Errors></Errors>
+                {errorDisplay}
+
+
             </div>
 
         );
