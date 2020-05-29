@@ -25,7 +25,6 @@ app.use(bodyParser.urlencoded({
 
 app.get("/", (req, res) => res.json({ message: "Server is running." }));
 
-console.log(process.env)
 mongoose.connect(process.env.MONGODB_URL)
     .catch(err => console.log(err));
 const connectione = mongoose.connection;
