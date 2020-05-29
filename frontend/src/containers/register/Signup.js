@@ -256,6 +256,7 @@ class Signup extends Component {
                 loginData["company"] = this.state.form.restaurant.value
 
             }
+            errorFormArray.length = 0;
             this.setState({
                 ...this.state,
                 errors: {
@@ -263,6 +264,7 @@ class Signup extends Component {
                     display: false
                 }
             })
+
             this.props.register(loginData);
         }else{
             console.error('Invalid Form');
