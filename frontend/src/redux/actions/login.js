@@ -1,15 +1,15 @@
 import * as actionTypes from './actionTypes';
-import axiosInstance from "../axiosInstance";
+import {axiosInstance as axios} from "../axiosInstance";
 
 export const login =(payload) =>{
 return dispatch => {
 
     dispatch(loginStart());
 
-    axiosInstance.post("/user/login", payload)
-        .then(res => {
-            dispatch(loginSuccess(res.data))
-        })
+        axios.post("/customer/login", payload)
+            .then(res => {
+                dispatch(loginSuccess(res.data))
+            })
 
         .catch(err => {
             dispatch(loginFailed(err.data))
