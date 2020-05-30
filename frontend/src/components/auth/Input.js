@@ -1,6 +1,6 @@
 import React from "react";
 
-const input = (props) => {
+const Input = (props) => {
 
     let form = {
         type: null,
@@ -32,9 +32,9 @@ const input = (props) => {
     return (
         <div className="form-group">
             <label>{form.label}</label>
-            <input onChange={props.change} type={form.type} className="form-control" placeholder={form.placeholder} />
+            <input onChange={props.change} type={form.type} className="form-control" placeholder={form.placeholder} data-test={'inputfield'}/>
         </div>
     );
 };
 
-export default input;
+export default Input;

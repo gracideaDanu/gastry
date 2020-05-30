@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Input from "../../components/auth/input";
+import Input from "../../components/auth/Input";
 
 const signUpState = {
     form: {
