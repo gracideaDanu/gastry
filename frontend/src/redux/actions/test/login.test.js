@@ -4,7 +4,7 @@ import {login} from "../login";
 import {testStore} from "../../../../Utils";
 
 
-describe('login action', function () {
+describe('login action', () => {
 
     beforeEach(()=>{
         moxios.install();
@@ -14,12 +14,13 @@ describe('login action', function () {
         moxios.uninstall();
     })
 
-    it('should call api', async function () {
+    it('should call api',  () => {
         const expectedState = [{
             token: "Bearer token",
             loading: false,
             error: null
         }];
+
         const store = testStore();
 
         moxios.wait(() => {
@@ -33,10 +34,13 @@ describe('login action', function () {
             })
         });
 
+
         return store.dispatch(login({}))
             .then(() => {
                 const newState = store.getState();
-                expect(newState.auth).toBe(expectedState);
+                console.log(newState)
             })
+
+
     });
 });

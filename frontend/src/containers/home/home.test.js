@@ -1,18 +1,18 @@
 import React from "react";
 
 import {shallow} from 'enzyme';
-import Login from "./Login";
 import {findByTestAtrr, testStore} from "../../../Utils";
 import Input from "../../components/auth/Input";
+import Home from "./Home";
 
 
 const setUp =(initialstore={})=>{
     const store = testStore(initialstore);
-    const wrapper = shallow(<Login store={store}/>).childAt(0).dive();
+    const wrapper = shallow(<Home store={store}/>);
     return wrapper
 }
 
-describe('<Login/>', function () {
+describe('<Home/>', function () {
 
     let wrapper;
     beforeEach(() => {
