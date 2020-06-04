@@ -3,6 +3,8 @@ import Input from "../../components/auth/Input";
 //import axios from '../../axios/axios';
 import {connect} from "react-redux";
 import * as actions  from '../../redux/actions/index'
+import ToggleButton from "react-bootstrap/ToggleButton";
+import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 
 const signInState = {
     form: {
@@ -75,12 +77,17 @@ const signInState = {
         return (
             <div>
                 <h3>Login Page</h3>
+                <ToggleButtonGroup type="radio" name="registerToggle" onChange={this.optionHandler}>
+                    <ToggleButton value="customer">Customer</ToggleButton>
+                    <ToggleButton value="supplier">Supplier</ToggleButton>
+                </ToggleButtonGroup>
                 <form onSubmit={this.onSubmit}>
 
                     {signInForm}
                     <button>Submit</button>
 
                 </form>
+
             </div>
 
         );

@@ -1,44 +1,46 @@
 import * as actionTypes from './actionTypes';
-import {axiosInstance as axios} from "../axiosInstance";
+import axiosInstance from "../axiosInstance";
 
-export const login = (payload) => {
-    return dispatch => {
+export const login =(payload) =>{
+return dispatch => {
 
-        dispatch(loginStart());
+    dispatch(loginStart());
 
-        axios.post("/customer/login", payload)
-            .then(res => {
-                dispatch(loginSuccess(res.data))
-            })
+    axiosInstance.post("/user/login", payload)
+        .then(res => {
+            dispatch(loginSuccess(res.data))
+        })
 
-            .catch(err => {
-                dispatch(loginFailed(err.data))
-            })
-    }
-};
+        .catch(err => {
+            dispatch(loginFailed(err.data))
+        })
+}
+}
 
-export const loginSuccess = (data) => {
-    return {
+;
+
+export const loginSuccess =(data) =>{
+    return{
         type: actionTypes.LOGIN_SUCCESS,
         logindata: data
     };
 };
 
-export const loginStart = () => {
-    return {
+export const loginStart =() =>{
+    return{
         type: actionTypes.LOGIN_START
     };
 };
 
-export const loginFailed = (error) => {
-    return {
+export const loginFailed =(error) =>{
+    return{
         type: actionTypes.LOGIN_FAILED,
         error: error
     };
 };
 
-export const tokenInvalid = () => {
-    return {
+export const tokenInvalid =() =>{
+    return{
         type: actionTypes.TOKEN_INVALID
     }
 }
