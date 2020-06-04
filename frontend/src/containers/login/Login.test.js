@@ -9,6 +9,8 @@ import Input from "../../components/auth/Input";
 const setUp =(initialstore={})=>{
     const store = testStore(initialstore);
     const wrapper = shallow(<Login store={store}/>).childAt(0).dive();
+    console.debug(shallow(<Login store={store}/>).debug());
+    console.debug("HIII");
     return wrapper
 }
 
