@@ -112,6 +112,12 @@ class Signup extends Component {
 
     state = signUpCState;
 
+    componentDidMount() {
+        if (this.props.token !== null){
+            this.props.history.replace('/home');
+        }
+    }
+
     validateForm = (errors) => {
         let valid = true;
         console.log(this.state.errors);
@@ -346,5 +352,6 @@ const mapDispatchToProps = (dispatch) => {
        ))
     }
 };
+
 
 export default connect(mapsStateToProps,mapDispatchToProps)(Signup);
