@@ -19,20 +19,20 @@ return dispatch => {
 
 ;
 
-export const loginSuccess =(data) =>{
+ const loginSuccess =(data) =>{
     return{
         type: actionTypes.LOGIN_SUCCESS,
         logindata: data
     };
 };
 
-export const loginStart =() =>{
+ const loginStart =() =>{
     return{
         type: actionTypes.LOGIN_START
     };
 };
 
-export const loginFailed =(error) =>{
+ const loginFailed =(error) =>{
     return{
         type: actionTypes.LOGIN_FAILED,
         error: error
@@ -44,3 +44,6 @@ export const tokenInvalid =() =>{
         type: actionTypes.TOKEN_INVALID
     }
 }
+
+
+
