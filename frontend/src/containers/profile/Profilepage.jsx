@@ -1,7 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
-import Layout from "../common/Layout";
+import SupplierLayout from "../common/SupplierLayout";
 import {Link} from "react-router-dom";
-import UserLayout from "../common/UserLayout";
+import UserLayout from "../common/CustomerLayout";
 
 
 class Profilepage extends Component {

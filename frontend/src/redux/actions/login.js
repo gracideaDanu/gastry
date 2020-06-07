@@ -6,7 +6,7 @@ export const login = (payload) => {
 
         dispatch(loginStart());
 
-        axios.post("/customer/login", payload)
+        axios.post("/user/login", payload)
             .then(res => {
                 dispatch(loginSuccess(res.data))
             })
