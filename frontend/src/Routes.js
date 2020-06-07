@@ -52,7 +52,6 @@ class Routes extends Component {
 
                     { /* Routes requiring login */}
                     {privateRoutes}
-                    <Route exact path={"/home"} component={HomeCustomer}></Route>
                     <Route exact path={"/login"} component={Login}/>
                     <Route exact path={"/register"} component={Signup}/>
 

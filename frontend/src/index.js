@@ -5,9 +5,6 @@ import {Provider} from "react-redux";
 import {store, persistor} from "./redux/store";
 import {BrowserRouter} from "react-router-dom";
 import {PersistGate} from 'redux-persist/integration/react'
-import {Provider} from "react-redux";
-import store from "./redux/store";
-import {BrowserRouter} from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import './customs.scss';
 
