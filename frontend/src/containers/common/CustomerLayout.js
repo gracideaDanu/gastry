@@ -5,7 +5,7 @@ import Topbar from "../../components/navigation/TopBar";
 import * as actions from "../../redux/actions";
 import {connect} from "react-redux";
 
-const UserLayout = ({
+const CustomerLayout = ({
                         title = 'Title',
                         description = 'Description',
                         className,
@@ -34,4 +34,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(UserLayout);
+export default connect(null, mapDispatchToProps)(CustomerLayout);

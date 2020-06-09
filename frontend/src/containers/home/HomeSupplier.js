@@ -1,16 +1,16 @@
 import React, {useState, useEffect, Component} from 'react';
-import Layout from '../common/Layout';
-import UserLayout from "../common/UserLayout";
+import SupplierLayout from '../common/SupplierLayout';
+import UserLayout from "../common/CustomerLayout";
 
-class Home extends Component{
+class HomeSupplier extends Component{
 
 
 
     render() {
         return  (
-            <UserLayout
+            <SupplierLayout
                 className='container-fluid'
-                title='Home Page'
+                title='HomeCustomer Page'
                 description='Node React Gastry Navigation'
             >
 
@@ -25,7 +25,7 @@ class Home extends Component{
 
                 </div>
 
-            </UserLayout>
+            </SupplierLayout>
         )
     }
 
@@ -33,4 +33,4 @@ class Home extends Component{
 }
 
 
-export default Home;
+export default HomeSupplier;

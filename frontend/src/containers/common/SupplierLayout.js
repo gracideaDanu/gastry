@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles.css'
 
-const Layout = ({
+const SupplierLayout = ({
     title = 'Title', 
     description = 'Description', 
     className,
@@ -17,4 +17,4 @@ const Layout = ({
     );
 
 
-export default Layout;
+export default SupplierLayout;

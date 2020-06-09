@@ -1,23 +1,21 @@
 import * as actionTypes from './actionTypes';
-import axiosInstance from "../axiosInstance";
+import {axiosInstance as axios} from "../axiosInstance";
 
-export const login =(payload) =>{
-return dispatch => {
+export const login = (payload) => {
+    return dispatch => {
 
-    dispatch(loginStart());
+        dispatch(loginStart());
 
-    axiosInstance.post("/user/login", payload)
-        .then(res => {
-            dispatch(loginSuccess(res.data))
-        })
+        axios.post("/user/login", payload)
+            .then(res => {
+                dispatch(loginSuccess(res.data))
+            })
 
-        .catch(err => {
-            dispatch(loginFailed(err.data))
-        })
-}
-}
-
-;
+            .catch(err => {
+                dispatch(loginFailed(err.data))
+            })
+    }
+};
 
  const loginSuccess =(data) =>{
     return{
@@ -39,8 +37,8 @@ return dispatch => {
     };
 };
 
-export const tokenInvalid =() =>{
-    return{
+export const tokenInvalid = () => {
+    return {
         type: actionTypes.TOKEN_INVALID
     }
 }
