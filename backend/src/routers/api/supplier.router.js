@@ -18,6 +18,8 @@ supplierRouter.delete('/', SupplierController.deleteAll);
 
 supplierRouter.get('/fetchCatalog', checkAuth, SupplierController.fetchCatalog);
 
-supplierRouter.put('/addItem', checkAuth, SupplierController.addItem)
+supplierRouter.put('/addItem', checkAuth, SupplierController.addItem);
+
+supplierRouter.delete('/deleteItem', checkAuth, SupplierController.deleteItem);
 
 module.exports = supplierRouter;

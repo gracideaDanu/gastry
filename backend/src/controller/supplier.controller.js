@@ -1,5 +1,6 @@
 const UserController = require('./user.controller');
 const SupplierModel = require('../models/supplier.model');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 class SupplierController extends UserController {
     constructor(model) {
@@ -8,6 +9,7 @@ class SupplierController extends UserController {
 
         this.fetchCatalog = this.fetchCatalog.bind(this);
         this.addItem = this.addItem.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
     }
 
  async fetchCatalog (req, res) {
@@ -68,6 +70,44 @@ class SupplierController extends UserController {
 
 
  }
+
+ async deleteItem (req, res ) {
+        try {
+            const userId = req.decoded.id;
+            console.log(req.body.itemId)
+            const itemId = new ObjectId(req.body.itemId);
+            console.log(req.body.itemId)
+            console.log(itemId);
+            const result = await SupplierModel.findOneAndDelete({
+                'catalog._id': itemId
+            }).select('catalog.name')
+            if (result === null) {
+                res.status(404).json({
+                    message: "Item doesn't exist"
+                })
+                return;
+            }
+
+            console.log(result);
+            console.log("Hi")
+            res.status(200).json({
+                data: result,
+                message: "Successfully deleted item"
+            })
+        }
+        catch (e) {
+            res.status(400).json({
+                message: "Deleting item didnt work",
+                error: e
+            })
+        }
+
+
+ }
+
+
+
+
 }
 
 module.exports = new SupplierController(SupplierModel);
