@@ -16,4 +16,8 @@ supplierRouter.post("/login",  SupplierController.login);
 //Delete all customers
 supplierRouter.delete('/', SupplierController.deleteAll);
 
+supplierRouter.get('/fetchCatalog', checkAuth, SupplierController.fetchCatalog);
+
+supplierRouter.put('/addItem', checkAuth, SupplierController.addItem)
+
 module.exports = supplierRouter;

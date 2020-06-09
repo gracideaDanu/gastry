@@ -24,6 +24,11 @@ const productSchema = new mongoose.Schema({
             type: String,
             maxLength:10,
             required: true
+        },
+        size: {
+            type: String,
+            maxLength:10,
+            required: true
         }
 
 
@@ -34,7 +39,7 @@ const productSchema = new mongoose.Schema({
 
 
 User.discriminator('Supplier', new Schema({
-    products: {
+    catalog: {
         type: [productSchema]
 
     }
