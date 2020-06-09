@@ -22,4 +22,6 @@ supplierRouter.put('/addItem', checkAuth, SupplierController.addItem);
 
 supplierRouter.delete('/deleteItem', checkAuth, SupplierController.deleteItem);
 
+supplierRouter.put('/modifyItem', checkAuth, SupplierController.modifyItem);
+
 module.exports = supplierRouter;

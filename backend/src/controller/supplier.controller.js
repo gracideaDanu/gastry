@@ -10,6 +10,7 @@ class SupplierController extends UserController {
         this.fetchCatalog = this.fetchCatalog.bind(this);
         this.addItem = this.addItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
+        this.modifyItem = this.modifyItem.bind(this);
     }
 
  async fetchCatalog (req, res) {
@@ -78,9 +79,13 @@ class SupplierController extends UserController {
             const itemId = new ObjectId(req.body.itemId);
             console.log(req.body.itemId)
             console.log(itemId);
-            const result = await SupplierModel.findOneAndDelete({
+            const result = await SupplierModel.findOneAndUpdate({
                 'catalog._id': itemId
-            }).select('catalog.name')
+            }, {
+                $pull: { catalog: { _id: itemId}
+                }
+            })
+
             if (result === null) {
                 res.status(404).json({
                     message: "Item doesn't exist"
@@ -103,6 +108,32 @@ class SupplierController extends UserController {
         }
 
 
+ }
+ async modifyItem (req, res) {
+        try {
+            console.log(req.body.itemId)
+            const itemId = new ObjectId(req.body.itemId);
+            console.log(itemId)
+            const updatedItem = req.body;
+            delete updatedItem['itemId']
+            console.log(updatedItem)
+            console.log(itemId)
+
+        const doc = await SupplierModel.findOneAndUpdate({
+            'catalog._id': itemId
+
+        }, { $set: {"catalog.$.name" : updatedItem.name, "catalog.$.description": updatedItem.description, "catalog.$.price" : updatedItem.price, "catalog.$.tags" : updatedItem.tags, "catalog.$.size" : updatedItem.size}}, {returnNewDocument: true})
+            res.status(200).send({
+                message: "Updated item successfully!",
+                id: itemId
+            })
+
+        }
+        catch (e) {
+            res.status(400).json({
+                message: 'Modifying item didnt work'
+            })
+        }
  }
 
 
