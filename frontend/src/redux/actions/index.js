@@ -18,3 +18,7 @@ export {
 export {
     logout
 } from './logout';
+
+export {
+    fetchUser
+} from './user'
