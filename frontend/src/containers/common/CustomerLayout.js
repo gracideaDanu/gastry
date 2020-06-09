@@ -6,18 +6,32 @@ import * as actions from "../../redux/actions";
 import {connect} from "react-redux";
 
 const CustomerLayout = ({
-                        title = 'Title',
-                        description = 'Description',
-                        className,
-                        children,
-                        onClicklogout
-                    }) => {
+                            title = 'Title',
+                            description = 'Description',
+                            className,
+                            children,
+                            onClicklogout
+                        }) => {
+        const navbuttons = [
+            {
+                name: 'Home',
+                link: '/home'
+            },
+            {
+                name: 'Search',
+                link: '/search'
+            },
+            {
+                name: 'Profile',
+                link: '/profile'
+            },
 
+        ]
 
         return (
             <div>
                 <Topbar onClick={onClicklogout}/>
-                <Navigation></Navigation>
+                <Navigation pagelist={navbuttons}></Navigation>
                 <div className='jumbotron'>
                     <h2> {title} </h2>
                     <p className='lead'> {description}</p>

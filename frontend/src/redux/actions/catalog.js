@@ -74,10 +74,17 @@ export const fetchCatalog = (payload) => {
                 message: "Catalog successfully created",
                 items: [
                     {
-                        name: 'Item 1'
+                        catg: 'drink',
+                        name: 'Item 1',
+                        price: 30,
+                        description:"some description"
                     },
                     {
-                        name: 'Item 2'
+                        catg: 'food',
+                        name: 'Item 2',
+                        price: 30,
+                        description:"some description"
+
                     }
                 ]
             }))

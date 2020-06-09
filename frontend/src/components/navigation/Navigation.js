@@ -4,9 +4,23 @@ import Nav from "react-bootstrap/Nav";
 import "./nav.scss";
 import {LinkContainer} from "react-router-bootstrap";
 import NavItem from "react-bootstrap/NavItem";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import NavigationButton from "./NavigationButton";
 
+const borderbetween = {
+    backgroundColor: 'red'
+    //'border-right': "1px solid"
+};
 
-const Navigation = () => {
+const Navigation = (props) => {
+    const pagelist = props.pagelist
+    const showpages = pagelist.map((page,index)=>
+        <Col key={index}>
+            <NavigationButton name={page.name} link={page.link} key={index}/>
+        </Col>
+    )
     return (
         <>
             <style type="text/css">
@@ -25,22 +39,7 @@ const Navigation = () => {
                 <Nav className="fixed-bottom">
                     <Container className={"justify-content-center"}>
                         <Row className={"navrow"}>
-                            <Col style={{ borderRight: "1px solid" }}>
-                                <LinkContainer className={'navItem'}  to="/home">
-                                    <NavItem  >Home</NavItem>
-                                </LinkContainer>
-                            </Col>
-                            <Col>
-                                <LinkContainer className={'navItem'} to="/search">
-                                    <NavItem>Search</NavItem>
-                                </LinkContainer>
-                            </Col>
-                            <Col style={{ borderLeft: "1px solid" }}>
-
-                                <LinkContainer className={'navItem'} to="/profile">
-                                    <NavItem>Profile</NavItem>
-                                </LinkContainer>
-                            </Col>
+                            {showpages}
                         </Row>
                     </Container>
                 </Nav>
