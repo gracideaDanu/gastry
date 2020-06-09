@@ -7,7 +7,9 @@ import rootReducer from './reducers/index';
 
 const initialState = {};
 
-const middleware = [thunk];
+const middleware = process.env.NODE_ENV !== 'production' ?
+    [require('redux-immutable-state-invariant').default(), thunk] :
+    [thunk];
 
 const persistConfig = {
     key: 'root',

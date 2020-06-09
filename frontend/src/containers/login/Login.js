@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Input from "../../components/auth/input";
+import Input from "../../components/auth/Input";
 //import axios from '../../axios/axios';
 import {connect} from "react-redux";
 import * as actions  from '../../redux/actions/index'
@@ -42,7 +42,6 @@ const signInState = {
             password: this.state.form.password.value
         }
         this.props.login(loginData);
-
     };
 
     onChange = (event) => {

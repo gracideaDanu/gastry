@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Login from "./containers/login/Login";
 import { Switch, Route, withRouter} from 'react-router-dom';
-import Home from "./containers/home/Home";
+import HomeCustomer from "./containers/home/HomeCustomer";
 import Notfound from "./containers/error/Notfound";
 import Search from "./containers/search/Search";
 import Profilepage from "./containers/profile/Profilepage";
@@ -41,7 +41,7 @@ class Routes extends Component {
     render() {
         const privateRoutes = [];
         if (this.props.token !== null) {
-            privateRoutes.push(<Route exact path={"/home"} component={Home}></Route>)
+            privateRoutes.push(<Route exact path={"/home"} component={HomeCustomer}></Route>)
             privateRoutes.push(<Route exact path={"/search"} component={Search}></Route>)
             privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
 
@@ -52,7 +52,6 @@ class Routes extends Component {
 
                     { /* Routes requiring login */}
                     {privateRoutes}
-
                     <Route exact path={"/login"} component={Login}/>
                     <Route exact path={"/register"} component={Signup}/>
 

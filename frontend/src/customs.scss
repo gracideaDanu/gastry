@@ -1,0 +1,28 @@
+// change the theme
+$theme-colors: (
+        "primary": #FACD2A,
+        "danger": #EB0F0F,
+        "secondary":  #9DBA51,
+       // "success":    $success,
+        //"info":       $info,
+       // "warning":    $warning,
+        "light":      #F8E6A9,
+        "dark":       #626262
+);
+
+#root{
+  height: 100%;
+  background-color: black;
+}
+html,body{
+  height: 100%;
+}
+div.container{
+  max-width: 500px;
+  height: 100%;
+  background-color: #626262;
+
+}
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';

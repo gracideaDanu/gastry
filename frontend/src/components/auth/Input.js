@@ -1,6 +1,6 @@
 import React from "react";
 
-const input = (props) => {
+const Input = (props) => {
 
     let form = {
         type: null,
@@ -49,4 +49,4 @@ const input = (props) => {
     );
 };
 
-export default input;
+export default Input;

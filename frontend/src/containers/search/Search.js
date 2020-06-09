@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
-import UserLayout from "../common/UserLayout";
+import CustomerLayout from "../common/CustomerLayout";
 
 class Search extends Component {
 
     render() {
         return (
-            <UserLayout
+            <CustomerLayout
                 className='container-fluid'
                 title={` Search`}
                 description='stuff'>
                 <div>
                     <h1 className={"display-3"}>Search Component</h1>
                 </div>
-            </UserLayout>
+            </CustomerLayout>
         );
     }
 
