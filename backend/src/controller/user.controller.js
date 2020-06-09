@@ -115,7 +115,8 @@ class UserController {
                                 .status(200)
                                 .json({
                                 success: true,
-                                token: "Bearer " + token
+                                token: "Bearer " + token,
+                                userId: user._id
                             });
                         }
                     );
@@ -134,7 +135,6 @@ class UserController {
                 new: true,
                 runValidators: true
             })
-            console.log(user)
             res.status(200).send({
                 message: 'Successfully fetched user info',
                 data: user

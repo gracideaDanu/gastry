@@ -2,6 +2,7 @@ import {LOGIN_SUCCESS, LOGIN_FAILED, LOGIN_START} from '../actions/actionTypes';
 
 const initialState = {
     token: null,
+    userId: null,
     loading: false,
     error: null
 };
@@ -19,6 +20,7 @@ export default function(state = initialState, action) {
             return {
                ...state,
                 token: action.logindata.token,
+                userId: action.logindata.userId,
                 loading: false
             };
         case LOGIN_FAILED:
