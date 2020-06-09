@@ -99,8 +99,7 @@ const signUpSState = {
         lastName: 'Last name is required',
         email: 'E-Mail is required',
         password: 'Password is required',
-        passwordConfirm: 'Please confirm password',
-        display: null
+        passwordConfirm: 'Please confirm password'
     }
 
 };
@@ -115,9 +114,16 @@ class Signup extends Component {
 
     validateForm = (errors) => {
         let valid = true;
+        console.log(this.state.errors);
         Object.values(errors).forEach(
+
             // if we have an error string set valid to false
-            (val) => val.length > 0 && (valid = false)
+            (val) =>  console.log(val)
+        );
+        Object.values(errors).forEach(
+
+            // if we have an error string set valid to false
+            (val) =>  val.length > 0 && (valid = false)
         );
         return valid;
     }
@@ -145,6 +151,7 @@ class Signup extends Component {
     optionHandler = (value) => {
         if (value === "customer"){
             const state = signUpCState;
+            errorFormArray.length = 0;
             this.setState( state
             )
 
@@ -152,6 +159,7 @@ class Signup extends Component {
         }
         else {
             const state = signUpSState;
+            errorFormArray.length = 0;
             this.setState(state
             )
         }
