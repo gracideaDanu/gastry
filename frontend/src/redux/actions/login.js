@@ -17,21 +17,21 @@ export const login = (payload) => {
     }
 };
 
-export const loginSuccess = (data) => {
-    return {
+ const loginSuccess =(data) =>{
+    return{
         type: actionTypes.LOGIN_SUCCESS,
         logindata: data
     };
 };
 
-export const loginStart = () => {
-    return {
+ const loginStart =() =>{
+    return{
         type: actionTypes.LOGIN_START
     };
 };
 
-export const loginFailed = (error) => {
-    return {
+ const loginFailed =(error) =>{
+    return{
         type: actionTypes.LOGIN_FAILED,
         error: error
     };
@@ -42,3 +42,6 @@ export const tokenInvalid = () => {
         type: actionTypes.TOKEN_INVALID
     }
 }
+
+
+
