@@ -25,9 +25,8 @@ let checkToken = (req, res, next) => {
                 });
             } else {
                 //req.decoded in this case is the user id in the mongo database, since in jwt.verfiy in login we pass the id as the payload.
-                console.log(req.decoded);
                 req.decoded = decoded;
-                console.log(req.decoded);
+                //req.liebe = "HI";
                 next();
             }
         });

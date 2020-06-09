@@ -16,6 +16,7 @@ class UserController {
 
     async getAll(req, res) {
         try {
+
             const user = await this.model.find({});
             res.status(200).send({
                 message: 'Successfully fetched user info',
