@@ -2,8 +2,6 @@ import React, {} from 'react'
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import "./nav.scss";
-import {LinkContainer} from "react-router-bootstrap";
-import NavItem from "react-bootstrap/NavItem";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
