@@ -74,7 +74,6 @@ class SupplierController extends UserController {
 
  async deleteItem (req, res ) {
         try {
-            const userId = req.decoded.id;
             console.log(req.body.itemId)
             const itemId = new ObjectId(req.body.itemId);
             console.log(req.body.itemId)
@@ -111,6 +110,7 @@ class SupplierController extends UserController {
  }
  async modifyItem (req, res) {
         try {
+
             console.log(req.body.itemId)
             const itemId = new ObjectId(req.body.itemId);
             console.log(itemId)
@@ -122,10 +122,11 @@ class SupplierController extends UserController {
         const doc = await SupplierModel.findOneAndUpdate({
             'catalog._id': itemId
 
-        }, { $set: {"catalog.$.name" : updatedItem.name, "catalog.$.description": updatedItem.description, "catalog.$.price" : updatedItem.price, "catalog.$.tags" : updatedItem.tags, "catalog.$.size" : updatedItem.size}}, {returnNewDocument: true})
+        }, { $set: {"catalog.$.name" : updatedItem.name, "catalog.$.description": updatedItem.description, "catalog.$.price" : updatedItem.price, "catalog.$.tags" : updatedItem.tags, "catalog.$.size" : updatedItem.size}}, {returnOriginal: false})
             res.status(200).send({
                 message: "Updated item successfully!",
-                id: itemId
+                id: itemId,
+                items: doc.catalog
             })
 
         }

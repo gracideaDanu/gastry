@@ -11,7 +11,8 @@ export {
     createCatalog,
     fetchCatalog,
     addItemCatalog,
-    deleteItemCatalog
+    deleteItemCatalog,
+    modifyItemCatalog
 } from './catalog'
 
 export {

@@ -2,7 +2,8 @@ import {
     CREATE_CATALOG_START, CREATE_CATALOG_SUCCESS, CREATE_CATALOG_FAILED,
     FETCH_CATALOG_START, FETCH_CATALOG_SUCCESS, FETCH_CATALOG_FAILED,
     ADD_ITEM_CATALOG_START, ADD_ITEM_CATALOG_SUCCESS, ADD_ITEM_CATALOG_FAILED,
-    DELETE_ITEM_CATALOG_START, DELETE_ITEM_CATALOG_SUCCESS, DELETE_ITEM_CATALOG_FAILED
+    DELETE_ITEM_CATALOG_START, DELETE_ITEM_CATALOG_SUCCESS, DELETE_ITEM_CATALOG_FAILED,
+    MODIFY_ITEM_CATALOG_START, MODIFY_ITEM_CATALOG_SUCCESS, MODIFY_ITEM_CATALOG_FAILED
 } from "../actions/actionTypes";
 
 
@@ -87,6 +88,24 @@ export default function(state = initialState, action) {
                 ...state,
                 loading: false,
                 data: action.data.message
+            };
+        case MODIFY_ITEM_CATALOG_START:
+            return {
+                ...state,
+                loading: true
+
+            };
+        case MODIFY_ITEM_CATALOG_FAILED:
+            return {
+                ...state,
+                error: action.error,
+                loading: false
+            };
+        case MODIFY_ITEM_CATALOG_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                data: action.data
             };
         default:
             return state;

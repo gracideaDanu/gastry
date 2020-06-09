@@ -171,3 +171,52 @@ export const deleteItemCatalog = (payload) => {
     }
 };
 
+const modifyItemCatalogSuccess =(data) =>{
+    return{
+        type: actionTypes.MODIFY_ITEM_CATALOG_SUCCESS,
+        data: data
+    };
+};
+
+const modifyItemCatalogStart =() =>{
+    return{
+        type: actionTypes.MODIFY_ITEM_CATALOG_START
+    };
+};
+
+const modifyItemCatalogFailed =(error) =>{
+    return{
+        type: actionTypes.MODIFY_ITEM_CATALOG_FAILED,
+        error: error
+    };
+};
+
+
+export const modifyItemCatalog = (payload) => {
+    return dispatch => {
+        dispatch(modifyItemCatalogStart());
+        const token = payload.token;
+        const config = {
+            headers: {
+               Authentication: token,
+               'Content-Type': 'application/json'
+            }
+        };
+        const body = payload.data;
+
+        axiosInstance.put('supplier/modifyItem', body, config)
+            .then(res => {
+                //res.data has id value of changed item and message
+                dispatch(modifyItemCatalogSuccess(res.data))
+                dispatch(fetchCatalog(payload))
+            })
+            .catch(err => {
+                //err.data has property message
+                dispatch(modifyItemCatalogFailed(err.data))
+            })
+
+
+    }
+};
+
+
