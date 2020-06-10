@@ -137,7 +137,7 @@ class UserController {
                 runValidators: true
             })
             res.status(200).send({
-                message: 'Successfully fetched user info',
+                message: 'Successfully updated user info',
                 data: user
             })
         } catch (e) {
