@@ -1,63 +1,120 @@
-import React, {Component, useEffect, useState} from 'react';
-import SupplierLayout from "../common/SupplierLayout";
-import {Link} from "react-router-dom";
+import React, { Component } from "react";
 import UserLayout from "../common/CustomerLayout";
-import * as actions  from '../../redux/actions/index'
-import {connect} from "react-redux";
-
+import * as actions from "../../redux/actions/index";
+import { connect } from "react-redux";
+import UserInfo from "../../components/UserInfo";
+import UserInfoForm from "../../components/UserInfoForm";
 
 class Profilepage extends Component {
+    state = {
+        form: {
+            company: "",
+            address: {
+                street: "",
+                city: "",
+                state: "",
+                code: "",
+            },
+        },
+        canEdit: false,
+    };
 
     userInfo = () => {
-        if (this.props.user.user) {
-            return (
-                <div className='card mb-5'>
-                    <h3 className='card-header'>User Information</h3>
-                    <ul className='list-group'>
-                        <li className='list-group-item'> Name: {this.props.user.user.company} </li>
-                        <li className='list-group-item'> Street: {this.props.user.user.address.street} </li>
-                        <li className='list-group-item'> City: {this.props.user.user.address.city} </li>
-                        <li className='list-group-item'> Postal Code: {this.props.user.user.address.code} </li>
-                    </ul>
-                </div>
-            )
-        } else {
-            return (
-                <div className='card mb-5'>Loading</div>
-            )
+        const { user } = this.props.user;
+        if (user) {
+            return <UserInfo user={user} onEdit={this.onEdit} />;
         }
-    }
+    };
+
+    userInfoForm = () => {
+        return (
+            <UserInfoForm
+                onChange={this.onChange}
+                onChangeAddress={this.onChangeAddress}
+                onSubmit={this.onSubmit}
+                form={this.state.form}
+            />
+        );
+    };
+
+    onChange = (e) => {
+        const form = {
+            ...this.state.form,
+            [e.target.name]: e.target.value,
+        };
+
+        this.setState({ form: form });
+    };
+
+    onChangeAddress = (e) => {
+        const form = {
+            ...this.state.form,
+            address: {
+                ...this.state.form.address,
+                [e.target.name]: e.target.value,
+            },
+        };
+
+        this.setState({ form: form });
+    };
+
+    onEdit = () => {
+        this.props.fetchUser(this.props.userId);
+        const { user } = this.props.user;
+        let form = {
+            ...this.state.form,
+            company: user.company,
+            address: {
+                ...this.state.form.address,
+                street: user.address.street,
+                city: user.address.city,
+                state: user.address.state,
+                code: user.address.code,
+            },
+        };
+        this.setState({ form: form, canEdit: true });
+    };
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        try {
+            this.props.updateUser(this.props.userId, this.state.form);
+            this.props.fetchUser(this.props.userId);
+            this.setState({ canEdit: false });
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     componentDidMount = () => {
         this.props.fetchUser(this.props.userId);
-    }
+    };
 
     render() {
-        const company = this.props.user.user ? this.props.user.user.company : "loading"
         return (
             <UserLayout
-                className='container-fluid'
-                title={`${company}`}
-                description='Update Profile'
+                className="container-fluid"
+                title={"Profile"}
+                description="Update Profile"
             >
-                {this.userInfo()}
-                <h2 className='mb-4'>Profile Update</h2>
+                {this.state.canEdit ? this.userInfoForm() : this.userInfo()}
             </UserLayout>
-        )
-    };
-};
-
-const mapsStateToProps =(state) => {
-    return{
-        user: state.user,
-        userId: state.auth.userId
+        );
     }
 }
 
+const mapsStateToProps = (state) => {
+    return {
+        user: state.user,
+        userId: state.auth.userId,
+    };
+};
+
 const mapDispatchToProps = (dispatch) => {
-    return{
-        fetchUser:(data) => dispatch(actions.fetchUser(data))
-    }
+    return {
+        fetchUser: (_id) => dispatch(actions.fetchUser(_id)),
+        updateUser: (_id, formValues) => dispatch(actions.updateUser(_id, formValues)),
+    };
 };
 
 export default connect(mapsStateToProps, mapDispatchToProps)(Profilepage);
