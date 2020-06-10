@@ -20,5 +20,6 @@ export {
 } from './logout';
 
 export {
-    fetchUser
+    fetchUser,
+    updateUser
 } from './user'
