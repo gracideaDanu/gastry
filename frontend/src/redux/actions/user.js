@@ -31,8 +31,10 @@ const fetchUserStart = () => {
 const fetchUserSuccess = (user) => {
     return {
         type: FETCH_USER_SUCCESS,
-        user: user,
-        loading: false,
+        payload: {
+            user: user,
+            loading: false
+        }
     };
 };
 
@@ -66,8 +68,10 @@ const updateUserStart = () => {
 const updateUserSuccess = (user) => {
     return {
         type: UPDATE_USER_SUCCESS,
-        user: user,
-        loading: false,
+        payload: {
+            user: user,
+            loading: false,
+        }
     };
 };
 

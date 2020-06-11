@@ -29,7 +29,7 @@ export default function (state = initialState, action) {
         case FETCH_USER_SUCCESS:
             return {
                 ...state,
-                user: action.user,
+                user: action.payload.user,
                 loading: false,
             };
         case UPDATE_USER_START:
@@ -46,7 +46,7 @@ export default function (state = initialState, action) {
         case UPDATE_USER_SUCCESS:
             return {
                 ...state,
-                user: action.user,
+                user: action.payload.user,
                 loading: false,
             };
         default:
