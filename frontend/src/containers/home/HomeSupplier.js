@@ -8,9 +8,7 @@ class HomeSupplier extends Component{
 
     componentDidMount() {
         console.log(this.props.token)
-        this.props.fetchCatalog({
-            token: this.props.token
-        });
+
     }
 
 

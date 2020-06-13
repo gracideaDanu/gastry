@@ -11,14 +11,29 @@ class Catalog extends Component {
         if (this.props.items.length <= 0) {
             console.log("empty")
         }
-        this.props.fetchCat();
-    }
+        this.props.fetchCatalog({
+            token: this.props.token
+        });    }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("I updated")
         if (this.props.items.length > 0) {
             console.log("Not empty:" + this.props.items[0].name)
         }
+    }
+    addHardItem = () => {
+        const payload = {
+            token: this.props.token,
+            data: {
+                name: "Rice cake",
+                price: "5",
+                size: "1kg",
+                description: "Made out of rice",
+                tags: "Food"
+            }
+        }
+        this.props.addItem(payload);
+
     }
 
     render() {
@@ -27,6 +42,7 @@ class Catalog extends Component {
                 <div>
                     <SupplierCatListView itemlist={this.props.items}></SupplierCatListView>
                 </div>
+                <button onClick={this.addHardItem}> Add hardcoded Item Rice cake!</button>
             </SupplierLayout>
         );
     }
@@ -42,7 +58,8 @@ const mapsStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchCat: () => dispatch(actions.fetchCatalog(null))
+        fetchCatalog: (payload) => dispatch(actions.fetchCatalog(payload)),
+        addItem: (payload) => dispatch(actions.addItemCatalog(payload))
 
     }
 };

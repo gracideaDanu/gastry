@@ -9,11 +9,11 @@ import Col from "react-bootstrap/Col";
 const SupplierCatListView = (props) => {
     const itemlist = props.itemlist
     const showItemlist = itemlist.map((item, index) =>
-        <Card key={index}>
+        <Card key={item._id}>
             <Card.Header>
                 <Row>
                     <Col xs={9}>
-                        <Item key={index} name={item.name} catg={item.catg} price={item.price}></Item>
+                        <Item key={item._id} name={item.name} catg={item.tags} price={item.price} size={item.size}></Item>
                     </Col>
                     <Col xs={3}>
                         <Accordion.Toggle as={Button} variant="link" eventKey={index}>

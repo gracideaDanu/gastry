@@ -14,7 +14,6 @@ class SupplierController extends UserController {
     }
 
  async fetchCatalog (req, res) {
-        console.log("HEY WHORE");
         try {
 
         const userId = req.decoded.id;
@@ -57,7 +56,8 @@ class SupplierController extends UserController {
             result.catalog = productsUpdated;
             await result.save();
             res.status(200).json({
-                message: "Successfully added item"
+                message: "Successfully added item",
+                catalog: result.catalog
             })
 
         }

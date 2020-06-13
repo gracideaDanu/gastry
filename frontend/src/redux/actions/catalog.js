@@ -77,14 +77,11 @@ export const fetchCatalog = (payload) => {
             }
         };
 
-        // TODO: use axios instance to make GET request to backend with token and add to header
         axiosInstance.get("/supplier/fetchCatalog", config)
             .then(res => {
                 dispatch(fetchCatalogSuccess(res.data))
-                console.log(res.data)
             })
             .catch(err => {
-
                 dispatch(fetchCatalogFailed(err.data))
             })
 
@@ -116,19 +113,25 @@ const addItemCatalogFailed =(error) =>{
 export const addItemCatalog = (payload) => {
     return dispatch => {
         dispatch(addItemCatalogStart());
+        const token = payload.token;
+        console.log(token);
+        const config = {
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json'
+            }
+        };
+        const newItem = payload.data;
+        console.log(newItem);
 
         // TODO: use axios instance to make PUT request to backend with token and add to header
-        //axios.put( ... )
-        try {
-            dispatch(addItemCatalogSuccess({
-                message: "Item successfully added"
-            }))
-
-        } catch (e) {
-            dispatch(addItemCatalogFailed({
-                message: 'Sorry add item failed'
-            }))
-        }
+        axiosInstance.put('supplier/addItem', newItem, config )
+            .then(res => {
+                dispatch(addItemCatalogSuccess(res.data))
+            })
+            .catch(err => {
+                dispatch(addItemCatalogFailed(err.data))
+            })
 
     }
 };
