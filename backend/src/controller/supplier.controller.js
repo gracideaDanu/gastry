@@ -82,20 +82,23 @@ class SupplierController extends UserController {
             }, {
                 $pull: { catalog: { _id: itemId}
                 }
-            })
+            }, {returnOriginal: false})
 
             if (result === null) {
                 res.status(404).json({
                     message: "Item doesn't exist"
+
                 })
                 return;
             }
 
             console.log(result);
             console.log("Hi")
+            console.log(result.catalog)
             res.status(200).json({
-                data: result,
-                message: "Successfully deleted item"
+                message: "Successfully deleted item",
+                catalog: result.catalog
+
             })
         }
         catch (e) {

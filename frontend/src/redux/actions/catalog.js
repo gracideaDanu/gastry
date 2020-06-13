@@ -160,19 +160,28 @@ const deleteItemCatalogFailed =(error) =>{
 export const deleteItemCatalog = (payload) => {
     return dispatch => {
         dispatch(deleteItemCatalogStart());
+        const token = payload.token;
+        console.log(token);
+        const config = {
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json'
+            }
+        };
+        const toDeleteItemId = {
+            itemId: payload.itemId
+        }
+        console.log(toDeleteItemId);
 
         // TODO: use axios instance to make PUT request to backend with token and add to header
-        //axios.put( ... )
-        try {
-            dispatch(deleteItemCatalogSuccess({
-                message: "Item successfully added"
-            }))
+        axiosInstance.put('supplier/deleteItem',toDeleteItemId, config)
+            .then(res => {
+                dispatch(deleteItemCatalogSuccess(res.data))
+            })
+            .catch(err => {
+                dispatch(deleteItemCatalogFailed(err.data))
+            })
 
-        } catch (e) {
-            dispatch(deleteItemCatalogFailed({
-                message: 'Sorry delete item failed'
-            }))
-        }
 
     }
 };

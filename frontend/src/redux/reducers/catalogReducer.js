@@ -88,7 +88,9 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                data: action.data.message
+                data: action.data.message,
+                items: action.data.catalog
+
             };
         case MODIFY_ITEM_CATALOG_START:
             return {
