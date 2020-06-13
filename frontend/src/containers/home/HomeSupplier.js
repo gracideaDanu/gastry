@@ -1,9 +1,17 @@
 import React, {useState, useEffect, Component} from 'react';
 import SupplierLayout from '../common/SupplierLayout';
 import UserLayout from "../common/CustomerLayout";
+import * as actions from "../../redux/actions";
+import {connect} from 'react-redux'
 
 class HomeSupplier extends Component{
 
+    componentDidMount() {
+        console.log(this.props.token)
+        this.props.fetchCatalog({
+            token: this.props.token
+        });
+    }
 
 
     render() {
@@ -31,6 +39,20 @@ class HomeSupplier extends Component{
 
 
 }
+const mapsStateToProps =(state) => {
+    return{
+        token: state.auth.token
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        register:(data) => dispatch(actions.register(data
+
+        )),
+        fetchCatalog: (payload) => dispatch(actions.fetchCatalog(payload))
+    }
+};
 
 
-export default HomeSupplier;
+export default connect(mapsStateToProps,mapDispatchToProps)(HomeSupplier);

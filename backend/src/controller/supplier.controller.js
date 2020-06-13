@@ -14,17 +14,16 @@ class SupplierController extends UserController {
     }
 
  async fetchCatalog (req, res) {
+        console.log("HEY WHORE");
         try {
-
 
         const userId = req.decoded.id;
         const result = await SupplierModel.findOne({
             _id: userId
         }).select('catalog')
-        console.log(result);
         res.status(200).send({
             message: "Fetch worked",
-            data: result.catalog
+            catalog: result.catalog
         });
         }
         catch (e) {

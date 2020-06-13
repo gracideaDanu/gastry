@@ -66,32 +66,28 @@ const fetchCatalogFailed =(error) =>{
 export const fetchCatalog = (payload) => {
     return dispatch => {
         dispatch(fetchCatalogStart());
+        console.log(payload);
+
+        const token = payload.token;
+        console.log(token);
+        const config = {
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json'
+            }
+        };
 
         // TODO: use axios instance to make GET request to backend with token and add to header
-        //axios.get( ... )
-        try {
-            dispatch(fetchCatalogSuccess({
-                message: "Catalog successfully created",
-                items: [
-                    {
-                        catg: 'drink',
-                        name: 'Item 1',
-                        price: 30,
-                        description:"some description"
-                    },
-                    {
-                        catg: 'food',
-                        name: 'Item 2',
-                        price: 30,
-                        description:"some description"
+        axiosInstance.get("/supplier/fetchCatalog", config)
+            .then(res => {
+                dispatch(fetchCatalogSuccess(res.data))
+                console.log(res.data)
+            })
+            .catch(err => {
 
-                    }
-                ]
-            }))
+                dispatch(fetchCatalogFailed(err.data))
+            })
 
-        } catch (e) {
-            dispatch(fetchCatalogFailed(e.data))
-        }
 
     }
 };
