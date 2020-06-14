@@ -8,6 +8,7 @@ const mockStore = configureStore(middlewares);
 import  Login  from "./Login";
 import * as actions from "../../redux/actions/login"
 import Input from "../../components/auth/Input";
+import {login} from "../../redux/actions/login";
 
 
 
@@ -105,6 +106,12 @@ describe('<Login/>', function () {
         wrapper.instance().onSubmit(event)
         expect(spy).toBeCalledTimes(1);
         spy.mockRestore();
+
+    });
+    it('should fire login dispatch', function () {
+        store = mockStore({});
+        store.dispatch(login());
+        expect(store.getActions().length).toBe(1);
 
     });
 
