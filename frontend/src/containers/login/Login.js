@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Input from "../../components/auth/Input";
+import {  withRouter} from 'react-router-dom';
+
 //import axios from '../../axios/axios';
 import {connect} from "react-redux";
 import * as actions  from '../../redux/actions/index'
@@ -25,7 +27,7 @@ const signInState = {
 };
 
 
- class Login extends Component {
+ export class Login extends Component {
     state = signInState;
 
     componentDidMount() {
@@ -47,7 +49,9 @@ const signInState = {
         const loginData = {
             email: this.state.form.email.value,
             password: this.state.form.password.value
-        }
+        };
+        console.log(loginData)
+        console.log("called");
         this.props.login(loginData);
     };
 

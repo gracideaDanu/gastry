@@ -4,6 +4,8 @@ import {shallow} from 'enzyme';
 import {findByTestAtrr, testStore} from "../../../Utils";
 import Input from "../../components/auth/Input";
 import HomeCustomer from "./HomeCustomer";
+import UserLayout from "../common/CustomerLayout";
+
 
 
 const setUp =(initialstore={})=>{
@@ -30,7 +32,7 @@ describe('<HomeCustomer/>', function () {
 
 
     it('should render two input fields', function () {
-        const component = wrapper.find(Input);
-        expect(component.length).toBe(2);
+        const component = wrapper.find(UserLayout);
+        expect(component.length).toBe(1);
     });
 });
