@@ -213,7 +213,7 @@ export const modifyItemCatalog = (payload) => {
         const token = payload.token;
         const config = {
             headers: {
-               Authentication: token,
+               Authorization: token,
                'Content-Type': 'application/json'
             }
         };

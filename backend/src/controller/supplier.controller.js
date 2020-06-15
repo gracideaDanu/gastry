@@ -113,11 +113,11 @@ class SupplierController extends UserController {
  async modifyItem (req, res) {
         try {
 
-            console.log(req.body.itemId)
-            const itemId = new ObjectId(req.body.itemId);
+            console.log(req.body._id)
+            const itemId = new ObjectId(req.body._id);
             console.log(itemId)
             const updatedItem = req.body;
-            delete updatedItem['itemId']
+            delete updatedItem['_id']
             console.log(updatedItem)
             console.log(itemId)
 

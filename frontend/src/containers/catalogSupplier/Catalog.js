@@ -4,6 +4,8 @@ import * as actions from "../../redux/actions";
 import SupplierLayout from "../common/SupplierLayout";
 import SupplierCatListView from "../../components/list/SupplierCatListView";
 import Accordion from "react-bootstrap/Accordion";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 const signUpSState = {
     form: {
@@ -46,7 +48,16 @@ class Catalog extends Component {
     state = {
         catalog: [],
         errors: {},
-        showModal: false
+        showModal: false,
+        index: -1,
+        currentItem: {
+            tags: "",
+            name: "",
+            price: "",
+            size: "",
+            description: ""
+        },
+        option: "add"
     }
 
 
@@ -70,7 +81,6 @@ class Catalog extends Component {
             console.log("Not empty:" + this.props.items[0].name)
         }
         if(prevProps.items !== this.props.items){
-            const items = this.props.items.reverse();
             this.setState({
                 catalog: this.props.items
             })
@@ -78,12 +88,48 @@ class Catalog extends Component {
 
 
     }
-    showModalHandler = () => {
+    showModalHandler = (i) => {
+        console.debug(i)
+        let currentItem =  {
+            tags: "",
+                name: "",
+                price: "",
+                size: "",
+            description: ""
+        }
+        let errors = {}
+        let option = ""
+        let index = -1;
+        if (!this.state.showModal && i >= 0) {
+            index = i;
+            currentItem = this.state.catalog[i];
+             option = "modify";
+        }
+        else if(!this.state.showModal && i < 0) {
+            errors = {
+                name: 'Product name is required',
+                price: 'Product price is required',
+                size: 'Product size is required',
+                tags: 'Product tag is required' ,
+                description:  'Product description is required' ,
+
+            }
+            option = "add"
+        }
+
+
+
         const modal = !this.state.showModal;
-        this.setState({
-            ...this.state,
-            showModal: modal
-        });
+         this.setState({
+                ...this.state,
+                showModal: modal,
+                index: index,
+                currentItem: currentItem,
+             errors: errors,
+             option: option
+            })
+
+
  }
 
     addHardItem = () => {
@@ -100,6 +146,22 @@ class Catalog extends Component {
         this.props.addItem(payload);
 
     };
+    validateForm = (errors) => {
+        let valid = true;
+        console.log(this.state.errors);
+        Object.values(errors).forEach(
+
+            // if we have an error string set valid to false
+            (val) =>  console.log(val)
+        );
+        Object.values(errors).forEach(
+
+            // if we have an error string set valid to false
+            (val) =>  val.length > 0 && (valid = false)
+        );
+        return valid;
+    }
+
     validationHandler = (elementType, value) => {
         let errors = this.state.errors;
         console.log(value);
@@ -131,6 +193,12 @@ class Catalog extends Component {
                         ? ''
                         : 'Product tags must either be "Food" or "Drink"';
                 break;
+            case 'description':
+                errors.description =
+                    value.length < 10
+                        ? 'Product description must be at least 10 characters long'
+                        : '';
+                break;
             default:
                 break;
         }
@@ -142,27 +210,53 @@ class Catalog extends Component {
     }
 
 
-    onChange = (event) => {
-        event.preventDefault();
-        console.log(event);
-        console.log(event.target);
-        console.log(event.target.parentElement);
-        const index = event.target.parentElement.id;
-        console.log(index);
-        const property = event.target.name;
-        console.log(property);
-        const value = event.target.value;
+    onChange = (e, i) => {
+        e.preventDefault();
+        const property = e.target.name;
+        const value = e.target.value;
+        console.log(Object.keys(this.state.errors).length)
+        const index = i;
         this.validationHandler(property,value);
-        console.log(value);
-        const catalog = this.state.catalog;
-        catalog[index] = {
-            ...catalog[index],
-            [property]: value
-        }
+        const item = {
+            ...this.state.currentItem
+        };
+        item[property] = value;
         this.setState({
             ...this.state,
-            catalog: catalog
+            currentItem: item
         })
+
+    }
+
+    modifyItemHandler = (e) => {
+        e.preventDefault();
+        if(this.validateForm(this.state.errors)){
+            const modifiedItem = this.state.currentItem;
+            this.props.modifyItem({
+                token: this.props.token,
+                data: modifiedItem
+            })
+            this.showModalHandler(-1);
+        }
+        else {
+            Object.values(this.state.errors).forEach((er) => alert(er))
+
+        }
+    }
+    addItemHandler = (e) => {
+        e.preventDefault();
+        if(this.validateForm(this.state.errors)){
+            const itemToAdd = this.state.currentItem;
+            this.props.addItem({
+                token: this.props.token,
+                data: itemToAdd
+            })
+            this.showModalHandler(-1);
+        }
+        else {
+            Object.values(this.state.errors).forEach((er) => er.length > 0 ? alert(er) : null)
+
+        }
     }
 
 
@@ -176,13 +270,70 @@ class Catalog extends Component {
     render() {
         const catArray = this.state.catalog.map((item, index) =>
             (
-            <SupplierCatListView index={index} showModal={this.state.showModal} modal={this.showModalHandler} change={(e) => this.onChange(e,index)} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
+            <SupplierCatListView index={index} showModal={this.state.showModal} modal={this.showModalHandler} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
 
         ));
         return (
             <SupplierLayout>
                 <div>
+                    <button onClick={() => this.showModalHandler(-1)} >Add item</button>
                         {catArray}
+                    <Modal show={this.state.showModal} onHide={this.showModalHandler}  >
+
+
+                        <Modal.Body>
+
+
+                            <div className="form-group">
+                            <label>Name </label>
+                            <input value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Tag</label>
+                                <select className="form-control" defaultValue={this.state.currentItem['tags']} name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
+                                    <option value="Food">Food</option>
+                                    <option value="Drink">Drink</option>
+                                </select>
+                            </div>
+
+
+                            <div className="form-group">
+                            <label>Size</label>
+                            <input value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Price</label>
+                                <input value={this.state.currentItem['price']} name="price"  onChange={(e) => this.onChange(e, this.state.index)}/>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Description</label>
+
+
+                                <textarea value={this.state.currentItem['description']} onChange={(e) => this.onChange(e, this.state.index)} className="form-control" rows="3" maxLength="100" name="description"/>
+                            </div>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={this.showModalHandler}>
+                                Close
+                            </Button>
+                            {this.state.option === "modify"
+                                ? <Button variant="primary" onClick={(e) => this.modifyItemHandler(e)}>
+                                    Modify Item
+                                </Button>
+
+                                : <Button variant="primary" onClick={(e) => this.addItemHandler(e)}>
+                                    Add Item
+                                </Button>
+
+
+                            }
+
+                        </Modal.Footer>
+
+                    </Modal>
                     <button onClick={this.addHardItem}> Add hardcoded Item Rice cake!</button>
 
                 </div>
@@ -203,7 +354,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchCatalog: (payload) => dispatch(actions.fetchCatalog(payload)),
         addItem: (payload) => dispatch(actions.addItemCatalog(payload)),
-        deleteItem: (payload) => dispatch(actions.deleteItemCatalog(payload))
+        deleteItem: (payload) => dispatch(actions.deleteItemCatalog(payload)),
+        modifyItem: (payload) => dispatch(actions.modifyItemCatalog(payload))
 
     }
 };
