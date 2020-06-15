@@ -7,6 +7,12 @@ const CustomerController = require('../../controller/customer.controller');
 // GET all customer
 customerRouter.get('/', checkAuth, CustomerController.getAll);
 
+// GER a customer
+customerRouter.get('/:_id', checkAuth, CustomerController.getUser);
+
+// UDPATE a customer
+customerRouter.patch('/:_id', checkAuth, CustomerController.updateUser);
+
 // POST a new customer
 customerRouter.post('/register', CustomerController.register);
 

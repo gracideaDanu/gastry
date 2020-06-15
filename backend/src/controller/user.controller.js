@@ -16,7 +16,22 @@ class UserController {
 
     async getAll(req, res) {
         try {
+
             const user = await this.model.find({});
+            res.status(200).send({
+                message: 'Successfully fetched user info',
+                data: user
+            })
+        } catch (e) {
+            res.status(400).send({
+                error: e
+            })
+        }
+    }
+
+    getUser = async (req, res) => {
+        try {
+            const user = await this.model.findById({ _id: req.params._id });
             res.status(200).send({
                 message: 'Successfully fetched user info',
                 data: user
@@ -101,7 +116,8 @@ class UserController {
                                 .status(200)
                                 .json({
                                 success: true,
-                                token: "Bearer " + token
+                                token: "Bearer " + token,
+                                userId: user._id
                             });
                         }
                     );
@@ -113,6 +129,23 @@ class UserController {
             });
         });
     };
+
+    updateUser = async (req, res) => {
+        try {
+            const user = await this.model.findByIdAndUpdate({ _id: req.params._id }, req.body, {
+                new: true,
+                runValidators: true
+            })
+            res.status(200).send({
+                message: 'Successfully fetched user info',
+                data: user
+            })
+        } catch (e) {
+            res.status(400).send({
+                error: e
+            })
+        }
+    }
 
     async deleteAll(req, res) {
         try {

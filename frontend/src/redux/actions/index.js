@@ -1,6 +1,4 @@
 export {
-    loginSuccess,
-    loginFailed,
     tokenInvalid,
     login
 } from './login';
@@ -8,6 +6,14 @@ export {
 export {
     register
 } from './register'
+
+export {
+    createCatalog,
+    fetchCatalog,
+    addItemCatalog,
+    deleteItemCatalog,
+    modifyItemCatalog
+} from './catalog'
 
 export {
     logout

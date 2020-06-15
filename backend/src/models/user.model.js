@@ -32,22 +32,27 @@ let userSchema =   new Schema({
     address: {
         street: {
             type: String,
+            default: "",
             required: false,
         },
         streetTwo: {
             type: String,
+            default: "",
             required: false
         },
         city: {
             type: String,
+            default: "",
             required: false
         },
         state: {
             type: String,
+            default: "",
             required: false
         },
         code: {
             type: String,
+            default: "",
             required: false
         },
         required: false
