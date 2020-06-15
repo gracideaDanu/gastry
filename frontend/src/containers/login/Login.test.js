@@ -20,7 +20,7 @@ const setUp =(initialstore={})=>{
     console.debug(wrapper.debug());
     console.debug(wrapper.childAt(0).debug());
     return wrapper
-}
+};
 
 describe('<Login/>', function () {
 
