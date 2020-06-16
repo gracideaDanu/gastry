@@ -4,12 +4,14 @@ import {LOGOUT} from "../actions/actionTypes";
 import registerReducer from "./registerReducer";
 import userReducer from "./userReducer";
 import catalogReducer from "./catalogReducer";
+import suppliersListReducer from "./suppliersListReducer"
 
 const  appReducer =combineReducers({
     auth: authReducer,
     reg: registerReducer,
     user: userReducer,
-    cat: catalogReducer
+    cat: catalogReducer,
+    suppliersList: suppliersListReducer
 });
 
 const rootReducer = (state, action) => {
