@@ -16,15 +16,13 @@ class SupplierController extends UserController {
  async fetchCatalog (req, res) {
         try {
 
-
         const userId = req.decoded.id;
         const result = await SupplierModel.findOne({
             _id: userId
         }).select('catalog')
-        console.log(result);
         res.status(200).send({
             message: "Fetch worked",
-            data: result.catalog
+            catalog: result.catalog
         });
         }
         catch (e) {
@@ -58,7 +56,8 @@ class SupplierController extends UserController {
             result.catalog = productsUpdated;
             await result.save();
             res.status(200).json({
-                message: "Successfully added item"
+                message: "Successfully added item",
+                catalog: result.catalog
             })
 
         }
@@ -83,20 +82,23 @@ class SupplierController extends UserController {
             }, {
                 $pull: { catalog: { _id: itemId}
                 }
-            })
+            }, {returnOriginal: false})
 
             if (result === null) {
                 res.status(404).json({
                     message: "Item doesn't exist"
+
                 })
                 return;
             }
 
             console.log(result);
             console.log("Hi")
+            console.log(result.catalog)
             res.status(200).json({
-                data: result,
-                message: "Successfully deleted item"
+                message: "Successfully deleted item",
+                catalog: result.catalog
+
             })
         }
         catch (e) {
@@ -111,11 +113,11 @@ class SupplierController extends UserController {
  async modifyItem (req, res) {
         try {
 
-            console.log(req.body.itemId)
-            const itemId = new ObjectId(req.body.itemId);
+            console.log(req.body._id)
+            const itemId = new ObjectId(req.body._id);
             console.log(itemId)
             const updatedItem = req.body;
-            delete updatedItem['itemId']
+            delete updatedItem['_id']
             console.log(updatedItem)
             console.log(itemId)
 

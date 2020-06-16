@@ -66,32 +66,25 @@ const fetchCatalogFailed =(error) =>{
 export const fetchCatalog = (payload) => {
     return dispatch => {
         dispatch(fetchCatalogStart());
+        console.log(payload);
 
-        // TODO: use axios instance to make GET request to backend with token and add to header
-        //axios.get( ... )
-        try {
-            dispatch(fetchCatalogSuccess({
-                message: "Catalog successfully created",
-                items: [
-                    {
-                        catg: 'drink',
-                        name: 'Item 1',
-                        price: 30,
-                        description:"some description"
-                    },
-                    {
-                        catg: 'food',
-                        name: 'Item 2',
-                        price: 30,
-                        description:"some description"
+        const token = payload.token;
+        console.log(token);
+        const config = {
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json'
+            }
+        };
 
-                    }
-                ]
-            }))
+        axiosInstance.get("/supplier/fetchCatalog", config)
+            .then(res => {
+                dispatch(fetchCatalogSuccess(res.data))
+            })
+            .catch(err => {
+                dispatch(fetchCatalogFailed(err.data))
+            })
 
-        } catch (e) {
-            dispatch(fetchCatalogFailed(e.data))
-        }
 
     }
 };
@@ -120,19 +113,25 @@ const addItemCatalogFailed =(error) =>{
 export const addItemCatalog = (payload) => {
     return dispatch => {
         dispatch(addItemCatalogStart());
+        const token = payload.token;
+        console.log(token);
+        const config = {
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json'
+            }
+        };
+        const newItem = payload.data;
+        console.log(newItem);
 
         // TODO: use axios instance to make PUT request to backend with token and add to header
-        //axios.put( ... )
-        try {
-            dispatch(addItemCatalogSuccess({
-                message: "Item successfully added"
-            }))
-
-        } catch (e) {
-            dispatch(addItemCatalogFailed({
-                message: 'Sorry add item failed'
-            }))
-        }
+        axiosInstance.put('supplier/addItem', newItem, config )
+            .then(res => {
+                dispatch(addItemCatalogSuccess(res.data))
+            })
+            .catch(err => {
+                dispatch(addItemCatalogFailed(err.data))
+            })
 
     }
 };
@@ -161,19 +160,28 @@ const deleteItemCatalogFailed =(error) =>{
 export const deleteItemCatalog = (payload) => {
     return dispatch => {
         dispatch(deleteItemCatalogStart());
+        const token = payload.token;
+        console.log(token);
+        const config = {
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json'
+            }
+        };
+        const toDeleteItemId = {
+            itemId: payload.itemId
+        }
+        console.log(toDeleteItemId);
 
         // TODO: use axios instance to make PUT request to backend with token and add to header
-        //axios.put( ... )
-        try {
-            dispatch(deleteItemCatalogSuccess({
-                message: "Item successfully added"
-            }))
+        axiosInstance.put('supplier/deleteItem',toDeleteItemId, config)
+            .then(res => {
+                dispatch(deleteItemCatalogSuccess(res.data))
+            })
+            .catch(err => {
+                dispatch(deleteItemCatalogFailed(err.data))
+            })
 
-        } catch (e) {
-            dispatch(deleteItemCatalogFailed({
-                message: 'Sorry delete item failed'
-            }))
-        }
 
     }
 };
@@ -205,7 +213,7 @@ export const modifyItemCatalog = (payload) => {
         const token = payload.token;
         const config = {
             headers: {
-               Authentication: token,
+               Authorization: token,
                'Content-Type': 'application/json'
             }
         };
