@@ -7,6 +7,9 @@ const CustomerController = require('../../controller/customer.controller');
 // GET all customer
 customerRouter.get('/', checkAuth, CustomerController.getAll);
 
+// GET
+customerRouter.get('/suppliersList', CustomerController.getSuppliersList)
+
 // GER a customer
 customerRouter.get('/:_id', checkAuth, CustomerController.getUser);
 
