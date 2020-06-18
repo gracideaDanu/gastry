@@ -2,6 +2,7 @@ let jwt = require('jsonwebtoken');
 
 let checkToken = (req, res, next) => {
 
+
     let token = req.headers['x-access-token'] || req.headers['authorization'];// Express headers are auto converted to lowercase
     try {
         if (token.startsWith('Bearer ')) {
@@ -24,6 +25,7 @@ let checkToken = (req, res, next) => {
                     message: 'Token is not valid'
                 });
             } else {
+                console.debug("Got token!")
                 //req.decoded in this case is the user id in the mongo database, since in jwt.verfiy in login we pass the id as the payload.
                 req.decoded = decoded;
                 //req.liebe = "HI";

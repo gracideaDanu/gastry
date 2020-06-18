@@ -50,7 +50,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                items: action.data.items,
+                items: action.data.catalog,
                 data: action.data.message
             }
         case ADD_ITEM_CATALOG_START:
@@ -69,7 +69,8 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                data: action.data.message
+                data: action.data.message,
+                items: action.data.catalog
             };
         case DELETE_ITEM_CATALOG_START:
             return {
@@ -87,7 +88,9 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                data: action.data.message
+                data: action.data.message,
+                items: action.data.catalog
+
             };
         case MODIFY_ITEM_CATALOG_START:
             return {

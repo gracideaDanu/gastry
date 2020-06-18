@@ -17,7 +17,7 @@ describe('<Catalog/>', function () {
     beforeEach(() => {
         const initialState = {
             //...
-        }
+        };
         wrapper = setUp(initialState);
         console.log(wrapper.debug());
 

@@ -7,6 +7,8 @@ const SupplierController = require('../../controller/supplier.controller');
 // GET all customer
 supplierRouter.get('/', checkAuth, SupplierController.getAll);
 
+supplierRouter.get('/fetchCatalog', checkAuth, SupplierController.fetchCatalog);
+
 // GER a customer
 supplierRouter.get('/:_id', checkAuth, SupplierController.getUser);
 
@@ -22,11 +24,11 @@ supplierRouter.post("/login",  SupplierController.login);
 //Delete all customers
 supplierRouter.delete('/', SupplierController.deleteAll);
 
-supplierRouter.get('/fetchCatalog', checkAuth, SupplierController.fetchCatalog);
+
 
 supplierRouter.put('/addItem', checkAuth, SupplierController.addItem);
 
-supplierRouter.delete('/deleteItem', checkAuth, SupplierController.deleteItem);
+supplierRouter.put('/deleteItem', checkAuth, SupplierController.deleteItem);
 
 supplierRouter.put('/modifyItem', checkAuth, SupplierController.modifyItem);
 

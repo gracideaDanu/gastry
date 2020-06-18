@@ -1,35 +1,120 @@
-import React, {Component, useEffect, useState} from 'react';
-import SupplierLayout from "../common/SupplierLayout";
-import {Link} from "react-router-dom";
+import React, { Component } from "react";
 import UserLayout from "../common/CustomerLayout";
-
+import * as actions from "../../redux/actions/index";
+import { connect } from "react-redux";
+import UserInfo from "../../components/UserInfo";
+import UserInfoForm from "../../components/UserInfoForm";
 
 class Profilepage extends Component {
-
+    state = {
+        form: {
+            company: "",
+            address: {
+                street: "",
+                city: "",
+                state: "",
+                code: "",
+            },
+        },
+        canEdit: false,
+    };
 
     userInfo = () => {
+        const { user } = this.props.user;
+        if (user) {
+            return <UserInfo user={user} onEdit={this.onEdit} />;
+        }
+    };
+
+    userInfoForm = () => {
         return (
-            <div className='card mb-5'>
-                <h3 className='card-header'>User Information</h3>
-                <ul className='list-group'>
-                    <li className='list-group-item'> name </li>
-                    <li className='list-group-item'> email </li>
-                </ul>
-            </div>
-        )
-    }
+            <UserInfoForm
+                onChange={this.onChange}
+                onChangeAddress={this.onChangeAddress}
+                onSubmit={this.onSubmit}
+                form={this.state.form}
+            />
+        );
+    };
+
+    onChange = (e) => {
+        const form = {
+            ...this.state.form,
+            [e.target.name]: e.target.value,
+        };
+
+        this.setState({ form: form });
+    };
+
+    onChangeAddress = (e) => {
+        const form = {
+            ...this.state.form,
+            address: {
+                ...this.state.form.address,
+                [e.target.name]: e.target.value,
+            },
+        };
+
+        this.setState({ form: form });
+    };
+
+    onEdit = () => {
+        this.props.fetchUser(this.props.userId);
+        const { user } = this.props.user;
+        let form = {
+            ...this.state.form,
+            company: user.company,
+            address: {
+                ...this.state.form.address,
+                street: user.address.street,
+                city: user.address.city,
+                state: user.address.state,
+                code: user.address.code,
+            },
+        };
+        this.setState({ form: form, canEdit: true });
+    };
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        try {
+            this.props.updateUser(this.props.userId, this.state.form);
+            this.props.fetchUser(this.props.userId);
+            this.setState({ canEdit: false });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    componentDidMount = () => {
+        this.props.fetchUser(this.props.userId);
+    };
 
     render() {
         return (
             <UserLayout
-                className='container-fluid'
-                title={`name Profile Page`}
-                description='Update Profile'
+                className="container-fluid"
+                title={"Profile"}
+                description="Update Profile"
             >
-                <h2 className='mb-4'>Profile Update</h2>
+                {this.state.canEdit ? this.userInfoForm() : this.userInfo()}
             </UserLayout>
-        )
+        );
+    }
+}
+
+const mapsStateToProps = (state) => {
+    return {
+        user: state.user,
+        userId: state.auth.userId,
     };
 };
 
-export default Profilepage;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchUser: (_id) => dispatch(actions.fetchUser(_id)),
+        updateUser: (_id, formValues) => dispatch(actions.updateUser(_id, formValues)),
+    };
+};
+
+export default connect(mapsStateToProps, mapDispatchToProps)(Profilepage);

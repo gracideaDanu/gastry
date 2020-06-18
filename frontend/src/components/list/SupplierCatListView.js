@@ -5,15 +5,22 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Input from "../auth/Input";
+import {Modal} from "react-bootstrap";
+
 
 const SupplierCatListView = (props) => {
-    const itemlist = props.itemlist
-    const showItemlist = itemlist.map((item, index) =>
-        <Card key={index}>
-            <Card.Header>
+    const item = props.item;
+    const index = props.index;
+
+    return (
+        <Accordion>
+        <Card key={item._id}>
+
+        <Card.Header>
                 <Row>
                     <Col xs={9}>
-                        <Item key={index} name={item.name} catg={item.catg} price={item.price}></Item>
+                        <Item key={item._id} name={item.name} catg={item.tags} price={item.price} size={item.size}></Item>
                     </Col>
                     <Col xs={3}>
                         <Accordion.Toggle as={Button} variant="link" eventKey={index}>
@@ -23,16 +30,19 @@ const SupplierCatListView = (props) => {
                 </Row>
             </Card.Header>
             <Accordion.Collapse eventKey={index}>
-                <Card.Body>{item.description}</Card.Body>
+                <Card.Body>{item.description}
+                    <button onClick={props.deleteHanlder.bind(this) } value={item._id} >Delete</button>
+                    <button onClick={() => props.modal(index)}  >Modify</button>
+                </Card.Body>
+
             </Accordion.Collapse>
+
         </Card>
+        </Accordion>
+
     )
 
-    return (
-        <Accordion>
-            {showItemlist}
-        </Accordion>
-    );
+
 };
 
 export default SupplierCatListView;

@@ -18,3 +18,8 @@ export {
 export {
     logout
 } from './logout';
+
+export {
+    fetchUser,
+    updateUser
+} from './user'

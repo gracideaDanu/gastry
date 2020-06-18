@@ -8,4 +8,7 @@ userRouter.post("/login",  new UserController(userModel).login);
 
 userRouter.get('/:_id', checkAuth, new UserController(userModel).getUser);
 
+// UPDATE a user
+userRouter.patch('/:_id', checkAuth, new UserController(userModel).updateUser);
+
 module.exports = userRouter;
