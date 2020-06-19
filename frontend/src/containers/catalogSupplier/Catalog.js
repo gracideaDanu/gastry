@@ -57,7 +57,8 @@ class Catalog extends Component {
             size: "",
             description: ""
         },
-        option: "add"
+        option: "add",
+        basket: []
     }
 
 
@@ -259,6 +260,40 @@ class Catalog extends Component {
         }
     }
 
+    addItemToBasketHandler = (event, itemId) => {
+        event.preventDefault();
+        const catalog = [...this.state.catalog];
+        let item = catalog.find(catItem => catItem._id === itemId );
+        console.log(item);
+        const basket = [...this.state.basket];
+        let incrementItem = basket.find(element => item._id === element._id)
+        if (incrementItem) {
+            console.log("Duplicate, increment amount!")
+            const index = basket.findIndex(element => element === incrementItem)
+            const amount = incrementItem.amount + 1;
+            incrementItem = {
+                ...incrementItem,
+                amount: amount
+            }
+            basket[index] = incrementItem
+
+        }
+        else {
+            console.log("New item");
+            item = {
+                ...item,
+                amount: 1
+            }
+            basket.push(item)
+        }
+        this.setState({
+            ...this.state,
+            basket: basket
+        })
+
+
+    }
+
 
 
 
@@ -270,7 +305,7 @@ class Catalog extends Component {
     render() {
         const catArray = this.state.catalog.map((item, index) =>
             (
-            <SupplierCatListView index={index} showModal={this.state.showModal} modal={this.showModalHandler} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
+            <SupplierCatListView add={(e) => this.addItemToBasketHandler(e,item._id)} index={index} showModal={this.state.showModal} modal={this.showModalHandler} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
 
         ));
         return (
