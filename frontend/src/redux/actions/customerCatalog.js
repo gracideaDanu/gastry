@@ -11,7 +11,6 @@ export const fetchSupplierCatalog = (_id) => async (dispatch) => {
 
     try {
         const response = await axios.get("/supplier/catalog/" + _id);
-        console.log(response.data.data.catalog);
         dispatch(fetchSupplierCatalogSuccess(response.data.data.catalog));
     } catch (err) {
         dispatch(fetchSupplierCatalogFailed(err));

@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 import Signup from "./containers/register/Signup";
 import Catalog from "./containers/catalogSupplier/Catalog";
 import HomeSupplier from "./containers/home/HomeSupplier";
+import CatalogCustomer from "./containers/catalogCustomer/CatalogCustomer"
 
 
 class Routes extends Component {
@@ -39,16 +40,17 @@ class Routes extends Component {
     }
 
     //TODO : ask for authtoken and redirect to login if necessary
-
+    //TODO : seperate customer and supplier home and catalog pages
 
 
     render() {
         const privateRoutes = [];
         if (this.props.token !== null) {
-            privateRoutes.push(<Route exact path={"/home"} component={HomeSupplier}></Route>)
+            privateRoutes.push(<Route exact path={"/home"} component={HomeCustomer}></Route>)
             privateRoutes.push(<Route exact path={"/search"} component={Search}></Route>)
             privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
             privateRoutes.push(<Route exact path={"/catalogSupplier"} component={Catalog}></Route>)
+            privateRoutes.push(<Route exact path={"/catalog/:supplierName"} component={CatalogCustomer}></Route>)
 
         }
         return (
