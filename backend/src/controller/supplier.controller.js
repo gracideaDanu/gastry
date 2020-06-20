@@ -1,6 +1,5 @@
 const UserController = require('./user.controller');
 const SupplierModel = require('../models/supplier.model');
-var ObjectId = require('mongoose').Types.ObjectId;
 
 class SupplierController extends UserController {
     constructor(model) {
