@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Order = require('./order.model')
+const Order = require('./order.model').schema;
 
 const options = {
     discriminatorKey: 'userType',
@@ -30,7 +30,7 @@ let userSchema =   new Schema({
         required: true,
         minlength: [1, 'Name must be at least one character long']
     },
-    orders:[Order],
+    orders: [Order],
     address: {
         street: {
             type: String,

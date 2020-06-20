@@ -1,7 +1,9 @@
-import supplier from "./supplier.model";
+const Product = require('./product.model').schema;
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const orderSchema = new mongoose.Schema({
+
+const orderSchema = new Schema({
         date: {
             type: Date,
             default: Date.now,
@@ -26,10 +28,11 @@ const orderSchema = new mongoose.Schema({
             trim: true,
             maxLength: 32
         },
-        products: [supplier.catalog.type]
+        products:[Product]
 
 
     }, {timestamps: true}
 );
 
-module.exports = mongoose.model('Order');
+const Order = mongoose.model('Order', orderSchema);
+module.exports = Order;

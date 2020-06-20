@@ -7,7 +7,12 @@ import {connect} from "react-redux";
 import "./layoutstyle.scss"
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-
+import homeButton from "../../assets/icons/HomeButton.svg";
+import homebuttonActive from "../../assets/icons/HomeButtonAusgewählt.svg";
+import basketButton from "../../assets/icons/Warenkorb.svg";
+import basketButtonActive from "../../assets/icons/WarenkorbAusgewählt.svg";
+import profileButton from "../../assets/icons/ProfilButton.svg";
+import profileButtonActive from "../../assets/icons/ProfilButtonAusgewählt.svg";
 const CustomerLayout = ({
                             title = 'Title',
                             description = 'Description',
@@ -17,14 +22,17 @@ const CustomerLayout = ({
                         }) => {
         const navbuttons = [
             {
+                picref: homeButton,
                 name: 'Home',
                 link: '/home'
             },
             {
-                name: 'Search',
+                picref:basketButton,
+                name: 'Basket',
                 link: '/search'
             },
             {
+                picref:profileButton,
                 name: 'Profile',
                 link: '/profile'
             },
@@ -33,17 +41,19 @@ const CustomerLayout = ({
 
         return (
             <>
-                <Topbar onClick={onClicklogout}/>
+                <Topbar onClick={onClicklogout} />
                 <Navigation pagelist={navbuttons}/>
-                <Row>
-                    <Container fluid style={{marginTop:"12%"}}>
-                        <h2> {title} </h2>
-                        <p className='lead'> {description}</p>
-                    </Container>
-                </Row>
-                <Row>
-                    <div className={className}> {children} </div>
-                </Row>
+                <Container fluid className={"h-100  d-flex flex-column"}>
+                    <Row>
+                        <Container fluid style={{marginTop: "12%"}}>
+                            <h3> {title} </h3>
+                            <p className='lead'> {description}</p>
+                        </Container>
+                    </Row>
+                    <Row className={"flex-grow-1"}>
+                        <div className={className}> {children} </div>
+                    </Row>
+                </Container>
             </>
         )
     }

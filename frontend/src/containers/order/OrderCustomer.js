@@ -25,8 +25,8 @@ class OrderCustomer extends Component{
         console.log("called");
         await this.props.fetchSupplier(payload);
         console.log(this.props.suppliers)
-        if(this.props.suppliers.length !== 0){
-            this.props.history.replace('/home/searchSupplier')
+        if(this.props.suppliers != null){
+            this.props.history.replace('/home/searchSuppliers')
         }
     };
 
@@ -68,14 +68,14 @@ class OrderCustomer extends Component{
 
 const mapsStateToProps =(state) => {
     return{
-        suppliers:state.customer.suppliers,
+        suppliers:state.suppliersList.list,
         token: state.auth.token
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        fetchSupplier:(data) => dispatch(actions.fetchSupplier(data))
+        fetchSupplier:(data) => dispatch(actions.fetchSuppliersList(data))
     }
 };
 

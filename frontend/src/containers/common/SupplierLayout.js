@@ -4,6 +4,8 @@ import Navigation from "../../components/navigation/Navigation";
 import Topbar from "../../components/navigation/TopBar";
 import * as actions from "../../redux/actions";
 import {connect} from "react-redux";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 
 const SupplierLayout = ({
                             title = 'Title',
@@ -25,15 +27,21 @@ const SupplierLayout = ({
 
     ]
     return (
-        <div style={{width: "100%",height:"100%"}}>
+        <>
             <Topbar onClick={onClicklogout}/>
-            <Navigation pagelist={navbuttons}></Navigation>
-            <div className='jumbotron'>
-                <h2> {title} </h2>
-                <p className='lead'> {description}</p>
-            </div>
-            <div className={className} > {children} </div>
-        </div>
+            <Navigation pagelist={navbuttons}/>
+            <Container fluid className={"h-100  d-flex flex-column"}>
+                <Row>
+                    <Container fluid style={{marginTop: "12%"}}>
+                        <h2> {title} </h2>
+                        <p className='lead'> {description}</p>
+                    </Container>
+                </Row>
+                <Row className={"flex-grow-1"}>
+                    <div className={className}> {children} </div>
+                </Row>
+            </Container>
+        </>
     )
 };
 

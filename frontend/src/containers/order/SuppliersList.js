@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { fetchSuppliersList } from "../../redux/actions/suppliersList";
 
 import "./SuppliersList.css";
+import UserLayout from "../common/CustomerLayout";
 
 class SuppliersList extends Component {
 
@@ -29,7 +30,11 @@ class SuppliersList extends Component {
     };
 
     render() {
-        return <div>{this.renderSuppliers()}</div>;
+        return <UserLayout className='container-fluid'
+                           title='OrderCustomer Page'
+                           description='Was möchtest du bestellen ?'>
+            {this.renderSuppliers()}
+        </UserLayout>;
     }
 }
 

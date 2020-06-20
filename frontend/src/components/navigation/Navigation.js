@@ -16,23 +16,11 @@ const Navigation = (props) => {
     const pagelist = props.pagelist
     const showpages = pagelist.map((page,index)=>
         <Col key={index}>
-            <NavigationButton name={page.name} link={page.link} key={index}/>
+            <NavigationButton name={page.name} link={page.link} picref={page.picref} key={index} />
         </Col>
     )
     return (
         <>
-            <style type="text/css">
-                {`
-    .navrow {
-        width: 100%;
-        border-top: 1px solid;
-    }
-    .navItem {
-    font-size: 1.5em;
-    text-align: center;
-  }
-    `}
-            </style>
             <Navbar expand={"*"} fixed={"bottom"}>
                 <Container>
                     {showpages}

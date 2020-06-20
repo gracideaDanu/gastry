@@ -1,4 +1,3 @@
-import {fetchSupplier} from "./fetchSupplier";
 
 export {
     tokenInvalid,
@@ -27,5 +26,5 @@ export {
 } from './user'
 
 export {
-    fetchSupplier
-} from './fetchSupplier'
+    fetchSuppliersList
+} from './suppliersList'

@@ -1,5 +1,5 @@
 import "./Signup.css";
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux"
 import Input from "../../components/auth/Input";
 import Errors from "../../components/auth/error";
@@ -38,7 +38,6 @@ const signUpCState = {
             value: "",
             type: "passwordConfirm",
         }
-
 
 
     },
@@ -113,7 +112,7 @@ class Signup extends Component {
     state = signUpCState;
 
     componentDidMount() {
-        if (this.props.token !== null){
+        if (this.props.token !== null) {
             this.props.history.replace('/home');
         }
     }
@@ -122,14 +121,12 @@ class Signup extends Component {
         let valid = true;
         console.log(this.state.errors);
         Object.values(errors).forEach(
-
             // if we have an error string set valid to false
-            (val) =>  console.log(val)
+            (val) => console.log(val)
         );
         Object.values(errors).forEach(
-
             // if we have an error string set valid to false
-            (val) =>  val.length > 0 && (valid = false)
+            (val) => val.length > 0 && (valid = false)
         );
         return valid;
     }
@@ -137,11 +134,10 @@ class Signup extends Component {
     displayErrors = () => {
 
         errorFormArray.length = 0;
-        for (let element in this.state.errors){
+        for (let element in this.state.errors) {
             errorFormArray.push({
-                value: this.state.errors[element]
+                    value: this.state.errors[element]
                 }
-
             )
         }
         this.setState({
@@ -155,15 +151,14 @@ class Signup extends Component {
     }
 
     optionHandler = (value) => {
-        if (value === "customer"){
+        if (value === "customer") {
             const state = signUpCState;
             errorFormArray.length = 0;
-            this.setState( state
+            this.setState(state
             )
 
 
-        }
-        else {
+        } else {
             const state = signUpSState;
             errorFormArray.length = 0;
             this.setState(state
@@ -232,10 +227,10 @@ class Signup extends Component {
         })
     }
 
-    onChange = (event,elementType) => {
+    onChange = (event, elementType) => {
         event.preventDefault();
         const value = event.target.value;
-        this.validationHandler(elementType,value);
+        this.validationHandler(elementType, value);
 
 
         const form = {
@@ -253,7 +248,7 @@ class Signup extends Component {
     onSubmit = (event) => {
         event.preventDefault();
         const option = this.state.option.value;
-        if(this.validateForm(this.state.errors)) {
+        if (this.validateForm(this.state.errors)) {
             console.info('Valid Form')
             let loginData = {
                 email: this.state.form.email.value,
@@ -263,10 +258,9 @@ class Signup extends Component {
                 firstName: this.state.form.firstName.value,
                 option: option
             };
-            if (this.state.option.value === "supplier"){
+            if (this.state.option.value === "supplier") {
                 loginData["company"] = this.state.form.company.value
-            }
-            else {
+            } else {
                 loginData["company"] = this.state.form.restaurant.value
 
             }
@@ -280,7 +274,8 @@ class Signup extends Component {
             })
 
             this.props.register(loginData);
-        }else{
+            this.props.fetchUser(this.props.userId);
+        } else {
             console.error('Invalid Form');
             console.log(this.state.errors)
             this.displayErrors();
@@ -301,18 +296,18 @@ class Signup extends Component {
         }
 
         const signInForm = formArray.map(element => (
-                <Input type={element.type}
-                       name={element.name}
-                       key={element.type}
-                       content={this.state.form[element.type].value}
-                       change={(e) => this.onChange(e,element.type)}
+            <Input type={element.type}
+                   name={element.name}
+                   key={element.type}
+                   content={this.state.form[element.type].value}
+                   change={(e) => this.onChange(e, element.type)}
 
-                />
+            />
         ));
 
         const errorDisplay = errorFormArray.map(error => (
             <Errors
-            value={error.value}
+                value={error.value}
             />
 
         ))
@@ -339,19 +334,19 @@ class Signup extends Component {
     }
 }
 
-const mapsStateToProps =(state) => {
-    return{
-        token:state.auth.token
+const mapsStateToProps = (state) => {
+    return {
+        token: state.auth.token,
+        userId: state.auth.userId
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return{
-        register:(data) => dispatch(actions.register(data
-
-       ))
+    return {
+        register: (data) => dispatch(actions.register(data)),
+        fetchUser: (_id) => dispatch(actions.fetchUser(_id))
     }
 };
 
 
-export default connect(mapsStateToProps,mapDispatchToProps)(Signup);
+export default connect(mapsStateToProps, mapDispatchToProps)(Signup);

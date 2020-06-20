@@ -5,7 +5,6 @@ import registerReducer from "./registerReducer";
 import userReducer from "./userReducer";
 import catalogReducer from "./catalogReducer";
 import suppliersListReducer from "./suppliersListReducer"
-import customerReducer from "./customerReducer";
 
 const  appReducer =combineReducers({
     auth: authReducer,

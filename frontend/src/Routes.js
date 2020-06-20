@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 import Signup from "./containers/register/Signup";
 import Catalog from "./containers/catalogSupplier/Catalog";
 import HomeSupplier from "./containers/home/HomeSupplier";
+import Supplierlist from "./containers/order/Supplierlist";
 
 
 class Routes extends Component {
@@ -28,6 +29,7 @@ class Routes extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+
         if ( prevProps.token !== this.props.token && this.props.token === null){
             this.props.history.replace("/login");
         }
@@ -44,11 +46,21 @@ class Routes extends Component {
 
     render() {
         const privateRoutes = [];
-        if (this.props.token !== null) {
-            privateRoutes.push(<Route exact path={"/home"} component={OrderCustomer}></Route>)
-            privateRoutes.push(<Route exact path={"/search"} component={Search}></Route>)
-            privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
-            privateRoutes.push(<Route exact path={"/catalogSupplier"} component={Catalog}></Route>)
+        if (this.props.token !== null && this.props.user!==null) {
+            if(this.props.user.userType === "Customer") {
+                privateRoutes.push(<Route exact path={"/home"} component={OrderCustomer}></Route>)
+                privateRoutes.push(<Route exact path={"/home/searchSuppliers"} component={Supplierlist}></Route>)
+                privateRoutes.push(<Route exact path={"/search"} component={Search}></Route>)
+                privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
+
+            }
+            else if(this.props.user.userType === "Supplier") {
+                privateRoutes.push(<Route exact path={"/home"} component={HomeSupplier}></Route>)
+                privateRoutes.push(<Route exact path={"/search"} component={Search}></Route>)
+                privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
+                privateRoutes.push(<Route exact path={"/catalogSupplier"} component={Catalog}></Route>)
+            }
+
 
         }
         return (
@@ -73,7 +85,8 @@ class Routes extends Component {
 
 const mapsStateToProps =(state) => {
     return{
-        token:state.auth.token
+        token:state.auth.token,
+        user: state.user.user
     }
 }
 
