@@ -1,3 +1,5 @@
+import {fetchSupplier} from "./fetchSupplier";
+
 export {
     tokenInvalid,
     login
@@ -23,3 +25,7 @@ export {
     fetchUser,
     updateUser
 } from './user'
+
+export {
+    fetchSupplier
+} from './fetchSupplier'

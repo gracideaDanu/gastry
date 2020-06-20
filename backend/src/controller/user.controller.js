@@ -9,15 +9,15 @@ class UserController {
         this.model = model;
 
         this.register = this.register.bind(this);
-        this.getAll = this.getAll.bind(this);
+        this.getUsers = this.getUsers.bind(this);
         this.login = this.login.bind(this);
         this.deleteAll = this.deleteAll.bind(this);
     }
 
-    async getAll(req, res) {
+    async getUsers(req, res) {
         try {
 
-            const user = await this.model.find({});
+            const user = await this.model.find(req.body.data);
             res.status(200).send({
                 message: 'Successfully fetched user info',
                 data: user
@@ -28,6 +28,7 @@ class UserController {
             })
         }
     }
+
 
     getUser = async (req, res) => {
         try {

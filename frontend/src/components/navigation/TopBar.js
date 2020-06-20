@@ -10,8 +10,8 @@ import Container from "react-bootstrap/Container";
 const Topbar = (props) => {
 
     return (
-        <Navbar>
-            <Nav className="fixed-top ">
+        <Navbar fixed={"top"} expand={"*"}>
+            <Nav >
                 <Container className={"justify-content-end"}>
                     <Button variant="dark" className={""} onClick={props.onClick}>Log out</Button>
                 </Container>

@@ -33,14 +33,11 @@ const Navigation = (props) => {
   }
     `}
             </style>
-            <Navbar>
-                <Nav className="fixed-bottom">
-                    <Container className={"justify-content-center"}>
-                        <Row className={"navrow"}>
-                            {showpages}
-                        </Row>
-                    </Container>
-                </Nav>
+            <Navbar expand={"*"} fixed={"bottom"}>
+                <Container>
+                    {showpages}
+                </Container>
+
             </Navbar>
         </>
     )

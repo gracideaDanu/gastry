@@ -4,24 +4,25 @@ const checkAuth = require('../../middleware/verification').checkToken;
 
 const SupplierController = require('../../controller/supplier.controller');
 
-// GET all customer
-supplierRouter.get('/', checkAuth, SupplierController.getAll);
+// GET all Supplier
+supplierRouter.get('/', checkAuth, SupplierController.getUsers);
+
 
 supplierRouter.get('/fetchCatalog', checkAuth, SupplierController.fetchCatalog);
 
-// GER a customer
+// GER a Supplier
 supplierRouter.get('/:_id', checkAuth, SupplierController.getUser);
 
-// UPDATE a customer
+// UPDATE a Supplier
 supplierRouter.patch('/:_id', checkAuth, SupplierController.updateUser);
 
-// POST a new customer
+// POST a new Supplier
 supplierRouter.post('/register', SupplierController.register);
 
 // POST api/users/login
 supplierRouter.post("/login",  SupplierController.login);
 
-//Delete all customers
+//Delete all Suppliers
 supplierRouter.delete('/', SupplierController.deleteAll);
 
 

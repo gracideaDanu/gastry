@@ -3,18 +3,18 @@ import React from "react";
 import {shallow} from 'enzyme';
 import {findByTestAtrr, testStore} from "../../../Utils";
 import Input from "../../components/auth/Input";
-import HomeCustomer from "./HomeCustomer";
+import OrderCustomer from "../order/OrderCustomer";
 import UserLayout from "../common/CustomerLayout";
 
 
 
 const setUp =(initialstore={})=>{
     const store = testStore(initialstore);
-    const wrapper = shallow(<HomeCustomer store={store}/>);
+    const wrapper = shallow(<OrderCustomer store={store}/>);
     return wrapper
 }
 
-describe('<HomeCustomer/>', function () {
+describe('<OrderCustomer/>', function () {
 
     let wrapper;
     beforeEach(() => {

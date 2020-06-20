@@ -25,14 +25,14 @@ const SupplierLayout = ({
 
     ]
     return (
-        <div>
+        <div style={{width: "100%",height:"100%"}}>
             <Topbar onClick={onClicklogout}/>
             <Navigation pagelist={navbuttons}></Navigation>
             <div className='jumbotron'>
                 <h2> {title} </h2>
                 <p className='lead'> {description}</p>
             </div>
-            <div className={className}> {children} </div>
+            <div className={className} > {children} </div>
         </div>
     )
 };

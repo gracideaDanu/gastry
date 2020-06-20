@@ -5,7 +5,7 @@ const checkAuth = require('../../middleware/verification').checkToken;
 const CustomerController = require('../../controller/customer.controller');
 
 // GET all customer
-customerRouter.get('/', checkAuth, CustomerController.getAll);
+customerRouter.get('/', checkAuth, CustomerController.getUsers);
 
 // GET
 customerRouter.get('/suppliersList', CustomerController.getSuppliersList)
