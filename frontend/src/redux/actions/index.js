@@ -23,3 +23,7 @@ export {
     fetchUser,
     updateUser
 } from './user'
+
+export {
+    fetchSupplierCatalog,
+} from './customerCatalog'
