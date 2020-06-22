@@ -9,6 +9,9 @@ class OrderController {
 
         this.fetchOrders = this.fetchOrders.bind(this);
         this.addOrder = this.fetchOrders.bind(this);
+        this.modifyOrder = this.modifyOrder.bind(this);
+        this.getOrder = this.getOrder.bind(this);
+        this.deleteOrder = this.getOrder.bind(this);
 
 
     }
@@ -31,6 +34,10 @@ class OrderController {
             res.status(400).json({message: e});
         }
 
+
+    }
+
+    async getOrder (req,res){
 
     }
 
@@ -122,24 +129,22 @@ class OrderController {
     }
     async modifyOrder (req, res) {
         try {
-
-            console.log(req.body.itemId)
-            const itemId = new ObjectId(req.body.itemId);
-            console.log(itemId)
-            const updatedItem = req.body;
-            delete updatedItem['itemId']
-            console.log(updatedItem)
-            console.log(itemId)
-
-            const doc = await SupplierModel.findOneAndUpdate({
-                'catalog._id': itemId
-
-            }, { $set: {"catalog.$.name" : updatedItem.name, "catalog.$.description": updatedItem.description, "catalog.$.price" : updatedItem.price, "catalog.$.tags" : updatedItem.tags, "catalog.$.size" : updatedItem.size}}, {returnOriginal: false})
-            res.status(200).send({
-                message: "Updated item successfully!",
-                id: itemId,
-                items: doc.catalog
-            })
+            let fieldsToUpdate = req.body;
+            if (req.body.orderId != null) {
+                OrderModel.findByIdAndUpdate(req.body.orderId, { $set: fieldsToUpdate.data.fields }, { new: true, useFindAndModify: false }, function (err, result) {
+                    if (err) {
+                        res.status(400).send({
+                            success: false,
+                            error: err.message
+                        });
+                    }
+                    res.status(200).send({
+                        success: true,
+                        data: result,
+                        message: "Order updated successfully"
+                    });
+                });
+            }
 
         }
         catch (e) {
@@ -152,3 +157,5 @@ class OrderController {
 
 
 }
+
+module.exports = OrderController;

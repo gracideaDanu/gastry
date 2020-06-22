@@ -14,16 +14,18 @@ const borderbetween = {
 
 const Navigation = (props) => {
     const pagelist = props.pagelist
-    const showpages = pagelist.map((page,index)=>
+    const showpages = pagelist.map((page, index) =>
         <Col key={index}>
-            <NavigationButton name={page.name} link={page.link} picref={page.picref} key={index} />
+            <NavigationButton name={page.name} link={page.link} picref={page.picref} key={index}/>
         </Col>
     )
     return (
         <>
             <Navbar expand={"*"} fixed={"bottom"}>
                 <Container>
-                    {showpages}
+                    <Row style={{height: "100%",width:"100%"}}>
+                        {showpages}
+                    </Row>
                 </Container>
 
             </Navbar>

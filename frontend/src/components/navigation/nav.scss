@@ -8,8 +8,11 @@ nav.navbar {
   //position: fixed;
   //margin: 0;
   div.container{
-    margin: 0;
+    //margin: 0;
     padding: 0;
+    div.row {
+      margin:0;
+    }
   }
 }
 .navItem {
