@@ -1,6 +1,7 @@
 import React, {useState, useEffect, Component} from 'react';
 import SupplierLayout from '../common/SupplierLayout';
 import UserLayout from "../common/CustomerLayout";
+import SuppliersList from '../suppliersList/SuppliersList'
 
 class HomeCustomer extends Component{
 
@@ -13,17 +14,8 @@ class HomeCustomer extends Component{
                 title='HomeCustomer Page'
                 description='Node React Gastry Navigation'
             >
-
-
-                <h2 className='mb-4'>New Arrivals</h2>
-                <div className='row'>
-
-                </div>
-
-                <h2 className='mb-4'>Best Sellers</h2>
-                <div className='row'>
-
-                </div>
+                <h2 className='mb-4'>Bei wem möchtest du bestellen?</h2>
+                <SuppliersList/>
 
             </UserLayout>
         )

@@ -9,6 +9,11 @@ supplierRouter.get('/', checkAuth, SupplierController.getAll);
 
 supplierRouter.get('/fetchCatalog', checkAuth, SupplierController.fetchCatalog);
 
+// TODO Maybe replace fetchCatalog with getCatalog
+// and make this method accessible even without a token?
+// GET supplier's catalog
+supplierRouter.get('/catalog/:_id', SupplierController.getCatalog)
+
 // GER a customer
 supplierRouter.get('/:_id', checkAuth, SupplierController.getUser);
 
