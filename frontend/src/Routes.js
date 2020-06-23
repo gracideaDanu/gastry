@@ -13,8 +13,7 @@ import HomeSupplier from "./containers/home/HomeSupplier";
 import CatalogCustomer from "./containers/catalogCustomer/CatalogCustomer"
 import * as actions from "./redux/actions";
 import Basket from "./containers/basket/Basket";
-
-import Supplierlist from "./containers/order/Supplierlist";
+import SuppliersList from "./containers/order/SuppliersList";
 import Chat from "./containers/chat/chat";
 
 
@@ -63,9 +62,11 @@ class Routes extends Component {
             }
             else {
                 privateRoutes.push(<Route exact path={"/home"} component={OrderCustomer}></Route>)
-                privateRoutes.push(<Route exact path={"/home/suppliers"} component={Supplierlist}></Route>)
+                privateRoutes.push(<Route exact path={"/home/suppliers"} component={SuppliersList}></Route>)
                 privateRoutes.push(<Route exact path={"/catalog/:supplierName/basket"} component={Basket}></Route>)
                 privateRoutes.push(<Route exact path={"/catalog/:supplierName"} component={CatalogCustomer}></Route>)
+                privateRoutes.push(<Route exact path={"/chat"} component={Chat}></Route>)
+
 
             }
 
