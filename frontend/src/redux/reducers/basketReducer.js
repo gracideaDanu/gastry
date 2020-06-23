@@ -11,7 +11,7 @@ export default function(state = initialState, action) {
             console.log("HI")
             console.log(action.data.supplierId);
 
-            let basketArray = [...state.baskets]
+            let basketArray = state.baskets.slice();
             console.log(basketArray)
             for (let basket of basketArray){console.log(basket.supplierId)}
             let basketSingle = basketArray.find(basket => basket.supplierId === action.data.supplierId)

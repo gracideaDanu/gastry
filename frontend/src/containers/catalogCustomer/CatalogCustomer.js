@@ -5,6 +5,7 @@ import SupplierCatList from "../../components/list/CatalogCustomerRow.js/Catalog
 import CustomerLaylout from "../common/CustomerLayout";
 import {addItemToBasket} from "../../redux/actions";
 
+let basketArray = [];
 class CatalogCustomer extends Component {
     state = {
         basket: [],
@@ -15,9 +16,10 @@ class CatalogCustomer extends Component {
         const { supplierId } = this.props.location.state;
         this.props.fetchSupplierCatalog(supplierId);
          if(this.props.basket !== null){
-            let basketArray = [...this.props.basket];
+             basketArray = [...this.props.basket];
             let basketSingle = basketArray.find(basket => basket.supplierId === supplierId);
-            const basketItems = [...basketSingle.basketItems];
+            let basketItems = [];
+            basketSingle ? basketItems = [...basketSingle.basketItems] : basketItems = []
             console.log(basketItems);
             if(basketItems !== null){
                 this.setState({
@@ -37,17 +39,9 @@ class CatalogCustomer extends Component {
                 catalog: this.props.catalog
             })
         }
-        else if(prevProps.basket !== this.props.basket){
-            const { supplierId } = this.props.location.state;
-            let basketArray = [...this.props.basket];
-            let basketSingle = basketArray.find(basket => basket.supplierId === supplierId);
-            const basketItems = [...basketSingle.basketItems];
-            console.log(basketItems);
-            this.setState({
-                ...this.state,
-                basket: basketItems
-            })
-        }
+        this.findItemAmount("5eea44202681241ad4fd9c42");
+
+
     }
     addItemToBasketHandler = (event, itemId, option, amount) => {
         event.preventDefault();
@@ -74,7 +68,8 @@ class CatalogCustomer extends Component {
                 ...incrementItem,
                 amount: amount
             };
-            basket[index] = incrementItem
+            amount === 0 ? basket.splice(index,1) : basket[index] = incrementItem
+
 
         }
         else {
@@ -97,7 +92,28 @@ class CatalogCustomer extends Component {
 
 
 
-    }
+    };
+    findItemAmount = (itemId) => {
+        console.log("Hi")
+        let amount;
+        console.log(itemId);
+        /*const { supplierId } = this.props.location.state;
+        basketArray = this.props.basket.slice()
+        let basketSingle = basketArray.find(basket => basket.supplierId === supplierId);
+        let basketItems = [];
+        basketSingle ? basketItems = [...basketSingle.basketItems] : basketSingle = []; basketSingle.basketItems = [];
+        console.log(basketSingle.basketItems);
+        let item = basketSingle.basketItems.find(items => items._id === itemId);
+        item ? amount = item.amount : amount = 0;
+        return amount;
+        return 0*/
+        let basket = [...this.state.basket];
+        let item = basket.find(inc => inc._id === itemId);
+        item ? amount = item.amount : amount = 0;
+        console.log(amount);
+        return amount;
+
+    };
 
     renderCatalog = () => {
         if (this.props.catalog) {
@@ -106,7 +122,7 @@ class CatalogCustomer extends Component {
             }
             const catArray = this.props.catalog.map((item, index) => (
                 <SupplierCatList
-                    amount={this.state.basket[index] ? this.state.basket[index].amount : 0 }
+                    amount={this.findItemAmount(item._id)}
                     add={(e) => this.addItemToBasketHandler(e,item._id,1)}
                     subtract={(e) => this.addItemToBasketHandler(e,item._id,2)}
                     key={item._id}
