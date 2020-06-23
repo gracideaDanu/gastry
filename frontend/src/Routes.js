@@ -50,12 +50,24 @@ class Routes extends Component {
 
     render() {
         const privateRoutes = [];
-        if (this.props.token !== null) {
-            privateRoutes.push(<Route exact path={"/home"} component={HomeCustomer}></Route>)
+        if (this.props.token !== null && this.props.user !== null ) {
             privateRoutes.push(<Route exact path={"/search"} component={Search}></Route>)
             privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
-            privateRoutes.push(<Route exact path={"/catalogSupplier"} component={Catalog}></Route>)
-            privateRoutes.push(<Route exact path={"/catalog/:supplierName"} component={CatalogCustomer}></Route>)
+
+            if (this.props.user.userType === "Supplier") {
+
+                privateRoutes.push(<Route exact path={"/home"} component={HomeSupplier}></Route>)
+                privateRoutes.push(<Route exact path={"/catalogSupplier"} component={Catalog}></Route>)
+            }
+            else {
+                privateRoutes.push(<Route exact path={"/home"} component={HomeCustomer}></Route>)
+                privateRoutes.push(<Route exact path={"/catalog/:supplierName"} component={CatalogCustomer}></Route>)
+
+            }
+
+
+
+            //privateRoutes.push(<Route exact path={"/catalog/:supplierName"} component={CatalogCustomer}></Route>)
 
         }
         return (
@@ -80,8 +92,8 @@ class Routes extends Component {
 
 const mapsStateToProps =(state) => {
     return{
-        token:state.auth.token
-    }
+        token:state.auth.token,
+        user:state.user.user}
 };
 
 const mapDispatchToProps = (dispatch) => {

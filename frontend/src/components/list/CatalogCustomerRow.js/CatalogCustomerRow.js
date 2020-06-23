@@ -34,8 +34,9 @@ class CatalogCustomerRow extends Component {
                             </Col>
                             <Col xs={3}>
                                 <Counter
-                                    countDown={this.countDown}
-                                    countUp={this.countUp}
+                                    amount={this.props.amount}
+                                    countDown={this.props.subtract}
+                                    countUp={this.props.add}
                                     onChange={this.onChange}
                                 />
                             </Col><Col xs={1}>
