@@ -20,7 +20,7 @@ let checkToken = (req, res, next) => {
     if (token) {
         jwt.verify(token, process.env.SECRET_OR_KEY, (err, decoded) => {
             if (err) {
-                return res.json({
+                 res.status(400).json({
                     success: false,
                     message: 'Token is not valid'
                 });

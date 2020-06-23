@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Supplier from "../../components/list/Supplier";
 import { connect } from "react-redux";
 import { fetchSuppliersList } from "../../redux/actions/suppliersList";
+import { Link } from "react-router-dom"
 
 import "./SuppliersList.css";
 import UserLayout from "../common/CustomerLayout";
@@ -17,11 +18,16 @@ class SuppliersList extends Component {
         if (list) {
             return list.map((supplier) => {
                 return (
-                    <Supplier
-                        key={supplier._id}
-                        name={supplier.name}
-                        address={supplier.address.street}
-                    />
+                    <Link to={{
+                        pathname: `/catalog/${supplier.name}`,
+                        state: { supplierId: supplier._id, supplierName: supplier.name }
+                    }}>
+                        <Supplier
+                            key={supplier._id}
+                            name={supplier.name}
+                            address={supplier.address.street}
+                        />
+                    </Link>
                 );
             });
         } else {

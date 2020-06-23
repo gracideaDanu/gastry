@@ -82,6 +82,12 @@ class UserController {
         }
     };
 
+    async checkTokenValidity(req, res) {
+        res.status(200).json({
+            message: "Token still valid"
+        })
+    }
+
     async login(req, res) {
         // Form validation
         const { errors, isValid } = validateLoginInput(req.body);

@@ -25,6 +25,14 @@ const Topbar = (props) => {
                 <Button variant={"dark"}>
                     <img className="svg" src={search} width="20" height="20" alt={'search'}/>
                 </Button>
+                {
+                    props.showBasket
+                        ?
+                        <LinkContainer to={{pathname: props.basketState.supplierName + "/basket", state:props.basketState}}>
+                            <p>Basket</p>
+                    </LinkContainer>
+                        : null
+                }
             </Container>
         </Navbar>
     )

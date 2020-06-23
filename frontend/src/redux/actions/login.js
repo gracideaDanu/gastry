@@ -1,5 +1,8 @@
 import * as actionTypes from './actionTypes';
 import {axiosInstance as axios} from "../axiosInstance";
+import {
+    fetchUser
+} from './index'
 
 export const login = (payload) => {
     return dispatch => {
@@ -8,7 +11,8 @@ export const login = (payload) => {
 
         axios.post("/user/login", payload)
             .then(res => {
-                dispatch(loginSuccess(res.data))
+                dispatch(loginSuccess(res.data));
+                dispatch(fetchUser(res.data.userId))
             })
 
             .catch(err => {
@@ -41,7 +45,7 @@ export const tokenInvalid = () => {
     return {
         type: actionTypes.TOKEN_INVALID
     }
-}
+};
 
 
 

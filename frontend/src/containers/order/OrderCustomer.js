@@ -26,7 +26,7 @@ class OrderCustomer extends Component{
         await this.props.fetchSupplier(payload);
         console.log(this.props.suppliers)
         if(this.props.suppliers != null){
-            this.props.history.replace('/home/searchSuppliers')
+            this.props.history.replace('/home/suppliers')
         }
     };
 

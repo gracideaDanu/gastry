@@ -5,13 +5,17 @@ import registerReducer from "./registerReducer";
 import userReducer from "./userReducer";
 import catalogReducer from "./catalogReducer";
 import suppliersListReducer from "./suppliersListReducer"
+import catalogCustomerReducer from "./catalogCustomerReducer"
+import basketReducer from "./basketReducer";
 
 const  appReducer =combineReducers({
     auth: authReducer,
     reg: registerReducer,
     user: userReducer,
     cat: catalogReducer,
-    suppliersList: suppliersListReducer
+    suppliersList: suppliersListReducer,
+    customerCatalog: catalogCustomerReducer,
+    basket: basketReducer
 });
 
 const rootReducer = (state, action) => {

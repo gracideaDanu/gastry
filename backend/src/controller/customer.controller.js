@@ -11,7 +11,11 @@ class CustomerController extends UserController {
         try {
             const suppliers = await SupplierModel.find({});
             const suppliersInfo = suppliers.map((supplier) => {
-                return { name: supplier.company, address: supplier.address };
+                return {
+                    _id: supplier._id,
+                    name: supplier.company,
+                    address: supplier.address,
+                };
             });
             res.status(200).send({
                 message: "Successfully fetched all suppliers",

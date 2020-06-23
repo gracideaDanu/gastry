@@ -10,19 +10,24 @@ supplierRouter.get('/', checkAuth, SupplierController.getUsers);
 
 supplierRouter.get('/fetchCatalog', checkAuth, SupplierController.fetchCatalog);
 
-// GER a Supplier
+// TODO Maybe replace fetchCatalog with getCatalog
+// and make this method accessible even without a token?
+// GET supplier's catalog
+supplierRouter.get('/catalog/:_id', SupplierController.getCatalog)
+
+// GER a customer
 supplierRouter.get('/:_id', checkAuth, SupplierController.getUser);
 
-// UPDATE a Supplier
+// UPDATE a customer
 supplierRouter.patch('/:_id', checkAuth, SupplierController.updateUser);
 
-// POST a new Supplier
+// POST a new customer
 supplierRouter.post('/register', SupplierController.register);
 
 // POST api/users/login
 supplierRouter.post("/login",  SupplierController.login);
 
-//Delete all Suppliers
+//Delete all customers
 supplierRouter.delete('/', SupplierController.deleteAll);
 
 

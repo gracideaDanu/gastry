@@ -1,5 +1,6 @@
 const UserController = require('./user.controller');
 const SupplierModel = require('../models/supplier.model');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 class SupplierController extends UserController {
     constructor(model) {
@@ -12,65 +13,71 @@ class SupplierController extends UserController {
         this.modifyItem = this.modifyItem.bind(this);
     }
 
- async fetchCatalog (req, res) {
+    async fetchCatalog(req, res) {
         try {
-
-        const userId = req.decoded.id;
-        const result = await SupplierModel.findOne({
-            _id: userId
-        }).select('catalog')
-        res.status(200).send({
-            message: "Fetch worked",
-            catalog: result.catalog
-        });
-        }
-        catch (e) {
-            res.status(400).json({message: e});
-        }
-
-
- }
-
- async addItem (req,res ) {
-        try {
-
-
             const userId = req.decoded.id;
-            const {name, description, price, tags, size} = req.body;
+            const result = await SupplierModel.findOne({
+                _id: userId,
+            }).select("catalog");
+            res.status(200).send({
+                message: "Fetch worked",
+                catalog: result.catalog,
+            });
+        } catch (e) {
+            res.status(400).json({ message: e });
+        }
+    }
+
+    getCatalog = async (req, res) => {
+        try {
+            const catalog = await SupplierModel.findById(
+                req.params._id,
+                "catalog -_id"
+            );
+            res.status(200).send({
+                message: "Successfully fetched the catalog",
+                data: catalog,
+            });
+        } catch (e) {
+            res.status(400).send({
+                error: e,
+            });
+        }
+    };
+
+    async addItem(req, res) {
+        try {
+            const userId = req.decoded.id;
+            const { name, description, price, tags, size } = req.body;
             const newItem = {
                 name: name,
                 description: description,
                 price: price,
                 tags: tags,
-                size: size
-            }
+                size: size,
+            };
             console.log(newItem);
             const result = await SupplierModel.findOne({
-                _id: userId
-            }).select('catalog')
-            console.log(result)
+                _id: userId,
+            }).select("catalog");
+            console.log(result);
 
             const productsUpdated = [newItem, ...result.catalog];
-            console.log(productsUpdated)
+            console.log(productsUpdated);
             result.catalog = productsUpdated;
             await result.save();
             res.status(200).json({
                 message: "Successfully added item",
-                catalog: result.catalog
-            })
-
-        }
-        catch (e) {
+                catalog: result.catalog,
+            });
+        } catch (e) {
             res.status(400).json({
-                message: e
-            })
+                message: e,
+            });
         }
+    }
 
-
-
- }
-
- async deleteItem (req, res ) {
+    async deleteItem(req, res) {
         try {
             console.log(req.body.itemId)
             const itemId = new ObjectId(req.body.itemId);

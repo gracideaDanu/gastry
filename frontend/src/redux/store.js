@@ -14,7 +14,7 @@ const middleware = process.env.NODE_ENV !== 'production' ?
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['auth','user']
+    whitelist: ['auth','user','basket']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -15,10 +15,13 @@ import profileButton from "../../assets/icons/ProfilButton.svg";
 import profileButtonActive from "../../assets/icons/ProfilButtonAusgewählt.svg";
 const CustomerLayout = ({
                             title = 'Title',
+                            showBasket = false,
                             description = 'Description',
                             className,
                             children,
-                            onClicklogout
+                            onClicklogout,
+                            basketState
+
                         }) => {
         const navbuttons = [
             {
@@ -41,7 +44,7 @@ const CustomerLayout = ({
 
         return (
             <>
-                <Topbar onClick={onClicklogout} />
+                <Topbar onClick={onClicklogout}  showBasket={showBasket} basketState={basketState}/>
                 <Navigation pagelist={navbuttons}/>
                 <Container fluid className={"h-100  d-flex flex-column"}>
                     <Row>

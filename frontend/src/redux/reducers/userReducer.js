@@ -4,7 +4,9 @@ import {
     FETCH_USER_FAILED,
     UPDATE_USER_START,
     UPDATE_USER_SUCCESS,
-    UPDATE_USER_FAILED,
+    UPDATE_USER_FAILED, CHECK_TOKEN_VALIDITY_START,
+    CHECK_TOKEN_VALIDITY_FAILED,
+    CHECK_TOKEN_VALIDITY_SUCCESS
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -49,6 +51,20 @@ export default function (state = initialState, action) {
                 user: action.payload.user,
                 loading: false,
             };
+        case CHECK_TOKEN_VALIDITY_START:
+            return {
+                ...state,
+                loading: true
+            };case CHECK_TOKEN_VALIDITY_SUCCESS:
+            return {
+                ...state,
+                loading: false
+            };case CHECK_TOKEN_VALIDITY_FAILED:
+            return {
+                ...state,
+                loading: false
+            };
+
         default:
             return state;
     }
