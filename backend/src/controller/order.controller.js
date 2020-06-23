@@ -8,10 +8,10 @@ class OrderController {
         this.model = model;
 
         this.fetchOrders = this.fetchOrders.bind(this);
-        this.addOrder = this.fetchOrders.bind(this);
+        this.addOrder = this.addOrder.bind(this);
         this.modifyOrder = this.modifyOrder.bind(this);
         this.getOrder = this.getOrder.bind(this);
-        this.deleteOrder = this.getOrder.bind(this);
+        this.deleteOrder = this.deleteOrder.bind(this);
 
 
     }
@@ -43,6 +43,7 @@ class OrderController {
 
 
     async addOrder (req,res ) {
+        console.log("should go in here")
         try {
 
 
@@ -82,6 +83,7 @@ class OrderController {
 
         }
         catch (e) {
+            console.log("yo didnt work")
             res.status(400).json({
                 message: e
             })

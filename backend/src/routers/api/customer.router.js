@@ -1,6 +1,8 @@
 const express = require('express');
 const customerRouter = express.Router();
 const checkAuth = require('../../middleware/verification').checkToken;
+const ordermodel = require('../../models/order.model');
+const OrderController = require('../../controller/order.controller');
 
 const CustomerController = require('../../controller/customer.controller');
 
@@ -9,9 +11,6 @@ customerRouter.get('/', checkAuth, CustomerController.getUsers);
 
 // GET
 customerRouter.get('/suppliersList', CustomerController.getSuppliersList)
-
-// GER a customer
-customerRouter.get('/:_id', checkAuth, CustomerController.getUser);
 
 // UDPATE a customer
 customerRouter.patch('/:_id', checkAuth, CustomerController.updateUser);
@@ -24,5 +23,11 @@ customerRouter.post("/login",  CustomerController.login);
 
 //Delete all customers
 customerRouter.delete('/', CustomerController.deleteAll);
+
+//place order
+customerRouter.post('/order/addOrder', checkAuth, new OrderController(ordermodel).addOrder);
+
+// GER a customer
+customerRouter.get('/:_id', checkAuth, CustomerController.getUser);
 
 module.exports = customerRouter;

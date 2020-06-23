@@ -11,6 +11,7 @@ import Signup from "./containers/register/Signup";
 import Catalog from "./containers/catalogSupplier/Catalog";
 import HomeSupplier from "./containers/home/HomeSupplier";
 import Supplierlist from "./containers/order/Supplierlist";
+import Chat from "./containers/chat/chat";
 
 
 class Routes extends Component {
@@ -52,6 +53,7 @@ class Routes extends Component {
                 privateRoutes.push(<Route exact path={"/home/searchSuppliers"} component={Supplierlist}></Route>)
                 privateRoutes.push(<Route exact path={"/search"} component={Search}></Route>)
                 privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
+                privateRoutes.push(<Route exact path={"/chat"} component={Chat}></Route>)
 
             }
             else if(this.props.user.userType === "Supplier") {
