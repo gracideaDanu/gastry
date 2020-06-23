@@ -4,6 +4,7 @@ import * as actions from "../../redux/actions";
 import SupplierCatList from "../../components/list/CatalogCustomerRow.js/CatalogCustomerRow";
 import CustomerLaylout from "../common/CustomerLayout";
 import {addItemToBasket} from "../../redux/actions";
+import pt from "moment/locale/pt";
 
 let basketArray = [];
 class CatalogCustomer extends Component {
@@ -58,6 +59,7 @@ class CatalogCustomer extends Component {
                 case 1: amount += 1;
                 break;
                 case 2: amount -= 1;
+                console.log(amount)
                 break;
 
 
@@ -73,12 +75,16 @@ class CatalogCustomer extends Component {
 
         }
         else {
-            console.log("New item");
-            item = {
-                ...item,
-                amount: 1
+            switch(option){
+                case 2: return; break;
+                default: item = {
+                    ...item,
+                    amount: 1
+                };
+                    basket.push(item)
             }
-            basket.push(item)
+            console.log("New item");
+
         }
         this.setState({
             ...this.state,
@@ -94,9 +100,7 @@ class CatalogCustomer extends Component {
 
     };
     findItemAmount = (itemId) => {
-        console.log("Hi")
         let amount;
-        console.log(itemId);
         /*const { supplierId } = this.props.location.state;
         basketArray = this.props.basket.slice()
         let basketSingle = basketArray.find(basket => basket.supplierId === supplierId);
@@ -110,7 +114,6 @@ class CatalogCustomer extends Component {
         let basket = [...this.state.basket];
         let item = basket.find(inc => inc._id === itemId);
         item ? amount = item.amount : amount = 0;
-        console.log(amount);
         return amount;
 
     };
