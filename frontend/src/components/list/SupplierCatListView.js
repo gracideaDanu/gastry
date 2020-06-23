@@ -28,7 +28,6 @@ const SupplierCatListView = (props) => {
                         </Accordion.Toggle>
                     </Col>
                     <Col xs={2}>
-                        <button onClick={props.add} className="btn btn-primary circle"> + </button>
                     </Col>
                 </Row>
             </Card.Header>

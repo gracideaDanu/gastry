@@ -260,7 +260,7 @@ class Catalog extends Component {
         }
     }
 
-    addItemToBasketHandler = (event, itemId) => {
+    /*addItemToBasketHandler = (event, itemId) => {
         event.preventDefault();
         const catalog = [...this.state.catalog];
         let item = catalog.find(catItem => catItem._id === itemId );
@@ -292,7 +292,8 @@ class Catalog extends Component {
         })
 
 
-    }
+
+    } */
 
 
 
@@ -305,7 +306,7 @@ class Catalog extends Component {
     render() {
         const catArray = this.state.catalog.map((item, index) =>
             (
-            <SupplierCatListView add={(e) => this.addItemToBasketHandler(e,item._id)} index={index} showModal={this.state.showModal} modal={this.showModalHandler} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
+            <SupplierCatListView  index={index} showModal={this.state.showModal} modal={this.showModalHandler} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
 
         ));
         return (

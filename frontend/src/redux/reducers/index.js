@@ -6,6 +6,7 @@ import userReducer from "./userReducer";
 import catalogReducer from "./catalogReducer";
 import suppliersListReducer from "./suppliersListReducer"
 import catalogCustomerReducer from "./catalogCustomerReducer"
+import basketReducer from "./basketReducer";
 
 const  appReducer =combineReducers({
     auth: authReducer,
@@ -13,7 +14,8 @@ const  appReducer =combineReducers({
     user: userReducer,
     cat: catalogReducer,
     suppliersList: suppliersListReducer,
-    customerCatalog: catalogCustomerReducer
+    customerCatalog: catalogCustomerReducer,
+    basket: basketReducer
 });
 
 const rootReducer = (state, action) => {

@@ -16,6 +16,10 @@ export {
 } from './catalog'
 
 export {
+    addItemToBasket
+} from './basket'
+
+export {
     logout
 } from './logout';
 

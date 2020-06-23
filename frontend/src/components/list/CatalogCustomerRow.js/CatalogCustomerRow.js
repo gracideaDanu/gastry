@@ -24,6 +24,7 @@ class CatalogCustomerRow extends Component {
                     <Card.Header>
                         <Row>
                             <Col xs={9}>
+
                                 <Item
                                     key={item._id}
                                     name={item.name}
@@ -37,7 +38,10 @@ class CatalogCustomerRow extends Component {
                                     countUp={this.countUp}
                                     onChange={this.onChange}
                                 />
-                            </Col>
+                            </Col><Col xs={1}>
+                            <button onClick={this.props.add} className="btn btn-primary circle"> + </button>
+
+                        </Col>
                         </Row>
                     </Card.Header>
                 </Card>
