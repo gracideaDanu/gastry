@@ -19,7 +19,7 @@ class SuppliersList extends Component {
                 return (
                     <Link to={{
                         pathname: `/catalog/${supplier.name}`,
-                        state: { supplierId: supplier._id }
+                        state: { supplierId: supplier._id, supplierName: supplier.name }
                     }}>
                         <Supplier
                             key={supplier._id}

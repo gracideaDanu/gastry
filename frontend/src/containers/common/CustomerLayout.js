@@ -11,7 +11,9 @@ const CustomerLayout = ({
                             description = 'Description',
                             className,
                             children,
-                            onClicklogout
+                            onClicklogout,
+                            basketState
+
                         }) => {
         const navbuttons = [
             {
@@ -31,7 +33,7 @@ const CustomerLayout = ({
 
         return (
             <div>
-                <Topbar onClick={onClicklogout}/>
+                <Topbar onClick={onClicklogout} showBasket={showBasket} basketState={basketState}/>
                 <Navigation pagelist={navbuttons}></Navigation>
                 <div className='jumbotron'>
                     <h2> {title} </h2>

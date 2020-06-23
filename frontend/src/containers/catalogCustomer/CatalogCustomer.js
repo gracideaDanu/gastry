@@ -7,6 +7,7 @@ import {addItemToBasket} from "../../redux/actions";
 import pt from "moment/locale/pt";
 
 let basketArray = [];
+let supplierName, supplierId
 class CatalogCustomer extends Component {
     state = {
         basket: [],
@@ -14,7 +15,8 @@ class CatalogCustomer extends Component {
 
     }
     componentDidMount() {
-        const { supplierId } = this.props.location.state;
+        supplierId = this.props.location.state.supplierId;
+        supplierName = this.props.location.state.supplierName;
         this.props.fetchSupplierCatalog(supplierId);
          if(this.props.basket !== null){
              basketArray = [...this.props.basket];
@@ -140,7 +142,7 @@ class CatalogCustomer extends Component {
 
     render() {
         return (
-            <CustomerLaylout title="Catalog" showBasket='true'>
+            <CustomerLaylout title="Catalog" showBasket='true'  basketState={{supplierName: supplierName, supplierId: supplierId, basket:this.state.basket}} >
                 {this.renderCatalog()}
             </CustomerLaylout>
         );
