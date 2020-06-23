@@ -41,7 +41,7 @@ export const tokenInvalid = () => {
     return {
         type: actionTypes.TOKEN_INVALID
     }
-}
+};
 
 
 

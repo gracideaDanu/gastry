@@ -11,15 +11,20 @@ import Signup from "./containers/register/Signup";
 import Catalog from "./containers/catalogSupplier/Catalog";
 import HomeSupplier from "./containers/home/HomeSupplier";
 import CatalogCustomer from "./containers/catalogCustomer/CatalogCustomer"
+import * as actions from "./redux/actions";
+
 
 
 class Routes extends Component {
 
 
     componentDidMount() {
+
         if (this.props.location.pathname === "/"){
             if (this.props.token !== null) {
-
+                this.props.checkTokenValidity({
+                    token: this.props.token
+                });
                 this.props.history.push("/home");
             }
             else {
@@ -77,6 +82,12 @@ const mapsStateToProps =(state) => {
     return{
         token:state.auth.token
     }
-}
+};
 
-export default withRouter(connect(mapsStateToProps)(Routes));
+const mapDispatchToProps = (dispatch) => {
+    return {
+        checkTokenValidity: (payload) => dispatch(actions.checkTokenValidity(payload))
+    }
+};
+
+export default withRouter(connect(mapsStateToProps,mapDispatchToProps)(Routes));

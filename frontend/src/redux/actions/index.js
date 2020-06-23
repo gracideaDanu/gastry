@@ -19,13 +19,16 @@ export {
     addItemToBasket
 } from './basket'
 
+
+
 export {
     logout
 } from './logout';
 
 export {
     fetchUser,
-    updateUser
+    updateUser,
+    checkTokenValidity
 } from './user'
 
 export {
