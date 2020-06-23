@@ -140,7 +140,7 @@ class CatalogCustomer extends Component {
 
     render() {
         return (
-            <CustomerLaylout title="Catalog">
+            <CustomerLaylout title="Catalog" showBasket='true'>
                 {this.renderCatalog()}
             </CustomerLaylout>
         );

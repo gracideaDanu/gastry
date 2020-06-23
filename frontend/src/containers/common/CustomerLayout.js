@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 
 const CustomerLayout = ({
                             title = 'Title',
+                            showBasket = false,
                             description = 'Description',
                             className,
                             children,
