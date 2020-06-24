@@ -5,9 +5,14 @@ import {
     UPDATE_USER_START,
     UPDATE_USER_SUCCESS,
     UPDATE_USER_FAILED,
+    CHECK_TOKEN_VALIDITY_START,
+    CHECK_TOKEN_VALIDITY_SUCCESS,
+    CHECK_TOKEN_VALIDITY_FAILED,
+    LOGOUT
 } from "./actionTypes";
 
 import { axiosInstance as axios } from "../axiosInstance";
+import {logout} from "./logout";
 
 export const fetchUser = (_id) => async (dispatch, getState) => {
     dispatch(fetchUserStart());
@@ -80,4 +85,41 @@ const updateUserFailed = (error) => {
         type: UPDATE_USER_FAILED,
         error: error,
     };
+};
+
+const checkTokenValidityStart = () => {
+    return {
+        type: CHECK_TOKEN_VALIDITY_START
+    }
+};const checkTokenValiditySuccess = () => {
+    return {
+        type: CHECK_TOKEN_VALIDITY_SUCCESS
+    }
+};const checkTokenValidityFailed = () => {
+    return {
+        type: CHECK_TOKEN_VALIDITY_FAILED
+    }
+};
+
+export const checkTokenValidity = (payload) => {
+    return dispatch => {
+        dispatch(checkTokenValidityStart());
+        const token = payload.token;
+        console.log(token);
+        const config = {
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json'
+            }
+        };
+        axios.get('user/checkToken', config)
+            .then(res=> {
+                dispatch(checkTokenValiditySuccess())
+            })
+            .catch(error=> {
+                dispatch(checkTokenValidityFailed())
+                dispatch({type: LOGOUT})
+            })
+
+    }
 };

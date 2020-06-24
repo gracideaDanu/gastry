@@ -15,7 +15,7 @@ const Item = (props) => {
                     {props.catg}
                 </p>
             </Col>
-            <Col>
+            <Col xs={4}>
                 <p style={pStyle}>
                     {props.name}
                 </p>

@@ -34,12 +34,14 @@ const signInState = {
         if (this.props.token !== null) {
             this.props.history.push("/home");
         }
+
     }
 
      componentDidUpdate(prevProps, prevState, snapshot) {
 
          if (this.props.token !== null) {
              this.props.history.push("/home");
+             this.props.fetchUser(this.props.userId);
          }
      }
 
@@ -53,7 +55,8 @@ const signInState = {
         console.log(loginData)
         console.log("called");
         this.props.login(loginData);
-    };
+
+     };
 
     onChange = (event) => {
             const value = {
@@ -107,12 +110,14 @@ const signInState = {
 
 const mapsStateToProps =(state) => {
      return{
+         userId: state.auth.userId,
          token:state.auth.token
      }
 }
 
 const mapDispatchToProps = (dispatch) => {
      return{
+         fetchUser: (_id) => dispatch(actions.fetchUser(_id)),
          login:(data) => dispatch(actions.login(data))
      }
 };

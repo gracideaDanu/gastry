@@ -4,10 +4,16 @@ const checkAuth = require('../../middleware/verification').checkToken;
 
 const SupplierController = require('../../controller/supplier.controller');
 
-// GET all customer
-supplierRouter.get('/', checkAuth, SupplierController.getAll);
+// GET all Supplier
+supplierRouter.get('/', checkAuth, SupplierController.getUsers);
+
 
 supplierRouter.get('/fetchCatalog', checkAuth, SupplierController.fetchCatalog);
+
+// TODO Maybe replace fetchCatalog with getCatalog
+// and make this method accessible even without a token?
+// GET supplier's catalog
+supplierRouter.get('/catalog/:_id', SupplierController.getCatalog)
 
 // GER a customer
 supplierRouter.get('/:_id', checkAuth, SupplierController.getUser);

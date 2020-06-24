@@ -1,11 +1,29 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {connect} from "react-redux";
+import * as actions from "../../redux/actions";
+class Notfound extends Component {
 
-const Notfound = () => {
-    return (
-        <div>
-            <h1>Shit.</h1>
-        </div>
-    );
+    componentDidMount() {
+        //this.props.onClicklogout()
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Shit.</h1>
+            </div>
+        )
+    };
+};
+const mapsStateToProps = (state) => {
+    return {
+    };
 };
 
-export default Notfound;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onClicklogout: () => dispatch(actions.logout())
+    }
+}
+
+export default connect(mapsStateToProps,mapDispatchToProps)(Notfound);

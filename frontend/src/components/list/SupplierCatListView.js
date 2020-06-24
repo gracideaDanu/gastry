@@ -27,6 +27,8 @@ const SupplierCatListView = (props) => {
                             extend
                         </Accordion.Toggle>
                     </Col>
+                    <Col xs={2}>
+                    </Col>
                 </Row>
             </Card.Header>
             <Accordion.Collapse eventKey={index}>
