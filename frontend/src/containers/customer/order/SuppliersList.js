@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Supplier from "../../../components/list/Supplier";
 import { connect } from "react-redux";
-import { fetchSuppliersList } from "../../../redux/actions/orders/customer/suppliersList";
+import { fetchSuppliersList } from "../../../redux/actions";
 import { Link } from "react-router-dom"
 
 import "./SuppliersList.css";
-import UserLayout from "../customer/CustomerLayout";
+import UserLayout from "../../customer/CustomerLayout";
 
 class SuppliersList extends Component {
 

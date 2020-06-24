@@ -1,11 +1,11 @@
 import "./Signup.css";
 import React, {Component} from "react";
 import {connect} from "react-redux"
-import Input from "../../components/auth/Input";
-import Errors from "../../components/auth/error";
+import Input from "../../../components/auth/Input";
+import Errors from "../../../components/auth/error";
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
-import * as actions from "../../redux/actions";
+import * as actions from "../../../redux/actions";
 
 const signUpCState = {
     form: {

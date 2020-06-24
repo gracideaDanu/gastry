@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import "../../supplier/home/home.scss"
 import Button from "react-bootstrap/Button";
 import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
-import * as actions from "../../redux/actions";
+import * as actions from "../../../redux/actions";
 import {connect} from "react-redux";
 
 class OrderCustomer extends Component{

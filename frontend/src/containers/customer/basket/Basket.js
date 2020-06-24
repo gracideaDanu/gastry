@@ -5,9 +5,9 @@ import * as actions from "../../../redux/actions";
 import {connect} from 'react-redux'
 import './Basket.css'
 import Container from "react-bootstrap/Container";
-import {Summary} from '../../components/basket/Summary'
-import EstimatedTotal from "../../components/basket/EstimatedTotal";
-import CustomerLayout from "../customer/CustomerLayout";
+import {Summary} from '../../../components/basket/Summary'
+import EstimatedTotal from "../../../components/basket/EstimatedTotal";
+import CustomerLayout from "../../customer/CustomerLayout";
 let supplierId,supplierName;
 let basketArray= []
 export class Basket extends Component {
