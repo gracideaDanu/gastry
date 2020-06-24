@@ -43,7 +43,7 @@ const CustomerLayout = ({
 
         return (
             <>
-                <Topbar onClick={onClicklogout}  showBasket={showBasket} basketState={basketState}/>
+                <Topbar onClick={onClicklogout}  showBasket={showBasket} basketState={basketState} />
                 <Navigation pagelist={navbuttons}/>
                 <Container fluid className={"h-100  d-flex flex-column"}>
                     <Row>

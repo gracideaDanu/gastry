@@ -22,7 +22,7 @@ const Topbar = (props) => {
                     </Button>
                 </LinkContainer>
                 <Button variant="dark" className={""} onClick={props.onClick}>Log out</Button>
-                <Button variant={"dark"}>
+                <Button variant={"dark"} >
                     <img className="svg" src={search} width="20" height="20" alt={'search'}/>
                 </Button>
                 {
