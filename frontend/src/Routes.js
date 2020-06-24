@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
-import Login from "./containers/login/Login";
+import Login from "./containers/common/login/Login";
 import { Switch, Route, withRouter} from 'react-router-dom';
-import OrderCustomer from "./containers/order/OrderCustomer";
-import Notfound from "./containers/error/Notfound";
-import Search from "./containers/search/Search";
-import Profilepage from "./containers/profile/Profilepage";
+import OrderCustomer from "./containers/customer/order/OrderCustomer";
+import Notfound from "./containers/common/error/Notfound";
+import Search from "./containers/customer/search/Search";
+import Profilepage from "./containers/customer/profile/Profilepage";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {connect} from "react-redux";
-import Signup from "./containers/register/Signup";
-import Catalog from "./containers/catalogSupplier/Catalog";
-import HomeSupplier from "./containers/home/HomeSupplier";
-import CatalogCustomer from "./containers/catalogCustomer/CatalogCustomer"
+import Signup from "./containers/common/register/Signup";
+import Catalog from "./containers/supplier/catalogSupplier/Catalog";
+import HomeSupplier from "./containers/supplier/home/HomeSupplier";
+import CatalogCustomer from "./containers/customer/catalogCustomer/CatalogCustomer"
 import * as actions from "./redux/actions";
-import Basket from "./containers/basket/Basket";
-import SuppliersList from "./containers/order/SuppliersList";
-import Chat from "./containers/chat/chat";
+import Basket from "./containers/customer/basket/Basket";
+import SuppliersList from "./containers/customer/order/SuppliersList";
+import Chat from "./containers/customer/chat/chat";
 
 
 class Routes extends Component {

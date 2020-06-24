@@ -1,6 +1,14 @@
-const Product = require('./product.model').schema;
+const Product = require('./product.model');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
+Product.discriminator('productList', new Schema({
+    amount : {
+        type: Number,
+        max: 1000,
+        min: 0
+    }
+}));
 
 
 const orderSchema = new Schema({
@@ -10,17 +18,10 @@ const orderSchema = new Schema({
             required: true
         },
         customer_id: {
-            type: String,
-            required: true
+            type: String
         },
         supplier_id: {
-            type: String,
-            required: true
-        },
-        in_out:{
-            type: String,
-            required: true,
-            enum: ['in', 'out']
+            type: String
         },
         total: {
             type: Number,
@@ -28,7 +29,11 @@ const orderSchema = new Schema({
             trim: true,
             maxLength: 32
         },
-        products:[Product]
+        products:[mongoose.model('productList').schema],
+        open: {
+            type: Boolean,
+            default: true
+        }
 
 
     }, {timestamps: true}

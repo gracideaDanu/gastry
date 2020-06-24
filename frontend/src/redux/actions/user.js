@@ -12,7 +12,7 @@ import {
 } from "./actionTypes";
 
 import { axiosInstance as axios } from "../axiosInstance";
-import {logout} from "./logout";
+import {logout} from "./authorization/logout";
 
 export const fetchUser = (_id) => async (dispatch, getState) => {
     dispatch(fetchUserStart());

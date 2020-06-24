@@ -48,17 +48,12 @@ class OrderController {
 
 
             const userId = req.decoded.id;
-            const { supplier_id, products} = req.body;
-            let total=0;
-            for (let product in products) {
-                total+= product.price
-            }
+            const { supplier_id, products, total} = req.body;
             const newItem = {
                 customer_id: userId,
                 supplier_id: supplier_id,
                 products: products,
-                total: total,
-                in_out: "in"
+                total: total
             }
             console.log(newItem);
             const resultSupplier = await User.findOne({

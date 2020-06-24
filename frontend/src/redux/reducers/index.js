@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import authReducer from "./authReducer";
+import authReducer from "./authorization/authReducer";
 import {LOGOUT} from "../actions/actionTypes";
-import registerReducer from "./registerReducer";
+import registerReducer from "./authorization/registerReducer";
 import userReducer from "./userReducer";
-import catalogReducer from "./catalogReducer";
-import suppliersListReducer from "./suppliersListReducer"
-import catalogCustomerReducer from "./catalogCustomerReducer"
-import basketReducer from "./basketReducer";
+import catalogReducer from "./order/supplier/catalogReducer";
+import suppliersListReducer from "./order/customer/suppliersListReducer"
+import catalogCustomerReducer from "./order/customer/catalogCustomerReducer"
+import basketReducer from "./order/customer/basketReducer";
 
 const  appReducer =combineReducers({
     auth: authReducer,

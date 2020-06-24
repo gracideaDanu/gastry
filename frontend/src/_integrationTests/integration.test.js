@@ -1,6 +1,6 @@
 import moxios from 'moxios';
 
-import {login} from "../redux/actions/login";
+import {login} from "../redux/actions/authorization/login";
 import {testStore} from "../../Utils";
 
 

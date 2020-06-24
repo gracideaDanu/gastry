@@ -1,11 +1,11 @@
 export {
     tokenInvalid,
     login
-} from './login';
+} from './authorization/login';
 
 export {
     register
-} from './register'
+} from './authorization/register'
 
 export {
     createCatalog,
@@ -13,17 +13,17 @@ export {
     addItemCatalog,
     deleteItemCatalog,
     modifyItemCatalog
-} from './catalog'
+} from './orders/supplier/catalog'
 
 export {
     addItemToBasket
-} from './basket'
+} from './orders/customer/basket'
 
 
 
 export {
     logout
-} from './logout';
+} from './authorization/logout';
 
 export {
     fetchUser,
@@ -33,8 +33,8 @@ export {
 
 export {
     fetchSuppliersList
-} from './suppliersList'
+} from './orders/customer/suppliersList'
 
 export {
     fetchSupplierCatalog,
-} from './customerCatalog'
+} from './orders/customer/customerCatalog'

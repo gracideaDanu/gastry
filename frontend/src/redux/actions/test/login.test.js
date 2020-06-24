@@ -1,6 +1,6 @@
 import moxios from 'moxios';
 
-import {login} from "../login";
+import {login} from "../authorization/login";
 import {testStore} from "../../../../Utils";
 
 

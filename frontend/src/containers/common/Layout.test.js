@@ -1,11 +1,11 @@
 import React from "react";
 import {mount, shallow} from "enzyme";
-import CustomerLayout from "./CustomerLayout";
+import CustomerLayout from "../customer/CustomerLayout";
 import {testStore} from "../../../Utils";
 import {MemoryRouter} from "react-router-dom";
 import NavItem from "react-bootstrap/NavItem";
 import Button from "react-bootstrap/Button";
-import SupplierLayout from "./SupplierLayout";
+import SupplierLayout from "../supplier/SupplierLayout";
 
 describe('<CustomerLayout/>', function () {
     let component;
