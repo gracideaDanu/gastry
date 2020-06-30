@@ -30,9 +30,10 @@ const orderSchema = new Schema({
             maxLength: 32
         },
         products:[mongoose.model('productList').schema],
-        open: {
-            type: Boolean,
-            default: true
+        status: {
+            type: String,
+            default: "open",
+            enum: ["open","accepted","closed"]
         }
 
 

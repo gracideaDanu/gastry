@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
         case FETCH_ORDERS_SUCCESS:
             return {
                 ...state,
-                list: action.payload,
+                list: action.orders,
                 loading: false
             }
         case FETCH_ORDERS_FAILED:

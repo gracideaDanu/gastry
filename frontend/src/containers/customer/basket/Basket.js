@@ -8,11 +8,13 @@ import Container from "react-bootstrap/Container";
 import {Summary} from '../../../components/basket/Summary'
 import EstimatedTotal from "../../../components/basket/EstimatedTotal";
 import CustomerLayout from "../../customer/CustomerLayout";
+import {placeOrder} from "../../../redux/actions";
 let supplierId,supplierName;
 let basketArray= []
 export class Basket extends Component {
     state={
-        basket: []
+        basket: [],
+        total: 0
     }
     componentDidMount() {
         const basket = this.props.location.state.basket;
@@ -24,14 +26,29 @@ export class Basket extends Component {
 
 
     }
+
+    placeOrder = (event) => {
+        event.preventDefault()
+        let payload = {
+            token: this.props.token,
+            data: {
+                products: this.state.basket,
+                supplierId: this.props.location.state.supplierId,
+                total: this.state.total
+            },
+        }
+        this.props.placeOrder(payload)
+        console.log(this.state.basket)
+    }
+
     render() {
-        let total = 0
+        this.state.total = 0
         const basketItems = this.state.basket.map(element => {
-            total += (element.price * element.amount)
+            this.state.total += (element.price * element.amount)
             console.log(element.price)
-            console.log(total)
+            console.log(this.state.total)
             return (
-                <Summary key={element._id} item={element}></Summary>
+                <Summary key={element._id} item={element}/>
 
             )
         }
@@ -43,9 +60,9 @@ export class Basket extends Component {
             <div className="purchase-card">
                 <Container >
                     {basketItems}
-                    <EstimatedTotal total={total}/>
+                    <EstimatedTotal total={this.state.total}/>
                     {
-                        total > 0 ? <button>Place order</button> : <p>Consider adding some items to your basket first</p>
+                        this.state.total > 0 ? <button onClick={this.placeOrder}>Place order</button> : <p>Consider adding some items to your basket first</p>
                     }
                 </Container>
             </div>
@@ -55,6 +72,18 @@ export class Basket extends Component {
 
         )
     }
-}
 
-export default Basket
+}
+const mapsStateToProps = (state) => {
+    return {
+        token: state.auth.token
+};
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        placeOrder: (data) => dispatch(actions.placeOrder(data))
+    };
+};
+
+export default connect(mapsStateToProps,mapDispatchToProps)(Basket);

@@ -25,13 +25,10 @@ const fetchOrdersStart = () => {
     };
 };
 
-const fetchOrdersSuccess = (suppliersList) => {
+const fetchOrdersSuccess = (orders) => {
     return {
         type: FETCH_ORDERS_SUCCESS,
-        payload: {
-            suppliersList: suppliersList,
-            loading: false,
-        },
+        orders: orders
     };
 };
 

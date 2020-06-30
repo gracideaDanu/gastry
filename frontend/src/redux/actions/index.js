@@ -38,3 +38,7 @@ export {
 export {
     fetchSupplierCatalog,
 } from './orders/customer/customerCatalog'
+
+export {
+    placeOrder
+} from './orders/customer/placeOrder'

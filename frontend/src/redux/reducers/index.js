@@ -7,6 +7,7 @@ import catalogReducer from "./order/supplier/catalogReducer";
 import suppliersListReducer from "./order/customer/suppliersListReducer"
 import catalogCustomerReducer from "./order/customer/catalogCustomerReducer"
 import basketReducer from "./order/customer/basketReducer";
+import placeOrderReducer from "./order/customer/placeOrderReducer";
 
 const  appReducer =combineReducers({
     auth: authReducer,
@@ -15,7 +16,8 @@ const  appReducer =combineReducers({
     cat: catalogReducer,
     suppliersList: suppliersListReducer,
     customerCatalog: catalogCustomerReducer,
-    basket: basketReducer
+    basket: basketReducer,
+    placeOrder: placeOrderReducer
 });
 
 const rootReducer = (state, action) => {
