@@ -16,6 +16,7 @@ const UserInfo = (props) => {
                     : null
 
                 }
+                {console.log(user.category)}
             </ul>
             <button onClick={onEdit}>Edit profile</button>
         </div>

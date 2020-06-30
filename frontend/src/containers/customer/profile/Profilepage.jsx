@@ -66,13 +66,13 @@ class Profilepage extends Component {
 
         const value = event.target.value
         switch (value) {
-            case "Food":
+            case "food":
                 tag = "food"
                 break;
-            case "Drinks":
+            case "drinks":
                 tag = "drinks";
                 break;
-            case "Both":
+            case "both":
                 tag = "both";
                 break;
         }
@@ -80,20 +80,20 @@ class Profilepage extends Component {
             ...this.state,
             form: {
                 ...this.state.form,
-                tag: tag
+                category: tag
             }
         })
     };
 
     onEdit = () => {
-        this.props.fetchUser(this.props.userId);
+        this.props.fetchUser(this.props.userId, this.props.user.user.userType);
         const { user } = this.props.user;
         let form;
         if(user.userType === "Supplier"){
              form = {
                 ...this.state.form,
                 company: user.company,
-                tag: user.category,
+                category: user.category,
                 address: {
                     ...this.state.form.address,
                     street: user.address.street,
@@ -124,12 +124,9 @@ class Profilepage extends Component {
         e.preventDefault();
         try {
             let form = this.state.form;
-            console.log(this.state.form.tag)
-            form["category"] = this.state.form.tag;
-            delete form["tag"];
             console.log(form)
             this.props.updateUser(this.props.userId, form);
-            this.props.fetchUser(this.props.userId);
+            this.props.fetchUser(this.props.userId, this.props.user.user.userType);
             this.setState({ canEdit: false });
         } catch (err) {
             console.log(err);
@@ -137,7 +134,7 @@ class Profilepage extends Component {
     };
 
     componentDidMount = () => {
-        this.props.fetchUser(this.props.userId);
+        this.props.fetchUser(this.props.userId, this.props.user.user.userType);
     };
 
     render() {
@@ -162,7 +159,7 @@ const mapsStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchUser: (_id) => dispatch(actions.fetchUser(_id)),
+        fetchUser: (_id, type) => dispatch(actions.fetchUser(_id, type)),
         updateUser: (_id, formValues) => dispatch(actions.updateUser(_id, formValues)),
     };
 };
