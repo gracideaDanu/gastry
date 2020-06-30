@@ -17,10 +17,9 @@ class OrderController {
 
     async fetchOrders(req, res){
         try {
-
             const userId = req.decoded.id;
 
-            const result = await OrderModel.findOne({
+            const result = await User.findOne({
                 _id: userId
             }).select('orders')
             console.log(result);

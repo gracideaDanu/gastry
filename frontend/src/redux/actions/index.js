@@ -42,3 +42,7 @@ export {
 export {
     placeOrder
 } from './orders/customer/placeOrder'
+
+export {
+    fetchOrders
+} from './orders/fetchOrders'

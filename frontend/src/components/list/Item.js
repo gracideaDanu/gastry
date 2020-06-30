@@ -28,7 +28,7 @@ const Item = (props) => {
             </Col>
             <Col>
                 <p style={pStyle}>
-                    {props.price}€
+                    {props.price}
                 </p>
             </Col>
 

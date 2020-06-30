@@ -10,9 +10,6 @@ userRouter.post("/login",  new UserController(userModel).login);
 userRouter.get('/checkToken', checkAuth, new UserController(userModel).checkTokenValidity);
 
 
-
-userRouter.get('/:_id', checkAuth, new UserController(userModel).getUser);
-
 //get orderlist
 userRouter.get('/order/', checkAuth, new OrderController(ordermodel).fetchOrders);
 
@@ -26,5 +23,8 @@ userRouter.patch('/:_id', checkAuth, new UserController(userModel).updateUser);
 
 //delete Order
 userRouter.post('/order/delete/:_id', checkAuth, new OrderController(ordermodel).deleteOrder);
+
+userRouter.get('/:_id', checkAuth, new UserController(userModel).getUser);
+
 
 module.exports = userRouter;

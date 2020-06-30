@@ -8,6 +8,7 @@ import suppliersListReducer from "./order/customer/suppliersListReducer"
 import catalogCustomerReducer from "./order/customer/catalogCustomerReducer"
 import basketReducer from "./order/customer/basketReducer";
 import placeOrderReducer from "./order/customer/placeOrderReducer";
+import fetchOrdersReducer from "./order/FetchOrdersReducer"
 
 const  appReducer =combineReducers({
     auth: authReducer,
@@ -17,7 +18,8 @@ const  appReducer =combineReducers({
     suppliersList: suppliersListReducer,
     customerCatalog: catalogCustomerReducer,
     basket: basketReducer,
-    placeOrder: placeOrderReducer
+    placeOrder: placeOrderReducer,
+    fetchOrders: fetchOrdersReducer
 });
 
 const rootReducer = (state, action) => {
