@@ -360,7 +360,7 @@ class Signup extends Component {
                 </ToggleButtonGroup>
                 {
                     this.state.exists ?
-                        <h4>Email already exists</h4>:
+                        <h4>{this.props.error}</h4>:
                         null
                 }
                 <form onSubmit={this.onSubmit}>

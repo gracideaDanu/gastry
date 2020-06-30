@@ -13,7 +13,7 @@ class Profilepage extends Component {
                 street: "",
                 city: "",
                 state: "",
-                code: "",
+                code: ""
             },
         },
         canEdit: false,
@@ -31,6 +31,7 @@ class Profilepage extends Component {
             <UserInfoForm
                 onChange={this.onChange}
                 onChangeAddress={this.onChangeAddress}
+                onChangeOffer={this.getOffer}
                 onSubmit={this.onSubmit}
                 form={this.state.form}
             />
@@ -46,6 +47,7 @@ class Profilepage extends Component {
         this.setState({ form: form });
     };
 
+
     onChangeAddress = (e) => {
         const form = {
             ...this.state.form,
@@ -58,27 +60,75 @@ class Profilepage extends Component {
         this.setState({ form: form });
     };
 
+    getOffer = (event) => {
+        event.preventDefault();
+        let tag;
+
+        const value = event.target.value
+        switch (value) {
+            case "Food":
+                tag = "food"
+                break;
+            case "Drinks":
+                tag = "drinks";
+                break;
+            case "Both":
+                tag = "both";
+                break;
+        }
+        this.setState({
+            ...this.state,
+            form: {
+                ...this.state.form,
+                tag: tag
+            }
+        })
+    };
+
     onEdit = () => {
         this.props.fetchUser(this.props.userId);
         const { user } = this.props.user;
-        let form = {
-            ...this.state.form,
-            company: user.company,
-            address: {
-                ...this.state.form.address,
-                street: user.address.street,
-                city: user.address.city,
-                state: user.address.state,
-                code: user.address.code,
-            },
-        };
+        let form;
+        if(user.userType === "Supplier"){
+             form = {
+                ...this.state.form,
+                company: user.company,
+                tag: user.category,
+                address: {
+                    ...this.state.form.address,
+                    street: user.address.street,
+                    city: user.address.city,
+                    state: user.address.state,
+                    code: user.address.code,
+                },
+            };
+        }
+        else {
+            form = {
+                ...this.state.form,
+                company: user.company,
+                address: {
+                    ...this.state.form.address,
+                    street: user.address.street,
+                    city: user.address.city,
+                    state: user.address.state,
+                    code: user.address.code,
+                },
+            };
+        }
+
         this.setState({ form: form, canEdit: true });
     };
 
     onSubmit = (e) => {
         e.preventDefault();
         try {
-            this.props.updateUser(this.props.userId, this.state.form);
+            let form = this.state.form;
+            console.log(this.state.form.tag)
+            form["category"] = this.state.form.tag;
+            delete form["tag"];
+            console.log(form)
+            this.props.updateUser(this.props.userId, form);
             this.props.fetchUser(this.props.userId);
             this.setState({ canEdit: false });
         } catch (err) {

@@ -16,6 +16,7 @@ import Basket from "./containers/customer/basket/Basket";
 import SuppliersList from "./containers/customer/order/SuppliersList";
 import Chat from "./containers/customer/chat/chat";
 
+const privateRoutes = [];
 
 class Routes extends Component {
 
@@ -50,13 +51,14 @@ class Routes extends Component {
 
 
     render() {
-        const privateRoutes = [];
         if (this.props.token !== null && this.props.user !== null ) {
+            console.log(this.props.user);
+            console.log("above user print")
             privateRoutes.push(<Route exact path={"/search"} component={Search}></Route>)
             privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
 
             if (this.props.user.userType === "Supplier") {
-
+                console.log("suppppp")
                 privateRoutes.push(<Route exact path={"/home"} component={HomeSupplier}></Route>)
                 privateRoutes.push(<Route exact path={"/catalogSupplier"} component={Catalog}></Route>)
             }

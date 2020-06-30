@@ -5,7 +5,8 @@ const Product = require('./product.model').schema;
 
 
 User.discriminator('Supplier', new Schema({
-    catalog:  [Product]
+    catalog:  [Product],
+    category:  String
 }));
 
 module.exports = mongoose.model('Supplier');

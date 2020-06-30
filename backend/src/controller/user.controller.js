@@ -45,6 +45,7 @@ class UserController {
     }
 
     async register(req, res) {
+        console.log(req.body.tag)
         const { errors, isValid } = validateRegisterInput(req.body);
         // Check validation
         if (!isValid) {
@@ -64,6 +65,11 @@ class UserController {
                         password: req.body.password,
                         company: req.body.company
                     });
+                    console.log(this.model.modelName)
+                    if(this.model.modelName === "Supplier"){
+                        newUser["category"] = req.body.tag
+                    }
+
 
                     // Hash password before saving in database
                     bcrypt.genSalt(10,(err, salt) => {
@@ -140,10 +146,13 @@ class UserController {
 
     updateUser = async (req, res) => {
         try {
+            console.log(req.body);
+            console.log(req.body.category)
             const user = await this.model.findByIdAndUpdate({ _id: req.params._id }, req.body, {
                 new: true,
                 runValidators: true
             })
+            console.log(user)
             res.status(200).send({
                 message: 'Successfully updated user info',
                 data: user
