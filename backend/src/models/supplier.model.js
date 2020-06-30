@@ -5,11 +5,7 @@ const Product = require('./product.model').schema;
 
 
 User.discriminator('Supplier', new Schema({
-    catalog:  [Product],
-    category: {
-        type: String,
-        enum: ["food","drinks","foodAndDrinks"]
-    }
+    catalog:  [Product]
 }));
 
 module.exports = mongoose.model('Supplier');

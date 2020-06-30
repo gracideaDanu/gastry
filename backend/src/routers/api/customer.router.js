@@ -9,6 +9,9 @@ const CustomerController = require('../../controller/customer.controller');
 // GET all customer
 customerRouter.get('/', checkAuth, CustomerController.getUsers);
 
+customerRouter.post('/register', CustomerController.register);
+
+
 // GET
 customerRouter.get('/suppliersList', CustomerController.getSuppliersList)
 
@@ -16,7 +19,6 @@ customerRouter.get('/suppliersList', CustomerController.getSuppliersList)
 customerRouter.patch('/:_id', checkAuth, CustomerController.updateUser);
 
 // POST a new customer
-customerRouter.post('/register', CustomerController.register);
 
 // POST api/users/login
 customerRouter.post("/login",  CustomerController.login);

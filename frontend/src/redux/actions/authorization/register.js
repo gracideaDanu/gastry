@@ -1,5 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import axiosInstance from "../../axiosInstance";
+import {fetchUser} from "../user";
 
 export const register =(payload) =>{
         return dispatch => {
@@ -11,6 +12,7 @@ export const register =(payload) =>{
                     axiosInstance.post("/" + payload.option + "/login", payload)
                         .then(res => {
                             dispatch(loginSuccess(res.data))
+                            dispatch(fetchUser(res.data.userId))
                         })
                         .catch(res => {
                             dispatch(loginFailed())
@@ -18,7 +20,7 @@ export const register =(payload) =>{
                 })
 
                 .catch(err => {
-                    dispatch(registerFailed(err.data))
+                    dispatch(registerFailed(err.response.data))
                 })
         }
     }

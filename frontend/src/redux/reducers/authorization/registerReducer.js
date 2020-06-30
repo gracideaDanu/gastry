@@ -22,7 +22,8 @@ export default function(state = initialState, action) {
         case REGISTER_FAILED:
             return {
                 ...state,
-                error: action.error
+                loading: false,
+                error: action.error.message
             };
         default:
             return state;

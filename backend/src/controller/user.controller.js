@@ -53,7 +53,8 @@ class UserController {
         try{
             UserModel.findOne({email: req.body.email}).then(user => {
                 if (user) {
-                    return res.status(400).json({ email: "Email already exists" });
+                    res.status(400).json({message: req.body.email + " this email already exists"})
+                    return
                 }
                 else {
                     const newUser = new this.model({
@@ -78,7 +79,7 @@ class UserController {
                 }
             })
         } catch (e) {
-            res.status(400).send(e);
+            res.status(400).send();
         }
     };
 
