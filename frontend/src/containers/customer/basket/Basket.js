@@ -17,11 +17,19 @@ export class Basket extends Component {
         total: 0
     }
     componentDidMount() {
+        console.log(this.props.location)
         const basket = this.props.location.state.basket;
+
+        let total = 0;
+        for(let element of basket){
+            total += (element.price * element.amount)
+
+        }
         this.setState({
             ...this.state,
-            basket:basket
-        })
+            basket:basket,
+            total: total
+        });
         console.log(basket)
 
 
@@ -42,11 +50,7 @@ export class Basket extends Component {
     }
 
     render() {
-        this.state.total = 0
         const basketItems = this.state.basket.map(element => {
-            this.state.total += (element.price * element.amount)
-            console.log(element.price)
-            console.log(this.state.total)
             return (
                 <Summary key={element._id} item={element}/>
 
