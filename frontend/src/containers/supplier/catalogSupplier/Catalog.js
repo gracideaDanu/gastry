@@ -133,7 +133,7 @@ class Catalog extends Component {
 
  }
 
-    addHardItem = () => {
+    /*addHardItem = () => {
         const payload = {
             token: this.props.token,
             data: {
@@ -146,7 +146,7 @@ class Catalog extends Component {
         };
         this.props.addItem(payload);
 
-    };
+    }; */
     validateForm = (errors) => {
         let valid = true;
         console.log(this.state.errors);
@@ -327,9 +327,21 @@ class Catalog extends Component {
 
                             <div className="form-group">
                                 <label>Tag</label>
-                                <select className="form-control" defaultValue={this.state.currentItem['tags']} name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
-                                    <option value="Food">Food</option>
-                                    <option value="Drink">Drink</option>
+                                <select className="form-control" defaultValue="-" name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
+                                    <option value="-">-</option>
+                                    {this.props.userOffer === "both"
+                                        ? <> <option value="Food">Food</option>
+                                        <option value="Drink">Drink</option> </>
+                                        : null
+                                    }{this.props.userOffer === "food"
+                                        ? <option value="Food">Food</option>
+
+                                        : null
+                                    }{this.props.userOffer === "drinks"
+                                        ? <option value="Drink">Drink</option>
+
+                                        : null
+                                    }
                                 </select>
                             </div>
 
@@ -370,7 +382,6 @@ class Catalog extends Component {
                         </Modal.Footer>
 
                     </Modal>
-                    <button onClick={this.addHardItem}> Add hardcoded Item Rice cake!</button>
 
                 </div>
             </SupplierLayout>
@@ -382,7 +393,8 @@ class Catalog extends Component {
 const mapsStateToProps = (state) => {
     return {
         token: state.auth.token,
-        items: state.cat.items
+        items: state.cat.items,
+        userOffer: state.user.user.category
     }
 }
 

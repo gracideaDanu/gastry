@@ -7,6 +7,9 @@ const SupplierController = require('../../controller/supplier.controller');
 // GET all Supplier
 supplierRouter.get('/', checkAuth, SupplierController.getUsers);
 
+supplierRouter.post('/register', SupplierController.register);
+
+
 
 supplierRouter.get('/fetchCatalog', checkAuth, SupplierController.fetchCatalog);
 
@@ -22,7 +25,6 @@ supplierRouter.get('/:_id', checkAuth, SupplierController.getUser);
 supplierRouter.patch('/:_id', checkAuth, SupplierController.updateUser);
 
 // POST a new customer
-supplierRouter.post('/register', SupplierController.register);
 
 // POST api/users/login
 supplierRouter.post("/login",  SupplierController.login);

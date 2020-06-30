@@ -51,7 +51,8 @@ const signUpCState = {
         email: 'E-Mail is required',
         password: 'Password is required',
         passwordConfirm: 'Please confirm password'
-    }
+    },
+    exists: null
 
 };
 
@@ -99,7 +100,9 @@ const signUpSState = {
         email: 'E-Mail is required',
         password: 'Password is required',
         passwordConfirm: 'Please confirm password'
-    }
+    },
+    exists: null,
+    tag: "both"
 
 };
 
@@ -114,6 +117,18 @@ class Signup extends Component {
     componentDidMount() {
         if (this.props.token !== null) {
             this.props.history.replace('/home');
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+
+        if((prevProps.error !== this.props.error) && this.props.error !== null) {
+
+            this.setState({
+                ...this.state,
+                exists: this.props.error
+            })
+
         }
     }
 
@@ -166,6 +181,27 @@ class Signup extends Component {
         }
 
     };
+
+    getOffer = (event) => {
+        event.preventDefault();
+        let tag;
+        const value = event.target.value
+        switch (value) {
+            case "Food":
+                tag = "food"
+                break;
+            case "Drinks":
+                tag = "drinks";
+                break;
+            case "Both":
+                tag = "both";
+                break;
+        }
+        this.setState({
+            ...this.state,
+            tag: tag
+        })
+    }
 
     validationHandler = (elementType, value) => {
         let errors = this.state.errors;
@@ -260,6 +296,7 @@ class Signup extends Component {
             };
             if (this.state.option.value === "supplier") {
                 loginData["company"] = this.state.form.company.value
+                loginData["tag"] = this.state.tag;
             } else {
                 loginData["company"] = this.state.form.restaurant.value
 
@@ -316,12 +353,28 @@ class Signup extends Component {
             <div>
 
                 <h3>Sign Up Page {this.state.option.value}</h3>
+
                 <ToggleButtonGroup type="radio" name="registerToggle" onChange={this.optionHandler}>
                     <ToggleButton value="customer">Customer</ToggleButton>
                     <ToggleButton value="supplier">Supplier</ToggleButton>
                 </ToggleButtonGroup>
+                {
+                    this.state.exists ?
+                        <h4>{this.props.error}</h4>:
+                        null
+                }
                 <form onSubmit={this.onSubmit}>
                     {signInForm}
+                    {this.state.option.value === "supplier"
+                    ?   <div><label>What do you offer?</label>
+                        <select onChange={(e) =>this.getOffer(e)} defaultValue="Both" className="form-control">
+                            <option value="Food">Food</option>
+                            <option value="Drinks">Drinks</option>
+                            <option value="Both">Both</option>
+                        </select>
+                        </div>
+                        : null
+                    }
                     <button type="submit">Submit</button>
                 </form>
                 <Errors></Errors>
@@ -337,6 +390,7 @@ class Signup extends Component {
 const mapsStateToProps = (state) => {
     return {
         token: state.auth.token,
+        error: state.reg.error,
         userId: state.auth.userId
     }
 };

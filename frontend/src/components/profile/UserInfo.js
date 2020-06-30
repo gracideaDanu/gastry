@@ -11,6 +11,12 @@ const UserInfo = (props) => {
                 <li className="list-group-item"> City: {user.address.city} </li>
                 <li className="list-group-item"> State: {user.address.state} </li>
                 <li className="list-group-item"> Postcode: {user.address.code} </li>
+                {user.userType === "Supplier"
+                    ?                 <li className="list-group-item"> Tag: {user.category} </li>
+                    : null
+
+                }
+                {console.log(user.category)}
             </ul>
             <button onClick={onEdit}>Edit profile</button>
         </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Input from "../../../components/auth/Input";
-import {  withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
+import {LinkContainer} from 'react-router-bootstrap';
 
 //import axios from '../../axios/axios';
 import {connect} from "react-redux";
@@ -91,16 +92,18 @@ const signInState = {
         return (
             <div>
                 <h3>Login Page</h3>
-                <ToggleButtonGroup type="radio" name="registerToggle" onChange={this.optionHandler}>
-                    <ToggleButton value="customer">Customer</ToggleButton>
-                    <ToggleButton value="supplier">Supplier</ToggleButton>
-                </ToggleButtonGroup>
                 <form onSubmit={this.onSubmit}>
 
                     {signInForm}
                     <button>Submit</button>
 
                 </form>
+                <LinkContainer to="/register">
+                    <h5>No account yet? Sign up here!</h5>
+                </LinkContainer>
+
+
+
 
             </div>
 
