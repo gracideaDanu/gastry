@@ -13,7 +13,7 @@ class Profilepage extends Component {
                 street: "",
                 city: "",
                 state: "",
-                code: "",
+                code: ""
             },
         },
         canEdit: false,
@@ -31,6 +31,7 @@ class Profilepage extends Component {
             <UserInfoForm
                 onChange={this.onChange}
                 onChangeAddress={this.onChangeAddress}
+                onChangeOffer={this.getOffer}
                 onSubmit={this.onSubmit}
                 form={this.state.form}
             />
@@ -46,6 +47,7 @@ class Profilepage extends Component {
         this.setState({ form: form });
     };
 
+
     onChangeAddress = (e) => {
         const form = {
             ...this.state.form,
@@ -58,28 +60,73 @@ class Profilepage extends Component {
         this.setState({ form: form });
     };
 
+    getOffer = (event) => {
+        event.preventDefault();
+        let tag;
+
+        const value = event.target.value
+        switch (value) {
+            case "food":
+                tag = "food"
+                break;
+            case "drinks":
+                tag = "drinks";
+                break;
+            case "both":
+                tag = "both";
+                break;
+        }
+        this.setState({
+            ...this.state,
+            form: {
+                ...this.state.form,
+                category: tag
+            }
+        })
+    };
+
     onEdit = () => {
-        this.props.fetchUser(this.props.userId);
+        this.props.fetchUser(this.props.userId, this.props.user.user.userType);
         const { user } = this.props.user;
-        let form = {
-            ...this.state.form,
-            company: user.company,
-            address: {
-                ...this.state.form.address,
-                street: user.address.street,
-                city: user.address.city,
-                state: user.address.state,
-                code: user.address.code,
-            },
-        };
+        let form;
+        if(user.userType === "Supplier"){
+             form = {
+                ...this.state.form,
+                company: user.company,
+                category: user.category,
+                address: {
+                    ...this.state.form.address,
+                    street: user.address.street,
+                    city: user.address.city,
+                    state: user.address.state,
+                    code: user.address.code,
+                },
+            };
+        }
+        else {
+            form = {
+                ...this.state.form,
+                company: user.company,
+                address: {
+                    ...this.state.form.address,
+                    street: user.address.street,
+                    city: user.address.city,
+                    state: user.address.state,
+                    code: user.address.code,
+                },
+            };
+        }
+
         this.setState({ form: form, canEdit: true });
     };
 
     onSubmit = (e) => {
         e.preventDefault();
         try {
-            this.props.updateUser(this.props.userId, this.state.form);
-            this.props.fetchUser(this.props.userId);
+            let form = this.state.form;
+            console.log(form)
+            this.props.updateUser(this.props.userId, form);
+            this.props.fetchUser(this.props.userId, this.props.user.user.userType);
             this.setState({ canEdit: false });
         } catch (err) {
             console.log(err);
@@ -87,7 +134,7 @@ class Profilepage extends Component {
     };
 
     componentDidMount = () => {
-        this.props.fetchUser(this.props.userId);
+        this.props.fetchUser(this.props.userId, this.props.user.user.userType);
     };
 
     render() {
@@ -112,7 +159,7 @@ const mapsStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchUser: (_id) => dispatch(actions.fetchUser(_id)),
+        fetchUser: (_id, type) => dispatch(actions.fetchUser(_id, type)),
         updateUser: (_id, formValues) => dispatch(actions.updateUser(_id, formValues)),
     };
 };

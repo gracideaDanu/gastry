@@ -52,6 +52,20 @@ const UserInfoForm = (props) => {
                             value={form.address.code}
                         ></input>
                     </li>
+                    { form.category
+                        ?  <li className="list-group-item">
+                            Tag
+                            <select defaultValue={form.category} onChange={(e) =>props.onChangeOffer(e)}>
+                                <option value="food"> Food</option>
+                                <option value="drinks">Drinks</option>
+                                <option value="both">Both</option>
+                                <option></option>
+                            </select>
+                        </li>
+                      : null
+
+                    }
+
                 </ul>
                 <button type="submit">Save</button>
             </form>
