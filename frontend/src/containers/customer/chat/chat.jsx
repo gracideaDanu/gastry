@@ -1,29 +1,47 @@
 import React, {Component} from 'react';
 import CustomerLayout from "../CustomerLayout";
-import Chatmessage from "../../../components/chat/Chatmessage";
+import OwnChatMessage from "../../../components/chat/OwnChatMessage";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Navbar from "react-bootstrap/Navbar";
+import "./chat.scss"
+import Topbar from "../../../components/navigation/TopBar";
+import OtherChatMessage from "../../../components/chat/OtherChatmessage";
 
 class Chat extends Component {
 
     render() {
         return (
-            <CustomerLayout>
+            <>
+                <Topbar/>
                 <Container>
-                    <Row className={"justify-content-end"}>
-                        <Chatmessage/>
-                    </Row>
-                    <Row className={"justify-content-end"}>
-                        <Chatmessage/>
-                    </Row>
-                    <Row className={"justify-content-end"}>
-                        <Chatmessage/>
-                    </Row>
-                    <Row className={"justify-content-end"}>
-                        <Chatmessage/>
-                    </Row>
+                    <OwnChatMessage/>
+                    <OtherChatMessage/>
+                    <OwnChatMessage/>
+                    <OtherChatMessage/>
+                    <OwnChatMessage/>
+                    <OtherChatMessage/>
                 </Container>
-            </CustomerLayout>
+                <Navbar expand={"*"} fixed={"bottom"}>
+                    <Container >
+                    <Form style={{width: "100%"}}>
+                        <Row >
+                            <Col xs={9}>
+                                <Form.Control type="text" placeholder="Type a message"/>
+                            </Col>
+                            <Col xs={3}>
+                                <Button variant="primary" type="submit">
+                                    Send
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Form>
+                    </Container>
+                </Navbar>
+            </>
         );
     }
 }

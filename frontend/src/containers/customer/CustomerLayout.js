@@ -1,6 +1,6 @@
 import React from 'react';
 //import '../../styles.css'
-import Navigation from "../../components/navigation/Navigation";
+import NavigationBottom from "../../components/navigation/NavigationBottom";
 import Topbar from "../../components/navigation/TopBar";
 import * as actions from "../../redux/actions";
 import {connect} from "react-redux";
@@ -44,7 +44,7 @@ const CustomerLayout = ({
         return (
             <>
                 <Topbar onClick={onClicklogout}  showBasket={showBasket} basketState={basketState} />
-                <Navigation pagelist={navbuttons}/>
+                <NavigationBottom pagelist={navbuttons}/>
                 <Container fluid className={"h-100  d-flex flex-column"}>
                     <Row>
                         <Container fluid style={{marginTop: "12%"}}>

@@ -17,7 +17,7 @@ class HomeSupplier extends Component{
             <SupplierLayout
                 className='container-fluid'
                 title='OrderCustomer Page'
-                description='Node React Gastry Navigation'
+                description='Node React Gastry NavigationBottom'
             >
 
 

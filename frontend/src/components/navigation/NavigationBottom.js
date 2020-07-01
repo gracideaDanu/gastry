@@ -12,7 +12,7 @@ const borderbetween = {
     //'border-right': "1px solid"
 };
 
-const Navigation = (props) => {
+const NavigationBottom = (props) => {
     const pagelist = props.pagelist
     const showpages = pagelist.map((page, index) =>
         <Col key={index}>
@@ -33,4 +33,4 @@ const Navigation = (props) => {
     )
 }
 
-export default Navigation;
+export default NavigationBottom;
