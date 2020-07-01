@@ -1,6 +1,7 @@
 const OrderModel = require("../models/order.model");
 var ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/user.model');
+const Chat = require('../models/chat.model');
 
 
 class OrderController {
@@ -47,13 +48,25 @@ class OrderController {
 
             const userId = req.decoded.id;
             const { supplierId, products, total} = req.body;
+            let orderId = new ObjectId()
+            console.log(orderId)
+
+            /* create chat object and reference to it in the order item*/
+
+            const chatItem = {
+                _id: orderId
+            }
+            const chatlist = new Chat(chatItem)
+            await chatlist.save()
             const newItem = {
+                _id: orderId,
+                chat_id: orderId,
                 customer_id: userId,
                 supplier_id: supplierId,
                 products: products,
                 total: total
             }
-            console.log(newItem);
+            //console.log(newItem);
             const resultSupplier = await User.findOne({
                 _id: supplierId
             }).select('orders')
@@ -68,7 +81,7 @@ class OrderController {
             //console.log(productsUpdatedCustomer)
             resultCustomer.orders = productsUpdatedCustomer;
             resultSupplier.orders = productsUpdatedSupplier;
-            console.log(resultCustomer.orders)
+            //console.log(resultCustomer.orders)
             await resultSupplier.save();
             await resultCustomer.save();
             res.status(200).json({

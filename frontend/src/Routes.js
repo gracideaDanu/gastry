@@ -56,7 +56,6 @@ class Routes extends Component {
         if (this.props.token !== null && this.props.user !== null ) {
             console.log(this.props.user);
             console.log("above user print");
-            privateRoutes.push(<Route exact path={"/search"} component={Search}></Route>)
             privateRoutes.push(<Route exact path={"/search"} component={Orderlist}></Route>)
             privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
 

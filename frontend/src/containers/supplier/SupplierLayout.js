@@ -28,7 +28,7 @@ const SupplierLayout = ({
     ]
     return (
         <>
-            <Topbar onClick={onClicklogout}/>
+            <Topbar onClick={onClicklogout} />
             <NavigationBottom pagelist={navbuttons}/>
             <Container fluid className={"h-100  d-flex flex-column"}>
                 <Row>

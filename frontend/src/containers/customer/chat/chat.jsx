@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import CustomerLayout from "../CustomerLayout";
 import OwnChatMessage from "../../../components/chat/OwnChatMessage";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -26,19 +25,19 @@ class Chat extends Component {
                     <OtherChatMessage/>
                 </Container>
                 <Navbar expand={"*"} fixed={"bottom"}>
-                    <Container >
-                    <Form style={{width: "100%"}}>
-                        <Row >
-                            <Col xs={9}>
-                                <Form.Control type="text" placeholder="Type a message"/>
-                            </Col>
-                            <Col xs={3}>
-                                <Button variant="primary" type="submit">
-                                    Send
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Form>
+                    <Container>
+                        <Form style={{width: "100%"}}>
+                            <Row>
+                                <Col xs={9}>
+                                    <Form.Control type="text" placeholder="Type a message"/>
+                                </Col>
+                                <Col xs={3}>
+                                    <Button variant="primary" type="submit">
+                                        Send
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Form>
                     </Container>
                 </Navbar>
             </>
