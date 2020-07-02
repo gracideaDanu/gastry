@@ -1,46 +1,83 @@
 import React, { Component } from "react";
-import Supplier from "../../../components/list/Supplier";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
 import { fetchSuppliersList } from "../../../redux/actions";
-import { Link } from "react-router-dom"
+import UserLayout from "../../customer/CustomerLayout";
+import Supplier from "../../../components/list/Supplier";
+import Search from "../../../components/search/Search";
 
 import "./SuppliersList.css";
-import UserLayout from "../../customer/CustomerLayout";
 
 class SuppliersList extends Component {
+    state = {
+        filteredList: [],
+        searchInputValue: "",
+    };
 
     componentDidMount() {
         this.props.fetchSuppliersList();
     }
 
-    renderSuppliers = () => {
-        const { list } = this.props;
-        if (list) {
-            return list.map((supplier) => {
-                return (
-                    <Link to={{
-                        pathname: `/catalog/${supplier.name}`,
-                        state: { supplierId: supplier._id, supplierName: supplier.name }
-                    }}>
-                        <Supplier
-                            key={supplier._id}
-                            name={supplier.name}
-                            address={supplier.address.street}
-                        />
-                    </Link>
-                );
+    handleInputChange = (searchInputValue) => {
+        this.setState({ searchInputValue });
+        this.handleSearch();
+    };
+
+    handleSearch = () => {
+        if (this.state.searchInputValue !== "") {
+            const filteredList = this.props.list.filter((row) => {
+                const nameToLowerCase = row.name.toLowerCase();
+                const filter = this.state.searchInputValue.toLowerCase();
+                return nameToLowerCase.includes(filter);
             });
-        } else {
-            return <div>Loading</div>;
+            this.setState({ filteredList });
         }
     };
 
+    renderSuppliers = () => {
+        const { list } = this.props;
+        const { searchInputValue, filteredList } = this.state;
+        const renderedList = searchInputValue.length > 0 ? filteredList : list;
+
+        if (!list) return <div>Loading</div>;
+
+        return renderedList.map((supplier) => {
+            return (
+                <Link
+                    key={supplier._id}
+                    to={{
+                        pathname: `/catalog/${supplier.name}`,
+                        state: {
+                            supplierId: supplier._id,
+                            supplierName: supplier.name,
+                        },
+                    }}
+                >
+                    <Supplier
+                        key={supplier._id}
+                        name={supplier.name}
+                        address={supplier.address.street}
+                    />
+                </Link>
+            );
+        });
+    };
+
     render() {
-        return <UserLayout className='container-fluid'
-                           title='OrderCustomer Page'
-                           description='Was möchtest du bestellen ?'>
-            {this.renderSuppliers()}
-        </UserLayout>;
+        return (
+            <UserLayout
+                className="container-fluid"
+                title="Suppliers"
+                description="Bei wem möchtest du bestellen?"
+            >
+                <Search
+                    onChange={this.handleInputChange}
+                    value={this.state.searchInputValue}
+                />
+                {this.renderSuppliers()}
+            </UserLayout>
+        );
     }
 }
 
