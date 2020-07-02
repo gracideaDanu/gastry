@@ -1,6 +1,8 @@
 const app = require('./app');
 const PORT = process.env.SERVER_PORT;
 let jwt = require('jsonwebtoken');
+const chatRouter = require('./routers/api/chat.router');
+
 
 const server = app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
@@ -12,7 +14,7 @@ io.use(async (socket,next)=> {
     try{
         console.log(io.path())
         let token = socket.handshake.query.token
-        console.log(token)
+        console.log(token);
             if (token.startsWith('Bearer ')) {
                 token = token.slice(7, token.length);
             }
@@ -65,10 +67,12 @@ io.on('connection', (socket) => {
 
 
 });
-
 app.use((req,res,next) => {
     req.io = io;
     next()
 });
+app.use('/chat', chatRouter);
+
+
 
 

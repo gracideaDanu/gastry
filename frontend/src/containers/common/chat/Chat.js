@@ -42,6 +42,10 @@ class Chat extends Component {
                 console.log(data)
             });
 
+            newSocket.on('accessChat', data => {
+                console.log(data)
+            })
+
             socket = newSocket;
         }
     };
