@@ -13,15 +13,16 @@ class Chat extends Component {
 
     componentDidMount() {
         this.setupSocket();
-        console.log("hi")
         axiosInstance.get('/chat')
             .then(res => {
                 console.log(res)
             })
+
+
     }
 
     setupSocket = () => {
-        const token = this.props.token
+        const token = this.props.token;
         if (token && !socket) {
             const newSocket = io("http://localhost:4000", {
                 query: {
@@ -44,7 +45,7 @@ class Chat extends Component {
 
             newSocket.on('accessChat', data => {
                 console.log(data)
-            })
+            });
 
             socket = newSocket;
         }
