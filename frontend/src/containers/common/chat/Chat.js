@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import io from "socket.io-client"
 import * as actions from "../../../redux/actions";
 import {connect} from "react-redux";
+import axiosInstance from "../../../redux/axiosInstance";
 let socket
 class Chat extends Component {
     constructor(props) {
@@ -13,6 +14,10 @@ class Chat extends Component {
     componentDidMount() {
         this.setupSocket();
         console.log("hi")
+        axiosInstance.get('/chat')
+            .then(res => {
+                console.log(res)
+            })
     }
 
     setupSocket = () => {
@@ -31,6 +36,10 @@ class Chat extends Component {
 
             newSocket.on("connect", () => {
                 console.log("Connected frontend")
+            });
+
+            newSocket.on('test', data => {
+                console.log(data)
             });
 
             socket = newSocket;

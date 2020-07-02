@@ -56,15 +56,19 @@ io.use(async (socket,next)=> {
 
 io.on('connection', (socket) => {
     console.log("Connected " + socket.userId);
+    let hi = "HI"
+    socket.emit("test", hi );
 
     socket.on('disconnect', () => {
         console.log("Disconnected user: " + socket.userId);
     })
-})
+
+
+});
 
 app.use((req,res,next) => {
     req.io = io;
     next()
-})
+});
 
 
