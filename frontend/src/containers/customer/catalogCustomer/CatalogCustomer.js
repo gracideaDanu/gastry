@@ -123,14 +123,14 @@ class CatalogCustomer extends Component {
 
     handleInputChange = (searchInputValue) => {
         this.setState({ searchInputValue });
-        this.handleSearch();
+        this.handleSearch(searchInputValue);
     };
 
-    handleSearch = () => {
-        if (this.state.searchInputValue !== "") {
+    handleSearch = (searchInputValue) => {
+        if (searchInputValue !== "") {
             const filteredList = this.props.catalog.filter((row) => {
                 const nameToLowerCase = row.name.toLowerCase();
-                const filter = this.state.searchInputValue.toLowerCase();
+                const filter = searchInputValue.toLowerCase();
                 return nameToLowerCase.includes(filter);
             });
             this.setState({ filteredList });
