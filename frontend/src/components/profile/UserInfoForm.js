@@ -1,5 +1,7 @@
 import React from "react";
 
+import Input from "../auth/Input"
+import Button from "../button/Button"
 import "./UserInfo.css";
 
 const UserInfoForm = (props) => {
@@ -69,9 +71,7 @@ const UserInfoForm = (props) => {
                     </li>
                 ) : null}
             </ul>
-            <button className="button" type="submit">
-                Save
-            </button>
+            <Button className="button submit-btn" type="submit" label="Save"/>
         </form>
     );
 };

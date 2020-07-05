@@ -48,13 +48,3 @@
     border-bottom: 1px solid #fff;
 }
 
-.button {
-    background-color: var(--color-submit-button);
-    color: var(--color-font-light);
-    border: none;
-    padding: 25px;
-    border-radius: 20px;
-    margin: 0px 30px 15px 30px;
-    font-weight: bold;
-}
-

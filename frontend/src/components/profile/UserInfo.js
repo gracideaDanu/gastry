@@ -1,5 +1,7 @@
 import React from "react";
 
+import Button from '../button/Button'
+
 import "./UserInfo.css"
 
 const UserInfo = (props) => {
@@ -17,7 +19,7 @@ const UserInfo = (props) => {
                     : null
                 }
             </ul>
-            <button className="button" onClick={onEdit}>Edit profile</button>
+            <Button className="button yellow-btn" onClick={onEdit} label="Edit Profile"/>
         </div>
     );
 };
