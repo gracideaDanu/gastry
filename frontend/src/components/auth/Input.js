@@ -1,51 +1,46 @@
 import React from "react";
+import "./Input.css";
 
 const Input = (props) => {
-
     let form = {
         type: null,
         placeholder: null,
-        label: null,
         name: null,
-        stateType: null
+        stateType: null,
     };
 
     switch (props.type) {
         case "password":
             form.stateType = props.type;
             form.type = "password";
-            form.label = "Password";
-            form.placeholder = "Please enter Password";
+            form.placeholder = "Password";
             break;
 
-            case "passwordConfirm":
-                form.stateType = props.type;
-
-                form.type = "password";
-            form.label = "Password Confirmation";
-            form.placeholder = "Please confirm Password";
-
+        case "passwordConfirm":
+            form.stateType = props.type;
+            form.type = "password";
+            form.placeholder = "Password";
             break;
         case "email":
             form.stateType = props.type;
             form.type = "email";
-            form.placeholder = "Please enter E-Mail";
-            form.label = "E-Mail";
+            form.placeholder = "E-Mail";
             break;
 
-
         default:
-           form.stateType = props.type;
-           form.type = "text";
-           form.placeholder = "Please enter " + props.name;
-           form.label = props.name;
+            form.stateType = props.type;
+            form.type = "text";
+            form.placeholder = props.name;
     }
 
     return (
-        <div className="form-group">
-            <label>{form.label}</label>
-            <input onChange={props.change} type={form.type} className="form-control" placeholder={form.placeholder} value={props.content} />
-        </div>
+        <input
+            onChange={props.change}
+            type={form.type}
+            className="form-input"
+            placeholder={form.placeholder}
+            value={props.content}
+        />
     );
 };
 
