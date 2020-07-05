@@ -21,14 +21,14 @@ class SuppliersList extends Component {
 
     handleInputChange = (searchInputValue) => {
         this.setState({ searchInputValue });
-        this.handleSearch();
+        this.handleSearch(searchInputValue);
     };
 
-    handleSearch = () => {
-        if (this.state.searchInputValue !== "") {
+    handleSearch = (searchInputValue) => {
+        if (searchInputValue.length > 0) {
             const filteredList = this.props.list.filter((row) => {
                 const nameToLowerCase = row.name.toLowerCase();
-                const filter = this.state.searchInputValue.toLowerCase();
+                const filter = searchInputValue.toLowerCase();
                 return nameToLowerCase.includes(filter);
             });
             this.setState({ filteredList });
