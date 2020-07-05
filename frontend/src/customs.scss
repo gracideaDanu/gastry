@@ -1,14 +1,26 @@
+:root {
+    --color-submit-button: #FACC44;
+    --color-cancel-button: #6d6d6d;
+    --color-font-light: #fff;
+}
+
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 // change the theme
 $theme-colors: (
-        "primary": #FACD2A,
-        "danger": #EB0F0F,
-        "secondary":  #9DBA51,
-       // "success":    $success,
-        //"info":       $info,
-       // "warning":    $warning,
-        "light":      #F8E6A9,
-        "dark":       #626262
+    "primary": #facd2a,
+    "danger": #eb0f0f,
+    "secondary": #9dba51,
+    "light": #f8e6a9,
+    "dark": #626262,
 );
+
 
 #root{
   height: 100%;
@@ -17,16 +29,12 @@ $theme-colors: (
 html,body{
   height: 100%;
 }
-div.container{
-  max-width: 500px;
-  height: 100%;
-  background-color: #626262;
 
-}
-#rootcontainer{
-  //padding: 0;
-  //margin: 0;
+div.container {
+    max-width: 500px;
+    min-height: 100%;
+    background-color: #626262;
 }
 
 // Import Bootstrap and its default variables
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";

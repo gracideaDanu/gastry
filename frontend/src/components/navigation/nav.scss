@@ -1,25 +1,22 @@
 .navrow {
-  width: 100%;
-  border-top: 1px solid;
+    width: 100%;
+    border-top: 1px solid;
 }
 
 nav.navbar {
-  //width: inherit;
-  //position: fixed;
-  //margin: 0;
-  div.container{
-    //margin: 0;
-    padding: 0;
-    div.row {
-      margin:0;
+	padding: 0;
+    div.container {
+        div.row {
+            margin: 0;
+        }
     }
-  }
 }
+
 .navItem {
-  font-size: 0.8em;
-  text-align: center;
-  p{
-    color: #FACD2A;
-    margin-bottom: 0px;
-  }
+    font-size: 0.8em;
+    text-align: center;
+    p {
+        color: #facd2a;
+        margin-bottom: 0px;
+    }
 }
