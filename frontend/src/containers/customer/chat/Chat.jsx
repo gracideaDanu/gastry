@@ -108,13 +108,11 @@ class Chat extends Component {
 const mapsStateToProps = (state) => {
     return {
         token: state.auth.token
-
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        //fetchChat:
     }
 };
 

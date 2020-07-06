@@ -46,3 +46,8 @@ export {
 export {
     fetchOrders
 } from './orders/fetchOrders'
+
+export {
+    fetchChat,
+    postMessage
+} from './chat/chat'

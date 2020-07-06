@@ -40,7 +40,7 @@ export const postMessage = (payload) => async (dispatch) => {
     };
 
     try {
-        const response = await axios.post(`chat/${payload.chatId}`,config);
+        const response = await axios.post(`chat/${payload.chatId}`,payload.data,config);
         dispatch(postMessageSuccess(response.data.messages));
     } catch (err) {
         dispatch(postMessageFailed(err));
@@ -50,9 +50,6 @@ export const postMessage = (payload) => async (dispatch) => {
 const postMessageStart = () => {
     return {
         type: POST_MESSAGE_START,
-        payload: {
-            loading: true,
-        },
     };
 };
 
@@ -74,9 +71,6 @@ const postMessageFailed = (error) => {
 const fetchChatStart = () => {
     return {
         type: FETCH_CHAT_START,
-        payload: {
-            loading: true,
-        },
     };
 };
 
