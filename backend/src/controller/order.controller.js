@@ -138,22 +138,31 @@ class OrderController {
     }
     async modifyOrder (req, res) {
         try {
-            let fieldsToUpdate = req.body;
-            if (req.body.orderId != null) {
-                OrderModel.findByIdAndUpdate(req.body.orderId, { $set: fieldsToUpdate.data.fields }, { new: true, useFindAndModify: false }, function (err, result) {
-                    if (err) {
-                        res.status(400).send({
-                            success: false,
-                            error: err.message
-                        });
-                    }
-                    res.status(200).send({
-                        success: true,
-                        data: result,
-                        message: "Order updated successfully"
-                    });
-                });
-            }
+
+            console.log(req.body.status)
+            const itemId = req.params._id;
+            console.log(itemId)
+            //console.log(itemId)
+            //console.log(updatedItem)
+            //console.log(itemId)
+
+            /*const doc = await  User.find({
+                'orders._id': itemId
+            })
+            res.status(200).send({
+                users: doc
+            })*/
+            const doc = await User.updateMany({
+                'orders._id': itemId
+            }, { $set: {"orders.$.status" : req.body.status}}, {
+                new: true,
+                runValidators: true
+            })
+            res.status(200).send({
+                message: "Updated item successfully!",
+                id: itemId,
+                orders: doc.users
+            })
 
         }
         catch (e) {

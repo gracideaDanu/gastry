@@ -14,11 +14,9 @@ import CatalogCustomer from "./containers/customer/catalogCustomer/CatalogCustom
 import * as actions from "./redux/actions";
 import Basket from "./containers/customer/basket/Basket";
 import SuppliersList from "./containers/customer/order/SuppliersList";
-import Chat from "./containers/common/chat/Chat"
 import Orderlist from "./containers/customer/showAllOrders/Orderlist";
-import Chat from "./containers/customer/chat/chat";
+import Chat from "./containers/customer/chat/Chat";
 import axiosInstance from "./redux/axiosInstance";
->>>>>>>>> Temporary merge branch 2
 
 const privateRoutes = [];
 

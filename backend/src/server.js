@@ -2,6 +2,7 @@ const app = require('./app');
 const PORT = process.env.SERVER_PORT;
 let jwt = require('jsonwebtoken');
 const chatRouter = require('./routers/api/chat.router');
+const chatController = require('./controller/chat.controller')
 
 
 const server = app.listen(PORT, function() {
@@ -58,15 +59,16 @@ io.use(async (socket,next)=> {
 
 io.on('connection', (socket) => {
     console.log("Connected " + socket.userId);
-    let hi = "HI"
-    socket.emit("test", hi );
+    socket.emit("test", "hi" );
 
     socket.on('disconnect', () => {
         console.log("Disconnected user: " + socket.userId);
     })
-
-
 });
+
+io.on('writeMessage',(socket) =>{
+
+})
 app.use((req,res,next) => {
     req.io = io;
     next()

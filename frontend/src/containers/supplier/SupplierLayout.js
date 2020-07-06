@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles.css";
-import Navigation from "../../components/navigation/Navigation";
+import Navigation from "../../components/navigation/NavigationBottom";
 import Topbar from "../../components/navigation/TopBar";
 import * as actions from "../../redux/actions";
 import { connect } from "react-redux";
