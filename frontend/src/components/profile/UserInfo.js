@@ -1,18 +1,25 @@
 import React from "react";
 
+import Button from '../button/Button'
+
+import "./UserInfo.css"
+
 const UserInfo = (props) => {
     const { user, onEdit } = props; 
     return (
-        <div className="card mb-5">
-            <h3 className="card-header">User Information</h3>
-            <ul className="list-group">
-                <li className="list-group-item"> Company: {user.company} </li>
-                <li className="list-group-item"> Street: {user.address.street} </li>
-                <li className="list-group-item"> City: {user.address.city} </li>
-                <li className="list-group-item"> State: {user.address.state} </li>
-                <li className="list-group-item"> Postcode: {user.address.code} </li>
+        <div className="user-info-container">
+            <ul className="list">
+                <li className="item"> Company: {user.company} </li>
+                <li className="item"> Street: {user.address.street} </li>
+                <li className="item"> City: {user.address.city} </li>
+                <li className="item"> State: {user.address.state} </li>
+                <li className="item"> Postcode: {user.address.code} </li>
+                {user.userType === "Supplier"
+                    ? <li className="item"> Tag: {user.category} </li>
+                    : null
+                }
             </ul>
-            <button onClick={onEdit}>Edit profile</button>
+            <Button className="button yellow-btn" onClick={onEdit} label="Edit Profile"/>
         </div>
     );
 };

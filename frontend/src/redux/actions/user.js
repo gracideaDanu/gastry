@@ -14,11 +14,18 @@ import {
 import { axiosInstance as axios } from "../axiosInstance";
 import {logout} from "./authorization/logout";
 
-export const fetchUser = (_id) => async (dispatch, getState) => {
-    dispatch(fetchUserStart());
+const buildLink = (type) => {
+    let link;
+    type === "Supplier" ? link = "/supplier/" : link = "/customer/"
+    return link
+}
 
+export const fetchUser = (_id, type) => async (dispatch, getState) => {
+    dispatch(fetchUserStart());
+    let link;
+    type ? link = buildLink(type) : link = "/user/"
     try {
-        const response = await axios.get("/user/" + _id, {
+        const response = await axios.get(link + _id, {
             headers: { Authorization: getState().auth.token },
         });
         dispatch(fetchUserSuccess(response.data.data));
@@ -54,7 +61,9 @@ export const updateUser = (_id, formValues) => async (dispatch, getState) => {
     dispatch(updateUserStart());
 
     try {
-        const response = await axios.patch("/user/" + _id, formValues, {
+        let link;
+        formValues.category ? link = "/supplier/" : link = "/customer/"
+        const response = await axios.patch(link + _id, formValues, {
             headers: { Authorization: getState().auth.token },
         });
 

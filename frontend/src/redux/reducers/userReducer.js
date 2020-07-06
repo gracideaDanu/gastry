@@ -48,7 +48,6 @@ export default function (state = initialState, action) {
         case UPDATE_USER_SUCCESS:
             return {
                 ...state,
-                user: action.payload.user,
                 loading: false,
             };
         case CHECK_TOKEN_VALIDITY_START:

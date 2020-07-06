@@ -1,125 +1,123 @@
 import React, { Component } from "react";
-import Input from "../../../components/auth/Input";
-import {  withRouter} from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../../../redux/actions";
 
-//import axios from '../../axios/axios';
-import {connect} from "react-redux";
-import * as actions  from '../../../redux/actions'
-import ToggleButton from "react-bootstrap/ToggleButton";
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import Button from "../../../components/button/Button"
+import Input from "../../../components/auth/Input";
+
+import "./Login.css";
 
 const signInState = {
     form: {
         email: {
             name: "E-Mail",
             value: "",
-            type: "email"
+            type: "email",
         },
         password: {
             name: "Password",
             value: "",
-            type: "password"
-        }
-
+            type: "password",
+        },
     },
-    errors: {}
-
+    errors: {},
 };
 
-
- export class Login extends Component {
+export class Login extends Component {
     state = signInState;
 
     componentDidMount() {
         if (this.props.token !== null) {
             this.props.history.push("/home");
         }
-
     }
 
-     componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.token !== null) {
+            this.props.history.push("/home");
+            this.props.fetchUser(this.props.userId);
+        }
+    }
 
-         if (this.props.token !== null) {
-             this.props.history.push("/home");
-             this.props.fetchUser(this.props.userId);
-         }
-     }
-
-
-     onSubmit = (event) => {
+    onSubmit = (event) => {
         event.preventDefault();
         const loginData = {
             email: this.state.form.email.value,
-            password: this.state.form.password.value
+            password: this.state.form.password.value,
         };
-        console.log(loginData)
-        console.log("called");
         this.props.login(loginData);
-
-     };
-
-    onChange = (event) => {
-            const value = {
-                ...this.state.form,
-                [event.target.type]: {
-                    ...this.state.form[event.target.type],
-                    value: event.target.value
-
-                }
-            };
-
-            this.setState({form: value});
     };
 
+    onChange = (event) => {
+        const value = {
+            ...this.state.form,
+            [event.target.type]: {
+                ...this.state.form[event.target.type],
+                value: event.target.value,
+            },
+        };
+
+        this.setState({ form: value });
+    };
 
     render() {
         const formArray = [];
         for (let key in this.state.form) {
             formArray.push({
                 type: this.state.form[key].type,
-                name: this.state.form[key].name
-            })
+                name: this.state.form[key].name,
+            });
         }
 
-        const signInForm = formArray.map(element => (
-            <Input type={element.type}
-                   key={element.type}
-                   name={element.name}
-                   change={(e) => this.onChange(e)}
+        const signInForm = formArray.map((element) => (
+            <Input
+                type={element.type}
+                key={element.type}
+                name={element.name}
+                change={(e) => this.onChange(e)}
             />
         ));
+        
         return (
-            <div>
-                <h3>Login Page</h3>
-                <ToggleButtonGroup type="radio" name="registerToggle" onChange={this.optionHandler}>
-                    <ToggleButton value="customer">Customer</ToggleButton>
-                    <ToggleButton value="supplier">Supplier</ToggleButton>
-                </ToggleButtonGroup>
-                <form onSubmit={this.onSubmit}>
-
+            <div className="login-container">
+                <div className="logo"></div>
+                <p className="welcome-msg">
+                    Herzlich Willkommen bei Gastry, <br />
+                    Bestellen und Chatten. <br />
+                    So einfach war deine Bestellung nie. <br />
+                </p>
+                <form onSubmit={this.onSubmit} id="login-form" className="login-form">
                     {signInForm}
-                    <button>Submit</button>
-
                 </form>
-
+                <div className="auth-buttons">
+                    <Button type="submit" label="Login" form="login-form" className="button submit-btn"/>
+                    <Link to="/register">
+                        <Button type="register" label="Register" className="register button yellow-btn"/>
+                    </Link>
+                </div>
+                <div className="legal">
+                    <Link>AGB |</Link>
+                    <Link> Impressum |</Link>
+                    <Link> Cookie</Link>
+                </div>
             </div>
-
         );
     }
 }
 
-const mapsStateToProps =(state) => {
-     return{
-         userId: state.auth.userId,
-         token:state.auth.token
-     }
-}
-
-const mapDispatchToProps = (dispatch) => {
-     return{
-         fetchUser: (_id) => dispatch(actions.fetchUser(_id)),
-         login:(data) => dispatch(actions.login(data))
-     }
+const mapsStateToProps = (state) => {
+    return {
+        userId: state.auth.userId,
+        token: state.auth.token,
+    };
 };
 
-export default connect(mapsStateToProps,mapDispatchToProps)(Login);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchUser: (_id) => dispatch(actions.fetchUser(_id)),
+        login: (data) => dispatch(actions.login(data)),
+    };
+};
+
+export default connect(mapsStateToProps, mapDispatchToProps)(Login);
