@@ -5,7 +5,7 @@ import {
 } from "../../actions/actionTypes";
 
 const initialState = {
-    list: null,
+    orders: [],
     error: null,
     loading: false,
 };
@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
         case FETCH_ORDERS_SUCCESS:
             return {
                 ...state,
-                list: action.payload,
+                orders: action.orders,
                 loading: false
             }
         case FETCH_ORDERS_FAILED:

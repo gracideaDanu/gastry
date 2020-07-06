@@ -13,21 +13,19 @@ class OrderController {
         this.getOrder = this.getOrder.bind(this);
         this.deleteOrder = this.deleteOrder.bind(this);
 
-
     }
 
     async fetchOrders(req, res){
         try {
-
             const userId = req.decoded.id;
 
-            const result = await OrderModel.findOne({
+            const result = await User.findOne({
                 _id: userId
-            }).select('order')
+            }).select('orders')
             console.log(result);
             res.status(200).send({
                 message: "Fetch worked",
-                data: result.catalog
+                data: result.orders
             });
         }
         catch (e) {
@@ -48,28 +46,29 @@ class OrderController {
 
 
             const userId = req.decoded.id;
-            const { supplier_id, products, total} = req.body;
+            const { supplierId, products, total} = req.body;
             const newItem = {
                 customer_id: userId,
-                supplier_id: supplier_id,
+                supplier_id: supplierId,
                 products: products,
                 total: total
             }
             console.log(newItem);
             const resultSupplier = await User.findOne({
-                _id: supplier_id
+                _id: supplierId
             }).select('orders')
             const resultCustomer = await User.findOne({
                 _id: userId
             }).select('orders')
-            console.log(resultSupplier+" "+ resultCustomer)
+            //console.log(resultSupplier+" "+ resultCustomer)
 
             const productsUpdatedCustomer = [newItem, ...resultCustomer.orders];
             const productsUpdatedSupplier = [newItem, ...resultSupplier.orders];
 
-            console.log(productsUpdatedCustomer)
-            resultCustomer.catalog = productsUpdatedCustomer;
-            resultSupplier.catalog = productsUpdatedSupplier;
+            //console.log(productsUpdatedCustomer)
+            resultCustomer.orders = productsUpdatedCustomer;
+            resultSupplier.orders = productsUpdatedSupplier;
+            console.log(resultCustomer.orders)
             await resultSupplier.save();
             await resultCustomer.save();
             res.status(200).json({

@@ -5,11 +5,20 @@ import {
 } from "../actionTypes";
 import { axiosInstance as axios } from "../../axiosInstance";
 
-export const fetchOrders = () => async (dispatch) => {
+export const fetchOrders = (payload) => async (dispatch) => {
     dispatch(fetchOrdersStart);
 
+    const token = payload.token;
+    console.log(token);
+    const config = {
+        headers: {
+            Authorization: token,
+            'Content-Type': 'application/json'
+        }
+    };
+
     try {
-        const response = await axios.get("/customer/orders");
+        const response = await axios.get("/user/order/",config);
         dispatch(fetchOrdersSuccess(response.data.data));
     } catch (err) {
         dispatch(fetchOrdersFailed(err));
@@ -25,13 +34,10 @@ const fetchOrdersStart = () => {
     };
 };
 
-const fetchOrdersSuccess = (suppliersList) => {
+const fetchOrdersSuccess = (orders) => {
     return {
         type: FETCH_ORDERS_SUCCESS,
-        payload: {
-            suppliersList: suppliersList,
-            loading: false,
-        },
+        orders: orders
     };
 };
 
