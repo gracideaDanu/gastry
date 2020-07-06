@@ -47,10 +47,10 @@ class ChatController {
 
     async fetchChat(req, res) {
         try {
-            const orderId = req.body;
+            const chatId = req.params._chatId;
 
             const result = await Chat.findOne({
-                _id: orderId
+                _id: chatId
             }).select('messages')
             console.log(result);
             return res.status(200).json({

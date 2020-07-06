@@ -1,7 +1,10 @@
 import {
-    FETCH_ORDERS_START,
-    FETCH_ORDERS_SUCCESS,
-    FETCH_ORDERS_FAILED,
+    FETCH_CHAT_START,
+    FETCH_CHAT_SUCCESS,
+    FETCH_CHAT_FAILED,
+    POST_MESSAGE_START,
+    POST_MESSAGE_SUCCESS,
+    POST_MESSAGE_FAILED
 } from "../actionTypes";
 import { axiosInstance as axios } from "../../axiosInstance";
 
@@ -18,32 +21,75 @@ export const fetchChat = (payload) => async (dispatch) => {
     };
 
     try {
-        const response = await axios.get("/user/order/",config);
-        dispatch(fetchChatSuccess(response.data.data));
+        const response = await axios.get(`chat/fetch/${payload.chatId}`,config);
+        dispatch(fetchChatSuccess(response.data.messages));
     } catch (err) {
         dispatch(fetchChatFailed(err));
     }
 };
+export const postMessage = (payload) => async (dispatch) => {
+    dispatch(postMessageStart);
 
-const fetchChatStart = () => {
+    const token = payload.token;
+    console.log(token);
+    const config = {
+        headers: {
+            Authorization: token,
+            'Content-Type': 'application/json'
+        }
+    };
+
+    try {
+        const response = await axios.post(`chat/${payload.chatId}`,config);
+        dispatch(postMessageSuccess(response.data.messages));
+    } catch (err) {
+        dispatch(postMessageFailed(err));
+    }
+};
+
+const postMessageStart = () => {
     return {
-        type: FETCH_ORDERS_START,
+        type: POST_MESSAGE_START,
         payload: {
             loading: true,
         },
     };
 };
 
-const fetchChatSuccess = (orders) => {
+const postMessageSuccess = (messages) => {
     return {
-        type: FETCH_ORDERS_SUCCESS,
-        orders: orders
+        type: POST_MESSAGE_SUCCESS,
+        messages: messages
+    };
+};
+
+const postMessageFailed = (error) => {
+    return {
+        type: POST_MESSAGE_FAILED,
+        error: error,
+    };
+};
+
+
+const fetchChatStart = () => {
+    return {
+        type: FETCH_CHAT_START,
+        payload: {
+            loading: true,
+        },
+    };
+};
+
+const fetchChatSuccess = (messages) => {
+    return {
+        type: FETCH_CHAT_SUCCESS,
+        messages: messages
     };
 };
 
 const fetchChatFailed = (error) => {
     return {
-        type: FETCH_ORDERS_FAILED,
+        type: FETCH_CHAT_FAILED,
         error: error,
     };
 };
