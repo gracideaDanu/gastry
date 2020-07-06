@@ -41,7 +41,7 @@ class Profilepage extends Component {
     onChange = (e) => {
         const form = {
             ...this.state.form,
-            [e.target.name]: e.target.value,
+            [e.target.name]: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1),
         };
 
         this.setState({ form: form });
@@ -53,7 +53,7 @@ class Profilepage extends Component {
             ...this.state.form,
             address: {
                 ...this.state.form.address,
-                [e.target.name]: e.target.value,
+                [e.target.name]: e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1),
             },
         };
 

@@ -9,11 +9,6 @@ import Counter from "../../counter/Counter";
 import "./CatalogCustomerRow.css";
 
 class CatalogCustomerRow extends Component {
-    countDown = () => {};
-
-    countUp = () => {};
-
-    onChange = () => {};
 
     render() {
         const { item } = this.props;

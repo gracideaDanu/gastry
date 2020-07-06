@@ -1,14 +1,38 @@
+:root {
+  --color-submit-button: #9CBB49;
+  --color-yellow-button: #FACC44;
+  --color-cancel-button: #6d6d6d;
+  --color-font-light: #fff;
+  --color-font-medium: #B1B1B1;
+}
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+@media screen and (min-width: 320px) {
+  html {
+    font-size: calc(16px + 6 * ((100vw - 320px) / 680));
+  }
+}
+
 // change the theme
 $theme-colors: (
-        "primary": #FACD2A,
-        "danger": #EB0F0F,
-        "secondary":  #9DBA51,
-       // "success":    $success,
-        //"info":       $info,
-       // "warning":    $warning,
-        "light":      #F8E6A9,
-        "dark":       #626262
+    "primary": #facd2a,
+    "danger": #eb0f0f,
+    "secondary": #9dba51,
+    "light": #f8e6a9,
+    "dark": #626262,
 );
+
 
 #root{
   height: 100%;
@@ -18,16 +42,12 @@ html,body{
   background-color: #626262;
   //height: 100%;
 }
-div.container{
-  max-width: 500px;
-  height: 100%;
-  background-color: #626262;
 
-}
-#rootcontainer{
-  //padding: 0;
-  //margin: 0;
+div.container {
+    max-width: 500px;
+    min-height: 100%;
+    background-color: #626262;
 }
 
 // Import Bootstrap and its default variables
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";
