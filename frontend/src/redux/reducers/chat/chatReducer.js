@@ -2,6 +2,7 @@ import {FETCH_CHAT_START,FETCH_CHAT_SUCCESS,FETCH_CHAT_FAILED,POST_MESSAGE_START
 
 const initialState = {
     messages: [],
+    data: null,
     loading: false,
     error: null
 };
@@ -14,18 +15,19 @@ export default function(state = initialState, action) {
                 loading: true
             }
 
+
         case FETCH_CHAT_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                messages: action.data.messages
+                data: action.data.message
             };
 
         case FETCH_CHAT_FAILED:
             return {
                 ...state,
                 loading: false,
-                errors: action.data.error
+                errors: "failed"
             };
         case POST_MESSAGE_START:
             return {

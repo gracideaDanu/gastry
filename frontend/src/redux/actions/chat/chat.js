@@ -8,23 +8,34 @@ import {
 } from "../actionTypes";
 import { axiosInstance as axios } from "../../axiosInstance";
 
-export const fetchChat = (payload) => async (dispatch) => {
-    dispatch(fetchChatStart);
+export const fetchChat = (payload) => {
 
-    const token = payload.token;
-    console.log(token);
-    const config = {
-        headers: {
-            Authorization: token,
-            'Content-Type': 'application/json'
-        }
-    };
 
-    try {
-        const response = await axios.get(`chat/fetch/${payload.chatId}`,config);
-        dispatch(fetchChatSuccess(response.data.messages));
-    } catch (err) {
-        dispatch(fetchChatFailed(err));
+    return dispatch => {
+        dispatch(fetchChatStart);
+        const token = payload.token;
+        console.log(token);
+        const config = {
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json'
+            }
+        };
+
+
+        const response = axios.get(`chat/fetch/${payload.chatId}`, config)
+            .then(res => {
+                console.log("Successfully fetched")
+                console.log(response.data.message)
+                dispatch(fetchChatSuccess(response.data.message));
+            })
+            .catch(err => {
+                console.log(err.data)
+                console.log("failed fetching")
+                dispatch(fetchChatFailed(err));
+            })
+
+
     }
 };
 export const postMessage = (payload) => async (dispatch) => {
@@ -38,9 +49,10 @@ export const postMessage = (payload) => async (dispatch) => {
             'Content-Type': 'application/json'
         }
     };
+    console.log(payload.chatId)
 
     try {
-        const response = await axios.post(`chat/${payload.chatId}`,payload.data,config);
+        const response = await axios.post(`chat/${payload.chatId}`, payload.data,config);
         dispatch(postMessageSuccess(response.data.messages));
     } catch (err) {
         dispatch(postMessageFailed(err));
@@ -74,10 +86,10 @@ const fetchChatStart = () => {
     };
 };
 
-const fetchChatSuccess = (messages) => {
+const fetchChatSuccess = (message) => {
     return {
         type: FETCH_CHAT_SUCCESS,
-        messages: messages
+        message: message
     };
 };
 

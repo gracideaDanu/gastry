@@ -12,6 +12,7 @@ class ChatController {
         try {
             const userId = req.decoded.id;
             const message = req.body.message;
+            console.log(req.body.params)
             const chatId = req.params._chatId;
 
             const newMessage = {
@@ -33,12 +34,16 @@ class ChatController {
 
             await resultChat.save();
 
-            return res.status(200).json({
+            io.sockets.emit("writeMessage", {
+                chat: resultChat
+            });
+
+            return res.status(200).send({
                 message: "Successfully added message"
             })
 
         } catch (e) {
-            return res.status(400).json({
+            return res.status(400).send({
                 error: e
             })
         }
@@ -48,21 +53,25 @@ class ChatController {
     async fetchChat(req, res) {
         try {
             const chatId = req.params._chatId;
-
+            const io = req.io;
             const result = await Chat.findOne({
                 _id: chatId
             }).select('messages')
             console.log(result);
-            return res.status(200).json({
-                message: "Fetch worked",
-                data: result.messages
+            io.sockets.emit("fetchChat", {
+                chat: result
+            });
+
+            return res.status(200).send({
+                message: "Fetch worked"
+
             });
         } catch (e) {
-            return res.status(400).json({message: e});
+            return res.status(400).send({message: "failed baby "});
         }
     }
 
-    async accessChat(req, res) {
+    /*async accessChat(req, res) {
         try {
             const io = req.io;
             let access = "access chat works!";
@@ -71,7 +80,7 @@ class ChatController {
         } catch (e) {
             return res.status(400).json({error: e})
         }
-    }
+    } */
 
 }
 

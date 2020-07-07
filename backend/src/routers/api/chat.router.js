@@ -4,7 +4,6 @@ const ChatController = require('../../controller/chat.controller');
 const checkAuth = require('../../middleware/verification').checkToken;
 
 
-chatRouter.get("/", ChatController.accessChat);
 
 chatRouter.get("/fetch/:_chatId",checkAuth,ChatController.fetchChat);
 

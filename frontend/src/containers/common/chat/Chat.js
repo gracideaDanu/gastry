@@ -15,7 +15,7 @@ class Chat extends Component {
 
     componentDidMount() {
         this.setupSocket();
-        axiosInstance.get('/chat')
+        axiosInstance.get(`/chat/fetch/5efd29fb34f9fd0940b334a6`)
             .then(res => {
                 console.log(res)
             })
