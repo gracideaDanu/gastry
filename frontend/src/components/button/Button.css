@@ -17,3 +17,9 @@
 .cancel-btn {
     background-color: var(--color-cancel-button);
 }
+
+.red-btn {
+    margin-top: 2px;
+    margin-bottom:  2px;
+    background-color: var(--color-red-button);
+}

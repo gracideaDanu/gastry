@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="135" height="135" viewBox="0 0 135 135">
+  <defs>
+    <filter id="Rechteck_622" x="0" y="0" width="135" height="135" filterUnits="userSpaceOnUse">
+      <feOffset dy="10" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Gruppe_239" data-name="Gruppe 239" transform="translate(-28 -237.5)">
+    <g transform="matrix(1, 0, 0, 1, 28, 237.5)" filter="url(#Rechteck_622)">
+      <g id="Rechteck_622-2" data-name="Rechteck 622" transform="translate(15 5)" fill="#626262" stroke="#707070" stroke-width="1">
+        <rect width="105" height="105" rx="26" stroke="none"/>
+        <rect x="0.5" y="0.5" width="104" height="104" rx="25.5" fill="none"/>
+      </g>
+    </g>
+    <g id="Gruppe_200" data-name="Gruppe 200" transform="translate(-267.588 203.981)">
+      <g id="Gruppe_196" data-name="Gruppe 196">
+        <path id="Pfad_207" data-name="Pfad 207" d="M394.608,62.237a.3.3,0,0,0-.052-.06l-12.581-8.109a.305.305,0,0,0-.365.024L355.823,75.641c-.006.005,0,.012-.01.017a1.009,1.009,0,0,0-.279.937c.083.521.456.895.832.835s.613-.532.53-1.053a1.2,1.2,0,0,0-.162-.429l19.319-6.755,17.329-6.081a1.425,1.425,0,0,0,0,.333.961.961,0,1,0,1.848-.3A1.239,1.239,0,0,0,394.608,62.237Z" fill="#f9d658"/>
+        <path id="Pfad_208" data-name="Pfad 208" d="M395.889,77.568a1.582,1.582,0,0,1,.769-1.619.943.943,0,0,0,.418-.971l-1.815-11.339a.95.95,0,0,0-1.253-.747L356.3,76.1a.95.95,0,0,0-.624,1.047l.746,4.663a.942.942,0,0,0,.7.792,1.582,1.582,0,0,1,.467,2.917.93.93,0,0,0-.419.964l1.468,9.174a.985.985,0,0,0,1.3.772l5.146-1.8a1.529,1.529,0,0,1-.122-.39,1.577,1.577,0,0,1,2.807-1.213.954.954,0,0,0,1.072.287l7.407-2.594a1.029,1.029,0,0,0,.628-.692,1.568,1.568,0,0,1,2.386-.843,1.033,1.033,0,0,0,.929.153l17.376-6.087a.989.989,0,0,0,.65-1.09l-.4-2.5a.943.943,0,0,0-.7-.793A1.58,1.58,0,0,1,395.889,77.568Z" fill="#feecad"/>
+        <circle id="Ellipse_1" data-name="Ellipse 1" cx="2.045" cy="2.045" r="2.045" transform="translate(384.623 72.762)" fill="#f9d658"/>
+        <circle id="Ellipse_2" data-name="Ellipse 2" cx="1.217" cy="1.217" r="1.217" transform="translate(371.794 81.992)" fill="#f9d658"/>
+        <circle id="Ellipse_3" data-name="Ellipse 3" cx="1.217" cy="1.217" r="1.217" transform="translate(377.754 73.17)" fill="#f9d658"/>
+        <circle id="Ellipse_4" data-name="Ellipse 4" cx="1.217" cy="1.217" r="1.217" transform="translate(380.228 80.932)" fill="#f9d658"/>
+        <circle id="Ellipse_5" data-name="Ellipse 5" cx="2.084" cy="2.084" r="2.084" transform="translate(362.09 85.556)" fill="#f9d658"/>
+        <circle id="Ellipse_6" data-name="Ellipse 6" cx="1.633" cy="1.633" r="1.633" transform="translate(364.305 78.145)" fill="#f9d658"/>
+        <circle id="Ellipse_7" data-name="Ellipse 7" cx="1.633" cy="1.633" r="1.633" transform="translate(389.344 79.608)" fill="#f9d658"/>
+      </g>
+      <g id="Gruppe_197" data-name="Gruppe 197">
+        <path id="Pfad_209" data-name="Pfad 209" d="M399.474,84.088c-1.447-.353-5.257-1.214-7.375-1.027a6.943,6.943,0,0,0-4.011,2.224c.487-2.3.9-4.745.631-4.875-.515-.247-1.745-.774-1.428,1.689s-.951,7.18-.951,7.18c.039.07.476.3.713.088a20.919,20.919,0,0,0,.795-2.983,15.714,15.714,0,0,0,5.776.783c1.864-.129,4.772-1.869,5.929-2.606A.26.26,0,0,0,399.474,84.088Z" fill="#9dba51"/>
+        <circle id="Ellipse_8" data-name="Ellipse 8" cx="12.197" cy="12.197" r="12.197" transform="translate(373.661 88.392)" fill="#f9d658"/>
+      </g>
+      <g id="Gruppe_199" data-name="Gruppe 199">
+        <path id="Pfad_210" data-name="Pfad 210" d="M343.451,85.446a14.713,14.713,0,0,1,8.729-1.971c3.873.761,8,4.906,9.919,11.169l4.131,13.5s3.254,9.936,3.923,13.4a34.347,34.347,0,0,1,.7,4.857c.07,1.724-1.021,2.358-2.464,1.689a18.323,18.323,0,0,1-4.134-2.783l-9.975-9.99-9.974-9.99a16.8,16.8,0,0,1-5.082-13.218C339.441,89.69,340.354,87.6,343.451,85.446Z" fill="#feecad"/>
+        <g id="Gruppe_198" data-name="Gruppe 198">
+          <path id="Pfad_211" data-name="Pfad 211" d="M339.654,87.922S326,77.222,326.608,75.157s3.754-.75,6.194,2.065S328.72,65.3,330.315,64.646,339.231,76,342.141,75.814s.751-9.009,3.942-8.728,3.972,11.842,2.815,14.923C347.053,86.924,344.425,88.648,339.654,87.922Z" fill="#527a3e"/>
+          <path id="Pfad_212" data-name="Pfad 212" d="M341.046,87.733c-1.526-2.606-9-7.142-8.6-8.509s2.486-.5,4.1,1.367-2.7-7.891-1.647-8.326,5.9,7.518,7.829,7.394.5-5.965,2.61-5.778,1.689,7.708,1.864,9.879C347.534,87.815,341.569,88.625,341.046,87.733Z" fill="#9dba51"/>
+        </g>
+        <rect id="Rechteck_629" data-name="Rechteck 629" width="1.173" height="7.548" rx="0.587" transform="matrix(0.5, 0.866, -0.866, 0.5, 361.411, 93.531)" fill="#f9d658"/>
+        <rect id="Rechteck_630" data-name="Rechteck 630" width="1.173" height="7.548" rx="0.587" transform="translate(355.78 105.45) rotate(60)" fill="#f9d658"/>
+        <rect id="Rechteck_631" data-name="Rechteck 631" width="1.173" height="7.548" rx="0.587" transform="translate(363.194 112.489) rotate(60)" fill="#f9d658"/>
+      </g>
+    </g>
+  </g>
+</svg>

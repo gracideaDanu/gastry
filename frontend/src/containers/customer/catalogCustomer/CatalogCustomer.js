@@ -6,6 +6,7 @@ import CustomerLaylout from "../CustomerLayout";
 import Search from "../../../components/search/Search";
 import { addItemToBasket } from "../../../redux/actions";
 import pt from "moment/locale/pt";
+import Container from "react-bootstrap/Container";
 
 let basketArray = [];
 let supplierName, supplierId;
@@ -170,12 +171,16 @@ class CatalogCustomer extends Component {
                     supplierId: supplierId,
                     basket: this.state.basket,
                 }}
+                location={"home"}
+                showBack={true}
             >
                 <Search
                     onChange={this.handleInputChange}
                     value={this.state.searchInputValue}
                 />
-                {this.renderCatalog()}
+                <Container fluid>
+                    {this.renderCatalog()}
+                </Container>
             </CustomerLaylout>
         );
     }

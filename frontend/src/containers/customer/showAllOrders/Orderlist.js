@@ -7,6 +7,7 @@ import {fetchOrders} from "../../../redux/actions";
 import SupplierCatListView from "../../../components/list/SupplierCatListView";
 import OrderListItem from "../../../components/orders/OrderListItem";
 import {Link} from "react-router-dom";
+import Container from "react-bootstrap/Container";
 
 
 class Orderlist extends Component {
@@ -31,11 +32,13 @@ class Orderlist extends Component {
             ));
         return (
             <CustomerLayout
-                className='container-fluid'
                 title='Orders'
                 description=''
+                location={"orders"}
             >
-                {orders}
+                <Container fluid>
+                    {orders}
+                </Container>
 
 
             </CustomerLayout>

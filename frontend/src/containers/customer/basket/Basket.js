@@ -9,6 +9,7 @@ import {Summary} from '../../../components/basket/Summary'
 import EstimatedTotal from "../../../components/basket/EstimatedTotal";
 import CustomerLayout from "../../customer/CustomerLayout";
 import {placeOrder} from "../../../redux/actions";
+import CustomerLaylout from "../CustomerLayout";
 let supplierId,supplierName;
 let basketArray= []
 export class Basket extends Component {
@@ -60,7 +61,10 @@ export class Basket extends Component {
 
         )
         return(
-            <CustomerLayout title="Basket">
+            <CustomerLayout title="Basket"
+                            location={"home"}
+                            showBack={true}
+            >
             <div className="purchase-card">
                 <Container >
                     {basketItems}
