@@ -6,6 +6,11 @@
     font-weight: bold;
 }
 
+.button:focus {
+    box-shadow: #facc4480 0px 0px 10px;
+    outline: none;
+}
+
 .submit-btn {
     background-color: var(--color-submit-button);
 }

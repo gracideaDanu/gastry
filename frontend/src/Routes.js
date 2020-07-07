@@ -3,11 +3,11 @@ import Login from "./containers/common/login/Login";
 import { Switch, Route, withRouter} from 'react-router-dom';
 import OrderCustomer from "./containers/customer/order/OrderCustomer";
 import Notfound from "./containers/common/error/Notfound";
-import Search from "./containers/customer/search/Search";
 import Profilepage from "./containers/customer/profile/Profilepage";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import {connect} from "react-redux";
 import Signup from "./containers/common/register/Signup";
+import SignupOptions from "./containers/common/register/SignupOptions";
 import Catalog from "./containers/supplier/catalogSupplier/Catalog";
 import HomeSupplier from "./containers/supplier/home/HomeSupplier";
 import CatalogCustomer from "./containers/customer/catalogCustomer/CatalogCustomer"
@@ -88,7 +88,8 @@ class Routes extends Component {
                     { /* Routes requiring login */}
                     {privateRoutes}
                     <Route exact path={"/login"} component={Login}/>
-                    <Route exact path={"/register"} component={Signup}/>
+                    <Route exact path={"/register"} component={SignupOptions}/>
+                    <Route exact path={"/register/:userType"} component={Signup}/>
 
                     { /* Catch all route */}
                     <Route path="/*" component={Notfound} status={404}/>
