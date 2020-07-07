@@ -31,17 +31,16 @@ class ChatController {
 
             resultChat.messages = updatedChat
 
-            //console.log(updatedChat)
+
 
             await resultChat.save();
-
-            /*io.sockets.emit("writeMessage", {
-                chat: resultChat
-            });*/
+            console.log("hoi ")
 
             return res.status(200).send({
                 message: "Successfully added message"
             })
+
+
 
         } catch (e) {
             return res.status(400).send({

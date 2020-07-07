@@ -13,8 +13,8 @@ import axiosInstance from "../../../redux/axiosInstance";
 import io from "socket.io-client";
 import {connect} from "react-redux";
 import * as actions from '../../../redux/actions';
-let socket
-
+let socket;
+let messagesEnd;
 class Chat extends Component {
 
     state = {
@@ -22,8 +22,10 @@ class Chat extends Component {
         order: {},
         messages: [],
         pendingMessage: "",
-        typeError: ""
-    }
+        typeError: "",
+        userId: ""
+    };
+
 
     constructor(props) {
         super(props);
@@ -36,8 +38,9 @@ class Chat extends Component {
         this.setupSocket();
         const token = this.props.token;
         const order = this.props.location.state.order
+        const userId = this.props.user._id;
         const chatId = order.chat_id;
-        console.log(chatId)
+        console.log(chatId);
         this.props.fetchChat({
             token: token,
             chatId: chatId
@@ -46,22 +49,40 @@ class Chat extends Component {
 
         this.setState({
             ...this.state,
-            order: order
-        })
+            order: order,
+            userId: userId
+        });
 
         this.fetchChat();
 
+        this.scrollToBottom();
+
+
+
 
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.scrollToBottom()
+    }
+
+
+    newMessage = (message) => {
+        const userId = this.state.userId;
+        socket.emit("newMessage", {
+            message: message,
+            userId: userId
+        })
+
+    };
+
     fetchChat = () => {
-        const order = this.props.location.state.order
+        const order = this.props.location.state.order;
         const chatId = order.chat_id;
         socket.emit("fetchChat", {
             chatId: chatId
-        })
-
-    }
+        });
+    };
 
     setupSocket = () => {
         const token = this.props.token;
@@ -85,11 +106,28 @@ class Chat extends Component {
                 console.log("ON FETCH SOCKET")
                 console.log(data.chat)
                 const chat = data.chat;
+                console.log("fetch frontend faster")
+                const messages = chat.messages.reverse();
                 this.setState({
                     ...this.state,
-                    messages: chat.messages,
+                    messages: messages,
                     chatId: chat._id
                 })
+                console.log("fetch frontend faster")
+            });
+
+            newSocket.on("newMessage", data => {
+              const newMessage = data.newMessage;
+              const messages = [...this.state.messages];
+              console.log("HOI ON NEW FRONT")
+              console.log(newMessage.message);
+              console.log(newMessage.dateNow);
+              messages.push(newMessage);
+              this.setState({
+                  ...this.state,
+                  messages: messages,
+                  pendingMessage: ""
+              })
             });
 
             socket = newSocket;
@@ -100,14 +138,10 @@ class Chat extends Component {
         event.preventDefault()
         const message = event.target.value;
         console.log(message)
-        this.setState({
-            ...this.state,
-            pendingMessage: message
-        })
         this.validationHandler(message)
 
 
-    }
+    };
 
     validateForm = (err) => {
         let valid = true;
@@ -121,11 +155,11 @@ class Chat extends Component {
     };
 
     validationHandler = (message) => {
-        console.log(message.length);
        if(message.length === 0) {
            this.setState({
                ...this.setState({
                    ...this.state,
+                   pendingMessage: message,
                    typeError: "Message must not be empty"
                })
            })
@@ -134,6 +168,7 @@ class Chat extends Component {
            this.setState({
                ...this.setState({
                    ...this.state,
+                   pendingMessage: message,
                    typeError: ""
                })
            })
@@ -146,9 +181,8 @@ class Chat extends Component {
 
     submitMessage = (event) => {
         event.preventDefault()
-        console.log("HI")
         if(this.validateForm(this.state.typeError)) {
-            console.log("Hey im valid");
+            console.log(this.state.pendingMessage);
             const token = this.props.token;
             const message = this.state.pendingMessage;
             const chatId = this.state.order.chat_id
@@ -160,7 +194,7 @@ class Chat extends Component {
                 }
 
             });
-            this.fetchChat();
+            this.newMessage(message)
         }
         else {
             console.log(this.state.typeError)
@@ -170,28 +204,44 @@ class Chat extends Component {
 
     }
 
+    renderMessages = () => {
+        const messages = [...this.state.messages];
+        const userId = this.state.userId;
+        const messageUIElements = messages.map(message => {
+            if(message.user === userId) {
+                return <OwnChatMessage text={message.message} date={message.date}/>
+            }
+            else return <OtherChatMessage text={message.message} date={message.date}/>
+
+
+        })
+        return messageUIElements
+    };
+
+    scrollToBottom = () => {
+        messagesEnd.scrollIntoView({ behavior: "smooth" });
+    };
+
+
+
 
     render() {
         return (
             <>
                 <Topbar/>
-                <Container>
-                    <OwnChatMessage/>
-                    <OtherChatMessage/>
-                    <OwnChatMessage/>
-                    <OtherChatMessage/>
-                    <OwnChatMessage/>
-                    <OtherChatMessage/>
+                <Container className="Containerli">
+                    {this.renderMessages()}
+                    <div ref={(el) => {messagesEnd = el}}/>
                 </Container>
                 <Navbar expand={"*"} fixed={"bottom"}>
                     <Container>
                         <Form style={{width: "100%"}}>
                             <Row>
                                 <Col xs={9}>
-                                    <Form.Control onChange={(e) => this.onChangeMessageHandler(e)}  type="text" placeholder="Type a message"/>
+                                    <Form.Control value={this.state.pendingMessage} onChange={(e) => this.onChangeMessageHandler(e)}  type="text" placeholder="Type a message"/>
                                 </Col>
                                 <Col xs={3}>
-                                    <button className="btn-primary" onClick={(e) => this.submitMessage(e)} >
+                                    <button className="btn btn-primary" onClick={(e) => this.submitMessage(e)} >
                                         Send
                                     </button>
                                 </Col>
@@ -207,7 +257,8 @@ class Chat extends Component {
 
 const mapsStateToProps = (state) => {
     return {
-        token: state.auth.token
+        token: state.auth.token,
+        user: state.user.user
     }
 };
 

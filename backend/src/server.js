@@ -73,10 +73,23 @@ io.on('connection', (socket) => {
         const result = await Chat.findOne({
             _id: chatId
         }).select('messages')
+        console.log("fetchFater?")
         socket.emit("fetchChat", {
             chat: result
         })
 
+    })
+
+    socket.on('newMessage', data => {
+
+        const message = {
+            message: data.message,
+            date: new Date(Date.now()).toLocaleTimeString(),
+            user: data.userId
+        };
+        socket.emit("newMessage", {
+            newMessage: message
+        })
     })
 });
 

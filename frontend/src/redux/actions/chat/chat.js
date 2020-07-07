@@ -24,6 +24,7 @@ export const fetchChat = (payload) => async (dispatch) => {
         console.log("Successfully fetched")
         //console.log(response.data.messages)
         dispatch(fetchChatSuccess(response.data.messages));
+        console.log("redux is faster!")
     } catch (err) {
         console.log("err:" + err)
         console.log("failed fetching")
@@ -46,6 +47,7 @@ export const postMessage = (payload) => async (dispatch) => {
     try {
         const response = await axios.post(`chat/${payload.chatId}`, payload.data, config);
         dispatch(postMessageSuccess(response.data.message));
+        console.log("redux is faster")
     } catch (err) {
         dispatch(postMessageFailed(err));
     }
