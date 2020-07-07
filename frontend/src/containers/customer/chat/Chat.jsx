@@ -85,11 +85,14 @@ class Chat extends Component {
     };
 
     setupSocket = () => {
+        const order = this.props.location.state.order;
+        const chatId = order.chat_id;
         const token = this.props.token;
         if (token && !socket) {
             const newSocket = io("http://localhost:4000", {
                 query: {
-                    token: token
+                    token: token,
+                    chatId: chatId
                 },
             });
 
@@ -117,6 +120,7 @@ class Chat extends Component {
             });
 
             newSocket.on("newMessage", data => {
+                console.log("IM A NEW MESSAGE");
               const newMessage = data.newMessage;
               const messages = [...this.state.messages];
               console.log("HOI ON NEW FRONT")

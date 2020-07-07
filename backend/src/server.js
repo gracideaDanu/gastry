@@ -61,10 +61,12 @@ io.use(async (socket,next)=> {
 io.on('connection', (socket) => {
     console.log("Connected " + socket.userId);
     socket.emit("test", "hi" );
-
+    socket.join(socket.chatId);
     socket.on('disconnect', () => {
         console.log("Disconnected user: " + socket.userId);
-    })
+    });
+
+
 
     socket.on('fetchChat',async (data) => {
         const chatId = data.chatId;
@@ -78,7 +80,7 @@ io.on('connection', (socket) => {
             chat: result
         })
 
-    })
+    });
 
     socket.on('newMessage', data => {
 
@@ -87,9 +89,10 @@ io.on('connection', (socket) => {
             date: new Date(Date.now()).toLocaleTimeString(),
             user: data.userId
         };
-        socket.emit("newMessage", {
+        io.to(socket.chatId).emit("newMessage", {
             newMessage: message
-        })
+        });
+
     })
 });
 
