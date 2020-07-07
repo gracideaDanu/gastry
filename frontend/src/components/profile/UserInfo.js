@@ -5,7 +5,7 @@ import Button from '../button/Button'
 import "./UserInfo.css"
 
 const UserInfo = (props) => {
-    const { user, onEdit } = props; 
+    const { user, onEdit,onLogout } = props;
     return (
         <div className="user-info-container">
             <ul className="list">
@@ -20,6 +20,7 @@ const UserInfo = (props) => {
                 }
             </ul>
             <Button className="button yellow-btn" onClick={onEdit} label="Edit Profile"/>
+            <Button className={"button red-btn"} onClick={onLogout} label={"Logout"}/>
         </div>
     );
 };

@@ -4,6 +4,7 @@ import * as actions from "../../../redux/actions";
 import { connect } from "react-redux";
 import UserInfo from "../../../components/profile/UserInfo";
 import UserInfoForm from "../../../components/profile/UserInfoForm";
+import Container from "react-bootstrap/Container";
 
 class Profilepage extends Component {
     state = {
@@ -22,7 +23,7 @@ class Profilepage extends Component {
     userInfo = () => {
         const { user } = this.props.user;
         if (user) {
-            return <UserInfo user={user} onEdit={this.onEdit} />;
+            return <UserInfo user={user} onEdit={this.onEdit} onLogout={this.props.onClicklogout} />;
         }
     };
 
@@ -143,8 +144,11 @@ class Profilepage extends Component {
                 className="container-fluid"
                 title={"Profile"}
                 description="Update Profile"
+                location={"profile"}
             >
-                {this.state.canEdit ? this.userInfoForm() : this.userInfo()}
+                <Container>
+                    {this.state.canEdit ? this.userInfoForm() : this.userInfo()}
+                </Container>
             </UserLayout>
         );
     }
@@ -161,6 +165,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchUser: (_id, type) => dispatch(actions.fetchUser(_id, type)),
         updateUser: (_id, formValues) => dispatch(actions.updateUser(_id, formValues)),
+        onClicklogout: () => dispatch(actions.logout())
     };
 };
 

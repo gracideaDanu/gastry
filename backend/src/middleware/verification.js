@@ -1,6 +1,6 @@
 let jwt = require('jsonwebtoken');
 
-let checkToken = (req, res, next) => {
+let checkToken = async (req, res, next) => {
 
 
     let token = req.headers['x-access-token'] || req.headers['authorization'];// Express headers are auto converted to lowercase
@@ -18,7 +18,7 @@ let checkToken = (req, res, next) => {
 
 
     if (token) {
-        jwt.verify(token, process.env.SECRET_OR_KEY, (err, decoded) => {
+        await jwt.verify(token, process.env.SECRET_OR_KEY, (err, decoded) => {
             if (err) {
                  res.status(400).json({
                     success: false,

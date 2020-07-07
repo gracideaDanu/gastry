@@ -1,6 +1,7 @@
 const OrderModel = require("../models/order.model");
 var ObjectId = require('mongoose').Types.ObjectId;
 const User = require('../models/user.model');
+const Chat = require('../models/chat.model');
 
 
 class OrderController {
@@ -47,13 +48,25 @@ class OrderController {
 
             const userId = req.decoded.id;
             const { supplierId, products, total} = req.body;
+            let orderId = new ObjectId()
+            console.log(orderId)
+
+            /* create chat object and reference to it in the order item*/
+
+            const chatItem = {
+                _id: orderId
+            }
+            const chatlist = new Chat(chatItem)
+            await chatlist.save()
             const newItem = {
+                _id: orderId,
+                chat_id: orderId,
                 customer_id: userId,
                 supplier_id: supplierId,
                 products: products,
                 total: total
             }
-            console.log(newItem);
+            //console.log(newItem);
             const resultSupplier = await User.findOne({
                 _id: supplierId
             }).select('orders')
@@ -68,7 +81,7 @@ class OrderController {
             //console.log(productsUpdatedCustomer)
             resultCustomer.orders = productsUpdatedCustomer;
             resultSupplier.orders = productsUpdatedSupplier;
-            console.log(resultCustomer.orders)
+            //console.log(resultCustomer.orders)
             await resultSupplier.save();
             await resultCustomer.save();
             res.status(200).json({
@@ -125,22 +138,31 @@ class OrderController {
     }
     async modifyOrder (req, res) {
         try {
-            let fieldsToUpdate = req.body;
-            if (req.body.orderId != null) {
-                OrderModel.findByIdAndUpdate(req.body.orderId, { $set: fieldsToUpdate.data.fields }, { new: true, useFindAndModify: false }, function (err, result) {
-                    if (err) {
-                        res.status(400).send({
-                            success: false,
-                            error: err.message
-                        });
-                    }
-                    res.status(200).send({
-                        success: true,
-                        data: result,
-                        message: "Order updated successfully"
-                    });
-                });
-            }
+
+            console.log(req.body.status)
+            const itemId = req.params._id;
+            console.log(itemId)
+            //console.log(itemId)
+            //console.log(updatedItem)
+            //console.log(itemId)
+
+            /*const doc = await  User.find({
+                'orders._id': itemId
+            })
+            res.status(200).send({
+                users: doc
+            })*/
+            const doc = await User.updateMany({
+                'orders._id': itemId
+            }, { $set: {"orders.$.status" : req.body.status}}, {
+                new: true,
+                runValidators: true
+            })
+            res.status(200).send({
+                message: "Updated item successfully!",
+                id: itemId,
+                orders: doc.users
+            })
 
         }
         catch (e) {

@@ -8,6 +8,8 @@ import Supplier from "../../../components/list/Supplier";
 import Search from "../../../components/search/Search";
 
 import "./SuppliersList.css";
+import CustomerLaylout from "../CustomerLayout";
+import Container from "react-bootstrap/Container";
 
 class SuppliersList extends Component {
     state = {
@@ -70,12 +72,16 @@ class SuppliersList extends Component {
                 className="container-fluid"
                 title="Suppliers"
                 description="Bei wem möchtest du bestellen?"
+                location={"home"}
+                showBack={true}
             >
                 <Search
                     onChange={this.handleInputChange}
                     value={this.state.searchInputValue}
                 />
-                {this.renderSuppliers()}
+                <Container fluid>
+                    {this.renderSuppliers()}
+                </Container>
             </UserLayout>
         );
     }

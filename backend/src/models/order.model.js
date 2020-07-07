@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 Product.discriminator('productList', new Schema({
-    amount : {
+    amount: {
         type: Number,
         max: 1000,
         min: 0
@@ -23,17 +23,20 @@ const orderSchema = new Schema({
         supplier_id: {
             type: String
         },
+        chat_id: {
+            type: mongoose.Schema.Types.ObjectId
+        },
         total: {
             type: Number,
             required: true,
             trim: true,
             maxLength: 32
         },
-        products:[mongoose.model('productList').schema],
+        products: [mongoose.model('productList').schema],
         status: {
             type: String,
             default: "open",
-            enum: ["open","accepted","closed"]
+            enum: ["open", "accepted", "closed"]
         }
 
 

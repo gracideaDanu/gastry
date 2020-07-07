@@ -14,8 +14,9 @@ import CatalogCustomer from "./containers/customer/catalogCustomer/CatalogCustom
 import * as actions from "./redux/actions";
 import Basket from "./containers/customer/basket/Basket";
 import SuppliersList from "./containers/customer/order/SuppliersList";
-import Chat from "./containers/customer/chat/chat";
-import Orderlist from "./containers/customer/showAllOrders/Orderlist"
+import Orderlist from "./containers/customer/showAllOrders/Orderlist";
+import Chat from "./containers/customer/chat/Chat";
+import axiosInstance from "./redux/axiosInstance";
 
 const privateRoutes = [];
 
@@ -53,8 +54,11 @@ class Routes extends Component {
 
     render() {
         if (this.props.token !== null && this.props.user !== null ) {
+            console.log(this.props.user);
+            console.log("above user print");
             privateRoutes.push(<Route exact path={"/search"} component={Orderlist}></Route>)
             privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
+            privateRoutes.push(<Route exact path={"/order/chat"} component={Chat}></Route>)
 
             if (this.props.user.userType === "Supplier") {
                 console.log("suppppp")

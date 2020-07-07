@@ -3,7 +3,8 @@ const supplierRouter = express.Router();
 const checkAuth = require('../../middleware/verification').checkToken;
 
 const SupplierController = require('../../controller/supplier.controller');
-
+const ordermodel = require('../../models/order.model');
+const OrderController = require('../../controller/order.controller');
 // GET all Supplier
 supplierRouter.get('/', checkAuth, SupplierController.getUsers);
 
@@ -23,6 +24,8 @@ supplierRouter.get('/:_id', checkAuth, SupplierController.getUser);
 
 // UPDATE a customer
 supplierRouter.patch('/:_id', checkAuth, SupplierController.updateUser);
+
+supplierRouter.patch('/order/:_id',checkAuth,new OrderController(ordermodel).modifyOrder)
 
 // POST a new customer
 

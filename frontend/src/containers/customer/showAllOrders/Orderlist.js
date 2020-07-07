@@ -6,6 +6,8 @@ import UserLayout from "../CustomerLayout";
 import {fetchOrders} from "../../../redux/actions";
 import SupplierCatListView from "../../../components/list/SupplierCatListView";
 import OrderListItem from "../../../components/orders/OrderListItem";
+import {Link} from "react-router-dom";
+import Container from "react-bootstrap/Container";
 
 
 class Orderlist extends Component {
@@ -20,16 +22,23 @@ class Orderlist extends Component {
     render() {
         const orders = this.props.orders.map((item, index) =>
             (
+                <Link to={{
+                    pathname: `/order/chat`,
+                    state: {order: item}
+                }}>
                 <OrderListItem name={item.date}/>
+                </Link>
 
             ));
         return (
             <CustomerLayout
-                className='container-fluid'
                 title='Orders'
                 description=''
+                location={"orders"}
             >
-                {orders}
+                <Container fluid>
+                    {orders}
+                </Container>
 
 
             </CustomerLayout>

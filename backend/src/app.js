@@ -7,6 +7,7 @@ const supplierRouter = require('./routers/api/supplier.router');
 const customerRouter = require('./routers/api/customer.router');
 const userRouter = require('./routers/api/user.router')
 
+
 //Added to prevent use of deprecated method
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -37,5 +38,8 @@ connectione.once('open', function() {
 app.use('/supplier',supplierRouter);
 app.use('/customer',customerRouter);
 app.use('/user',userRouter);
+
+
+
 
 module.exports = app;
