@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                data: action.data.message
+                data: action.messages
             };
 
         case FETCH_CHAT_FAILED:

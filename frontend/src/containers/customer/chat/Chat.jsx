@@ -153,7 +153,9 @@ class Chat extends Component {
             this.props.postMessage({
                 token: token,
                 chatId: chatId,
-                data: message
+                data: {
+                    message: message
+                }
 
             });
         }

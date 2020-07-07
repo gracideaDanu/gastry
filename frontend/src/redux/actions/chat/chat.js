@@ -6,36 +6,28 @@ import {
     POST_MESSAGE_SUCCESS,
     POST_MESSAGE_FAILED
 } from "../actionTypes";
-import { axiosInstance as axios } from "../../axiosInstance";
+import {axiosInstance as axios} from "../../axiosInstance";
 
-export const fetchChat = (payload) => {
+export const fetchChat = (payload) => async (dispatch) => {
+    dispatch(fetchChatStart);
+    const token = payload.token;
+    console.log(token);
+    const config = {
+        headers: {
+            Authorization: token,
+            'Content-Type': 'application/json'
+        }
+    };
 
-
-    return dispatch => {
-        dispatch(fetchChatStart);
-        const token = payload.token;
-        console.log(token);
-        const config = {
-            headers: {
-                Authorization: token,
-                'Content-Type': 'application/json'
-            }
-        };
-
-
-        const response = axios.get(`chat/fetch/${payload.chatId}`, config)
-            .then(res => {
-                console.log("Successfully fetched")
-                console.log(response.data.message)
-                dispatch(fetchChatSuccess(response.data.message));
-            })
-            .catch(err => {
-                console.log(err.data)
-                console.log("failed fetching")
-                dispatch(fetchChatFailed(err));
-            })
-
-
+    try {
+        const response = await axios.get(`chat/fetch/${payload.chatId}`, config)
+        console.log("Successfully fetched")
+        //console.log(response.data.messages)
+        dispatch(fetchChatSuccess(response.data.messages));
+    } catch (err) {
+        console.log("err:" + err)
+        console.log("failed fetching")
+        dispatch(fetchChatFailed(err));
     }
 };
 export const postMessage = (payload) => async (dispatch) => {
@@ -52,8 +44,8 @@ export const postMessage = (payload) => async (dispatch) => {
     console.log(payload.chatId)
 
     try {
-        const response = await axios.post(`chat/${payload.chatId}`, payload.data,config);
-        dispatch(postMessageSuccess(response.data.messages));
+        const response = await axios.post(`chat/${payload.chatId}`, payload.data, config);
+        dispatch(postMessageSuccess(response.data.message));
     } catch (err) {
         dispatch(postMessageFailed(err));
     }
@@ -86,10 +78,10 @@ const fetchChatStart = () => {
     };
 };
 
-const fetchChatSuccess = (message) => {
+const fetchChatSuccess = (messages) => {
     return {
         type: FETCH_CHAT_SUCCESS,
-        message: message
+        messages: messages
     };
 };
 

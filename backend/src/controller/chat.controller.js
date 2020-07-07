@@ -12,8 +12,9 @@ class ChatController {
         try {
             const userId = req.decoded.id;
             const message = req.body.message;
-            console.log(req.body.params)
             const chatId = req.params._chatId;
+
+            console.log(chatId)
 
             const newMessage = {
                 message: message,
@@ -30,13 +31,13 @@ class ChatController {
 
             resultChat.messages = updatedChat
 
-            console.log(updatedChat)
+            //console.log(updatedChat)
 
             await resultChat.save();
 
-            io.sockets.emit("writeMessage", {
+            /*io.sockets.emit("writeMessage", {
                 chat: resultChat
-            });
+            });*/
 
             return res.status(200).send({
                 message: "Successfully added message"
@@ -53,21 +54,23 @@ class ChatController {
     async fetchChat(req, res) {
         try {
             const chatId = req.params._chatId;
-            const io = req.io;
+            //const io = req.io;
             const result = await Chat.findOne({
                 _id: chatId
             }).select('messages')
-            console.log(result);
-            io.sockets.emit("fetchChat", {
+            //console.log(result);
+            /*io.sockets.emit("fetchChat", {
                 chat: result
-            });
+            });*/
 
             return res.status(200).send({
-                message: "Fetch worked"
+                message: "Fetch worked",
+                data: result
 
             });
         } catch (e) {
-            return res.status(400).send({message: "failed baby "});
+            console.log("i am here")
+            return res.status(400).send({message: e});
         }
     }
 
