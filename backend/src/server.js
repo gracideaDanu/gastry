@@ -3,6 +3,7 @@ const PORT = process.env.SERVER_PORT;
 let jwt = require('jsonwebtoken');
 const chatRouter = require('./routers/api/chat.router');
 const chatController = require('./controller/chat.controller')
+const Chat = require('./models/chat.model')
 
 
 const server = app.listen(PORT, function() {
@@ -63,6 +64,19 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         console.log("Disconnected user: " + socket.userId);
+    })
+
+    socket.on('fetchChat',async (data) => {
+        const chatId = data.chatId;
+        console.log(chatId)
+        console.log("on for fetch on backend works")
+        const result = await Chat.findOne({
+            _id: chatId
+        }).select('messages')
+        socket.emit("fetchChat", {
+            chat: result
+        })
+
     })
 });
 

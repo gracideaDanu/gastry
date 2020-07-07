@@ -13,8 +13,6 @@ import axiosInstance from "../../../redux/axiosInstance";
 import io from "socket.io-client";
 import {connect} from "react-redux";
 import * as actions from '../../../redux/actions';
-
-
 let socket
 
 class Chat extends Component {
@@ -24,7 +22,7 @@ class Chat extends Component {
         order: {},
         messages: [],
         pendingMessage: "",
-        error: ""
+        typeError: ""
     }
 
     constructor(props) {
@@ -36,19 +34,31 @@ class Chat extends Component {
 
     componentDidMount() {
         this.setupSocket();
-        const token = this.props.token
+        const token = this.props.token;
         const order = this.props.location.state.order
         const chatId = order.chat_id;
         console.log(chatId)
         this.props.fetchChat({
             token: token,
             chatId: chatId
-        })
+        });
         console.log(order);
 
         this.setState({
             ...this.state,
             order: order
+        })
+
+        this.fetchChat();
+
+
+    }
+
+    fetchChat = () => {
+        const order = this.props.location.state.order
+        const chatId = order.chat_id;
+        socket.emit("fetchChat", {
+            chatId: chatId
         })
 
     }
@@ -70,21 +80,8 @@ class Chat extends Component {
             newSocket.on("connect", () => {
                 console.log("Connected frontend")
             });
-
-            newSocket.on('test', data => {
-                console.log(data)
-            });
-
-            newSocket.on('new-Message', (data) => {
-
-            })
-
-            newSocket.on('accessChat', data => {
-                console.log(data)
-            });
-
             newSocket.on('fetchChat', data => {
-                console.log(data)
+                console.log(data);
                 console.log("ON FETCH SOCKET")
                 console.log(data.chat)
                 const chat = data.chat;
@@ -94,14 +91,6 @@ class Chat extends Component {
                     chatId: chat._id
                 })
             });
-            newSocket.on('writeMessage', data => {
-                console.log("ON Write SOCKET")
-                const chat = data.chat;
-                this.setState({
-                    ...this.state,
-                    messages: chat.messages
-                })
-            })
 
             socket = newSocket;
         }
@@ -110,43 +99,56 @@ class Chat extends Component {
     onChangeMessageHandler = (event) => {
         event.preventDefault()
         const message = event.target.value;
-        this.validationHandler(message)
         console.log(message)
         this.setState({
             ...this.state,
             pendingMessage: message
         })
+        this.validationHandler(message)
+
 
     }
 
-    validateForm = (error) => {
+    validateForm = (err) => {
         let valid = true;
-        console.log(error)
-        error.length > 0
-        ? valid = false
-            : valid = true
-        return valid;
-    }
+        console.log(err)
+        if(err.length > 0) {
+            return valid = false
+        }
+        else {
+            return valid = true
+        }
+    };
 
     validationHandler = (message) => {
-        let error = ""
-        console.log(message.length)
-        message.length <= 0
-        ? error = "Message must be at least one character long"
-            : error = ""
-        console.log(error + "validation live")
-        console.log(error.length)
-        this.setState({
-            ...this.state,
-            error: error
-        })
-    }
+        console.log(message.length);
+       if(message.length === 0) {
+           this.setState({
+               ...this.setState({
+                   ...this.state,
+                   typeError: "Message must not be empty"
+               })
+           })
+       }
+       else {
+           this.setState({
+               ...this.setState({
+                   ...this.state,
+                   typeError: ""
+               })
+           })
+       }
+
+
+
+
+    };
 
     submitMessage = (event) => {
         event.preventDefault()
         console.log("HI")
-        if(this.validateForm(this.state.error)) {
-            console.log("Hey im valid")
+        if(this.validateForm(this.state.typeError)) {
+            console.log("Hey im valid");
             const token = this.props.token;
             const message = this.state.pendingMessage;
             const chatId = this.state.order.chat_id
@@ -158,9 +160,10 @@ class Chat extends Component {
                 }
 
             });
+            this.fetchChat();
         }
         else {
-            console.log(this.state.error)
+            console.log(this.state.typeError)
 
         }
 
