@@ -3,23 +3,23 @@ import Toast from "react-bootstrap/Toast";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import './chatMessage.css'
 
 const OwnChatMessage = (props) => {
     return (
-        <Row>
+        <Row className="messageBlock">
             <Col sx={2}>
             </Col>
             <Col xs={10}>
                 <Card>
                     <Card.Body>
-                        <Card.Text className="blockquote mb-0">
+                        <Card.Text className="blockquote mb-0 messageBlock">
                             <p style={{textAlign:"right",fontSize:"14px"}}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
-                                erat a ante.
                                 {props.text}
                             </p>
                             <footer className={"blockquote-footer float-right"}>
-                                Someone famous in <cite title="Source Title">Source Title {props.date}</cite>
+                                {props.date}
+
                             </footer>
                         </Card.Text>
                     </Card.Body>

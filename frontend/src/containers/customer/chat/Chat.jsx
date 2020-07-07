@@ -13,10 +13,8 @@ import axiosInstance from "../../../redux/axiosInstance";
 import io from "socket.io-client";
 import {connect} from "react-redux";
 import * as actions from '../../../redux/actions';
-
-
-let socket
-
+let socket;
+let messagesEnd;
 class Chat extends Component {
 
     state = {
@@ -24,8 +22,10 @@ class Chat extends Component {
         order: {},
         messages: [],
         pendingMessage: "",
-        error: ""
-    }
+        typeError: "",
+        userId: ""
+    };
+
 
     constructor(props) {
         super(props);
@@ -36,29 +36,63 @@ class Chat extends Component {
 
     componentDidMount() {
         this.setupSocket();
-        const token = this.props.token
+        const token = this.props.token;
         const order = this.props.location.state.order
+        const userId = this.props.user._id;
         const chatId = order.chat_id;
-        console.log(chatId)
+        console.log(chatId);
         this.props.fetchChat({
             token: token,
             chatId: chatId
-        })
+        });
         console.log(order);
 
         this.setState({
             ...this.state,
-            order: order
-        })
+            order: order,
+            userId: userId
+        });
+
+        this.fetchChat();
+
+        this.scrollToBottom();
+
+
+
 
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.scrollToBottom()
+    }
+
+
+    newMessage = (message) => {
+        const userId = this.state.userId;
+        socket.emit("newMessage", {
+            message: message,
+            userId: userId
+        })
+
+    };
+
+    fetchChat = () => {
+        const order = this.props.location.state.order;
+        const chatId = order.chat_id;
+        socket.emit("fetchChat", {
+            chatId: chatId
+        });
+    };
+
     setupSocket = () => {
+        const order = this.props.location.state.order;
+        const chatId = order.chat_id;
         const token = this.props.token;
         if (token && !socket) {
             const newSocket = io("http://localhost:4000", {
                 query: {
-                    token: token
+                    token: token,
+                    chatId: chatId
                 },
             });
 
@@ -70,38 +104,35 @@ class Chat extends Component {
             newSocket.on("connect", () => {
                 console.log("Connected frontend")
             });
-
-            newSocket.on('test', data => {
-                console.log(data)
-            });
-
-            newSocket.on('new-Message', (data) => {
-
-            })
-
-            newSocket.on('accessChat', data => {
-                console.log(data)
-            });
-
             newSocket.on('fetchChat', data => {
-                console.log(data)
+                console.log(data);
                 console.log("ON FETCH SOCKET")
                 console.log(data.chat)
                 const chat = data.chat;
+                console.log("fetch frontend faster")
+                const messages = chat.messages.reverse();
                 this.setState({
                     ...this.state,
-                    messages: chat.messages,
+                    messages: messages,
                     chatId: chat._id
                 })
+                console.log("fetch frontend faster")
             });
-            newSocket.on('writeMessage', data => {
-                console.log("ON Write SOCKET")
-                const chat = data.chat;
-                this.setState({
-                    ...this.state,
-                    messages: chat.messages
-                })
-            })
+
+            newSocket.on("newMessage", data => {
+                console.log("IM A NEW MESSAGE");
+              const newMessage = data.newMessage;
+              const messages = [...this.state.messages];
+              console.log("HOI ON NEW FRONT")
+              console.log(newMessage.message);
+              console.log(newMessage.dateNow);
+              messages.push(newMessage);
+              this.setState({
+                  ...this.state,
+                  messages: messages,
+                  pendingMessage: ""
+              })
+            });
 
             socket = newSocket;
         }
@@ -110,43 +141,52 @@ class Chat extends Component {
     onChangeMessageHandler = (event) => {
         event.preventDefault()
         const message = event.target.value;
-        this.validationHandler(message)
         console.log(message)
-        this.setState({
-            ...this.state,
-            pendingMessage: message
-        })
+        this.validationHandler(message)
 
-    }
 
-    validateForm = (error) => {
+    };
+
+    validateForm = (err) => {
         let valid = true;
-        console.log(error)
-        error.length > 0
-        ? valid = false
-            : valid = true
-        return valid;
-    }
+        console.log(err)
+        if(err.length > 0) {
+            return valid = false
+        }
+        else {
+            return valid = true
+        }
+    };
 
     validationHandler = (message) => {
-        let error = ""
-        console.log(message.length)
-        message.length <= 0
-        ? error = "Message must be at least one character long"
-            : error = ""
-        console.log(error + "validation live")
-        console.log(error.length)
-        this.setState({
-            ...this.state,
-            error: error
-        })
-    }
+       if(message.length === 0) {
+           this.setState({
+               ...this.setState({
+                   ...this.state,
+                   pendingMessage: message,
+                   typeError: "Message must not be empty"
+               })
+           })
+       }
+       else {
+           this.setState({
+               ...this.setState({
+                   ...this.state,
+                   pendingMessage: message,
+                   typeError: ""
+               })
+           })
+       }
+
+
+
+
+    };
 
     submitMessage = (event) => {
         event.preventDefault()
-        console.log("HI")
-        if(this.validateForm(this.state.error)) {
-            console.log("Hey im valid")
+        if(this.validateForm(this.state.typeError)) {
+            console.log(this.state.pendingMessage);
             const token = this.props.token;
             const message = this.state.pendingMessage;
             const chatId = this.state.order.chat_id
@@ -158,37 +198,54 @@ class Chat extends Component {
                 }
 
             });
+            this.newMessage(message)
         }
         else {
-            console.log(this.state.error)
+            console.log(this.state.typeError)
 
         }
 
 
     }
 
+    renderMessages = () => {
+        const messages = [...this.state.messages];
+        const userId = this.state.userId;
+        const messageUIElements = messages.map(message => {
+            if(message.user === userId) {
+                return <OwnChatMessage text={message.message} date={message.date}/>
+            }
+            else return <OtherChatMessage text={message.message} date={message.date}/>
+
+
+        })
+        return messageUIElements
+    };
+
+    scrollToBottom = () => {
+        messagesEnd.scrollIntoView({ behavior: "smooth" });
+    };
+
+
+
 
     render() {
         return (
             <>
                 <Topbar/>
-                <Container>
-                    <OwnChatMessage/>
-                    <OtherChatMessage/>
-                    <OwnChatMessage/>
-                    <OtherChatMessage/>
-                    <OwnChatMessage/>
-                    <OtherChatMessage/>
+                <Container className="Containerli">
+                    {this.renderMessages()}
+                    <div ref={(el) => {messagesEnd = el}}/>
                 </Container>
                 <Navbar expand={"*"} fixed={"bottom"}>
                     <Container>
                         <Form style={{width: "100%"}}>
                             <Row>
                                 <Col xs={9}>
-                                    <Form.Control onChange={(e) => this.onChangeMessageHandler(e)}  type="text" placeholder="Type a message"/>
+                                    <Form.Control value={this.state.pendingMessage} onChange={(e) => this.onChangeMessageHandler(e)}  type="text" placeholder="Type a message"/>
                                 </Col>
                                 <Col xs={3}>
-                                    <button className="btn-primary" onClick={(e) => this.submitMessage(e)} >
+                                    <button className="btn btn-primary" onClick={(e) => this.submitMessage(e)} >
                                         Send
                                     </button>
                                 </Col>
@@ -204,7 +261,8 @@ class Chat extends Component {
 
 const mapsStateToProps = (state) => {
     return {
-        token: state.auth.token
+        token: state.auth.token,
+        user: state.user.user
     }
 };
 
