@@ -27,8 +27,3 @@
 .form-input:focus::placeholder {
     color: var(--color-font-light);
 }
-
-.item > input:focus {
-    outline: none;
-    border-bottom: 1px solid #fff;
-}

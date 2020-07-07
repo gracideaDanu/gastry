@@ -1,3 +1,103 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 100vh;
+    justify-content: space-between;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+
+.signup-form > .button {
+    margin: 1rem 1rem;
+}
+
+.form-options-label {
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: var(--color-font-light);
+    display: flex;
+    position: relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-radius: 50px;
+    margin: 0;
+}
+
+.form-options {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 1.2rem;
+    overflow: hidden;
+    border-radius: 50px;
+    border: none;
+    color: var(--color-font-light);
+    background-color: transparent;
+}
+
+.form-options:focus {
+    outline: none;
+}
+
+.form-options-label:after {
+    content:'\25BC';
+    display:inline-block;
+    color: var(--color-font-light);
+    pointer-events: none; /* let the click pass trough */
+    height: 0;
+    font-size: 1.2rem;
+    position: absolute;
+    right: 1.3rem;
+    top: 1rem;
+}
+
+.form-options select:focus {
+    outline: none;
+}
+
+.form-options p {
+    margin: 0;
+}
+
+.middle-border {
+    margin: 1rem;
+    color: var(--color-font-light);
+    font-size: 0.9rem;
+}
+
+.middle-border::before,
+.middle-border::after {
+    display: inline-block;
+    content: "";
+    border-top: 1px solid var(--color-font-light);
+    width: 30%;
+    margin: 0 1rem;
+    transform: translateY(-0.3rem);
+}
+
+.signup-msg {
+    padding: 2.5rem;
+    background-color: #fff;
+    margin: 0 -14px;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    text-align: center;
+}
+
+.signup-options {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-options button {
+    width: 100%;
+}
+
 .btn-primary{
-margin: 20px;
+    margin: 20px;
 }
