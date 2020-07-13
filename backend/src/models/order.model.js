@@ -18,10 +18,12 @@ const orderSchema = new Schema({
             required: true
         },
         customer_id: {
-            type: String
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Customer"
         },
         supplier_id: {
-            type: String
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Supplier"
         },
         chat_id: {
             type: mongoose.Schema.Types.ObjectId
