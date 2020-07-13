@@ -1,6 +1,4 @@
 import React, { Component} from 'react';
-import SupplierLayout from '../../supplier/SupplierLayout';
-import UserLayout from "../CustomerLayout";
 import * as actions from "../../../redux/actions";
 import {connect} from 'react-redux'
 import './Basket.css'
@@ -8,10 +6,7 @@ import Container from "react-bootstrap/Container";
 import {Summary} from '../../../components/basket/Summary'
 import EstimatedTotal from "../../../components/basket/EstimatedTotal";
 import CustomerLayout from "../../customer/CustomerLayout";
-import {placeOrder} from "../../../redux/actions";
-import CustomerLaylout from "../CustomerLayout";
-let supplierId,supplierName;
-let basketArray= []
+
 export class Basket extends Component {
     state={
         basket: [],

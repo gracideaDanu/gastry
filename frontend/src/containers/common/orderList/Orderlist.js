@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import * as actions from "../../../redux/actions";
 import { connect } from "react-redux";
 import CustomerLayout from "../../customer/CustomerLayout";
-import SupplierLayout from "../../supplier/SupplierLayout";
+import SupplierLayout from "../../supplier/supplierLayout/SupplierLayout";
 import OrderListItem from "../../../components/orders/OrderListItem";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 
 class Orderlist extends Component {
     componentDidMount() {
-        console.log(this.props.userType)
         let payload = {
             token: this.props.token,
         };
@@ -40,11 +39,11 @@ class Orderlist extends Component {
             </Link>
         ));
         return this.props.userType === "supplier" ? (
-            <SupplierLayout title="Orders" description="" location={"orders"}>
+            <SupplierLayout title="Orders" location={"orders"}>
                 <Container fluid>{orders}</Container>
             </SupplierLayout>
         ) : (
-            <CustomerLayout title="Orders" description="" location={"orders"}>
+            <CustomerLayout title="Orders" location={"orders"}>
                 <Container fluid>{orders}</Container>
             </CustomerLayout>
         );

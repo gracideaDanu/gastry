@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import * as actions from "../../../redux/actions";
-import SupplierLayout from "../SupplierLayout";
+import SupplierLayout from "../supplierLayout/SupplierLayout";
 import SupplierCatListView from "../../../components/list/SupplierCatListView";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";

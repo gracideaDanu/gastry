@@ -1,19 +1,19 @@
 import React from "react";
-import "../../styles.css";
-import Navigation from "../../components/navigation/NavigationBottom";
-import Topbar from "../../components/navigation/TopBar";
-import * as actions from "../../redux/actions";
+import "../../../styles.css";
+import Navigation from "../../../components/navigation/NavigationBottom";
+import Topbar from "../../../components/navigation/TopBar";
+import * as actions from "../../../redux/actions";
 import { connect } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import homeButton from "../../assets/icons/HomeButton.svg";
-import profileButton from "../../assets/icons/ProfilButton.svg";
-import addButton from "../../assets/icons/add.svg";
-import bestelleingangButton from "../../assets/icons/Bestelleingang.svg";
+import profileButton from "../../../assets/icons/ProfilButton.svg";
+import addButton from "../../../assets/icons/add.svg";
+import bestelleingangButton from "../../../assets/icons/Bestelleingang.svg";
+
+import "./SupplierLayout.css";
 
 const SupplierLayout = ({
     title = "Title",
-    description = "Description",
     className,
     children,
     onClicklogout,
@@ -41,10 +41,7 @@ const SupplierLayout = ({
             <Navigation pagelist={navbuttons} />
             <Container fluid className={"h-100  d-flex flex-column"}>
                 <Row>
-                    <Container fluid style={{ marginTop: "12%" }}>
-                        <h2> {title} </h2>
-                        <p className="lead"> {description}</p>
-                    </Container>
+                    <h3 className="page-title">{title}</h3>
                 </Row>
                 <Row className={"flex-grow-1"}>
                     <div className={className}> {children} </div>

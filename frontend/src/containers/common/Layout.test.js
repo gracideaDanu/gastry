@@ -5,7 +5,7 @@ import {testStore} from "../../../Utils";
 import {MemoryRouter} from "react-router-dom";
 import NavItem from "react-bootstrap/NavItem";
 import Button from "react-bootstrap/Button";
-import SupplierLayout from "../supplier/SupplierLayout";
+import SupplierLayout from "../supplier/supplierLayout/SupplierLayout";
 
 describe('<CustomerLayout/>', function () {
     let component;

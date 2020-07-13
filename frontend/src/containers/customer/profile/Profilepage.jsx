@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CustomerLayout from "../CustomerLayout";
-import SupplierLayout from "../../supplier/SupplierLayout";
+import SupplierLayout from "../../supplier/supplierLayout/SupplierLayout";
 import * as actions from "../../../redux/actions";
 import { connect } from "react-redux";
 import UserInfo from "../../../components/profile/UserInfo";
