@@ -1,15 +1,20 @@
-import React from 'react';
+import React from "react";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const OrderListItem = (props) => {
+import "./OrderListItem.css"
+
+const OrderListItem = ({ name, orderNr }) => {
     return (
-        <Card className="supplier-card">
+        <Card className="supplier-card order-list">
             <Card.Body>
                 <Row className="align-items-center">
                     <Col>
-                        <p>{props.name}</p>
+                        <h5 className="order-title">{name}</h5>
+                        <p className="orderNr">
+                            Betsellnummer: {orderNr.substr(orderNr.length - 5).toUpperCase()}
+                        </p>
                     </Col>
                 </Row>
             </Card.Body>

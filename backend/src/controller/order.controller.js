@@ -22,8 +22,7 @@ class OrderController {
 
             const result = await User.findOne({
                 _id: userId
-            }).select('orders')
-            console.log(result);
+            }, 'orders').populate('orders.supplier_id orders.customer_id', 'company').exec()
             res.status(200).send({
                 message: "Fetch worked",
                 data: result.orders
