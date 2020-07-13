@@ -14,7 +14,7 @@ import CatalogCustomer from "./containers/customer/catalogCustomer/CatalogCustom
 import * as actions from "./redux/actions";
 import Basket from "./containers/customer/basket/Basket";
 import SuppliersList from "./containers/customer/order/SuppliersList";
-import Orderlist from "./containers/customer/showAllOrders/Orderlist";
+import Orderlist from "./containers/customer/orderList/Orderlist";
 import Chat from "./containers/customer/chat/Chat";
 import axiosInstance from "./redux/axiosInstance";
 
@@ -54,16 +54,13 @@ class Routes extends Component {
 
     render() {
         if (this.props.token !== null && this.props.user !== null ) {
-            console.log(this.props.user);
-            console.log("above user print");
-            privateRoutes.push(<Route exact path={"/search"} component={Orderlist}></Route>)
             privateRoutes.push(<Route exact path={"/profile"} component={Profilepage}></Route>)
             privateRoutes.push(<Route exact path={"/order/chat"} component={Chat}></Route>)
 
             if (this.props.user.userType === "Supplier") {
-                console.log("suppppp")
                 privateRoutes.push(<Route exact path={"/home"} component={HomeSupplier}></Route>)
                 privateRoutes.push(<Route exact path={"/catalogSupplier"} component={Catalog}></Route>)
+                privateRoutes.push(<Route exact path={"/orders"} component={() => <Orderlist userType={"supplier"}/>}></Route>)
             }
             else {
 
@@ -71,6 +68,7 @@ class Routes extends Component {
                 privateRoutes.push(<Route exact path={"/home/suppliers"} component={SuppliersList}></Route>)
                 privateRoutes.push(<Route exact path={"/catalog/:supplierName/basket"} component={Basket}></Route>)
                 privateRoutes.push(<Route exact path={"/catalog/:supplierName"} component={CatalogCustomer}></Route>)
+                privateRoutes.push(<Route exact path={"/orders"} component={() => <Orderlist userType={"customer"}/>}></Route>)
                 privateRoutes.push(<Route exact path={"/chat"} component={Chat}></Route>)
 
 

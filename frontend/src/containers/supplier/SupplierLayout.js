@@ -8,6 +8,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import homeButton from "../../assets/icons/HomeButton.svg";
 import profileButton from "../../assets/icons/ProfilButton.svg";
+import bestelleingangButton from "../../assets/icons/Bestelleingang.svg";
 
 const SupplierLayout = ({
     title = "Title",
@@ -21,6 +22,11 @@ const SupplierLayout = ({
             picref: homeButton,
             name: "Home",
             link: "/home",
+        },
+        {
+            picref: bestelleingangButton,
+            name: "Bestellungen",
+            link: "/orders",
         },
         {
             picref: profileButton,
