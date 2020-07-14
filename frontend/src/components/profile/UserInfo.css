@@ -1,5 +1,4 @@
 .user-info-container {
-    padding: 50px 0px;
     color: var(--color-font-light);
     display: flex;
     flex-direction: column;
