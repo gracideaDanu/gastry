@@ -17,7 +17,7 @@ const Topbar = (props) => {
     return (
         <Navbar fixed={"top"} expand={"*"} >
             <Container>
-                <Row style={{ width: "100%"}}>
+                <Row style={{ width: "100%", padding: "10px" }}>
                     {props.showBack ? (
                         <Col className={"d-flex justify-content-start align-middle"}>
                             <Button variant="dark" className={""} onClick={props.backButton} size="sm" className={"align-self-center"}>
