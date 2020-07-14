@@ -64,7 +64,7 @@ class OrderCustomer extends Component {
                 </Row>
                 <Row style={{width: "100%", height: "50%"}}>
                     <Col className={"d-flex flex-column justify-content-center "} style={{height: "100%"}}>
-                        <Button type={"button"} onClick={(e) => this.onSubmit(e, "foodandDrinks")}>
+                        <Button type={"button"} onClick={(e) => this.onSubmit(e, "both")}>
                             <img
                                 src={foodanddrinks} width="150" height="150" alt={"foodAndDrinks"}
                                 className={"align-self-center"}
