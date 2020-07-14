@@ -20,7 +20,7 @@ const UserInfo = (props) => {
                 }
             </ul>
             <Button className="button yellow-btn" onClick={onEdit} label="Edit Profile"/>
-            <Button className={"button red-btn"} onClick={onLogout} label={"Logout"}/>
+            <Button className="button red-btn logout-button" onClick={onLogout} label="Logout"/>
         </div>
     );
 };
