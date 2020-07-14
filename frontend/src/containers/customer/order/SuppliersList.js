@@ -18,7 +18,16 @@ class SuppliersList extends Component {
     };
 
     componentDidMount() {
-        this.props.fetchSuppliersList();
+        const category = this.props.location.state.category;
+        const payload = {
+            data: {
+                category: category
+            }
+        };
+        console.log(payload);
+        console.log("called");
+        this.props.fetchSuppliersList(payload);
+        console.log("hoi")
     }
 
     handleInputChange = (searchInputValue) => {
@@ -95,7 +104,7 @@ const mapsStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchSuppliersList: () => dispatch(fetchSuppliersList()),
+        fetchSuppliersList: (payload) => dispatch(fetchSuppliersList(payload)),
     };
 };
 
