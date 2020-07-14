@@ -37,7 +37,7 @@ const CustomerLayout = ({
             {
                 picref: (location==="orders" ? orderButtonActive : orderButtonInactive),
                 name: 'Bestellungen',
-                link: '/search'
+                link: '/orders'
             },
             {
                 picref: (location==="profile" ? profileButtonActive : profileButtonInactive),

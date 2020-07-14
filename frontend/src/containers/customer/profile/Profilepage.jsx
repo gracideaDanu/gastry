@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import UserLayout from "../CustomerLayout";
+import CustomerLayout from "../CustomerLayout";
+import SupplierLayout from "../../supplier/supplierLayout/SupplierLayout";
 import * as actions from "../../../redux/actions";
 import { connect } from "react-redux";
 import UserInfo from "../../../components/profile/UserInfo";
@@ -139,8 +140,9 @@ class Profilepage extends Component {
     };
 
     render() {
-        return (
-            <UserLayout
+        if (!this.props.user.user) return <div>bye</div>
+        return this.props.user.user.userType === "Customer" ?
+            <CustomerLayout
                 className="container-fluid"
                 title={"Profile"}
                 description="Update Profile"
@@ -149,8 +151,19 @@ class Profilepage extends Component {
                 <Container>
                     {this.state.canEdit ? this.userInfoForm() : this.userInfo()}
                 </Container>
-            </UserLayout>
-        );
+            </CustomerLayout>
+            :
+            <SupplierLayout
+                className="container-fluid"
+                title={"Profile"}
+                description="Update Profile"
+                location={"profile"}
+            >
+                <Container>
+                    {this.state.canEdit ? this.userInfoForm() : this.userInfo()}
+                </Container>
+            </SupplierLayout>
+        
     }
 }
 

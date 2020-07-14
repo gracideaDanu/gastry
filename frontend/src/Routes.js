@@ -14,7 +14,7 @@ import CatalogCustomer from "./containers/customer/catalogCustomer/CatalogCustom
 import * as actions from "./redux/actions";
 import Basket from "./containers/customer/basket/Basket";
 import SuppliersList from "./containers/customer/order/SuppliersList";
-import Orderlist from "./containers/customer/orderList/Orderlist";
+import Orderlist from "./containers/common/orderList/Orderlist";
 import Chat from "./containers/customer/chat/Chat";
 import axiosInstance from "./redux/axiosInstance";
 

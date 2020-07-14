@@ -1,5 +1,4 @@
 import React, {useState, useEffect, Component} from 'react';
-import SupplierLayout from '../../supplier/SupplierLayout';
 import UserLayout from "../CustomerLayout";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";

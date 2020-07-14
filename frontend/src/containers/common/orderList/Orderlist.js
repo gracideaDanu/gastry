@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import * as actions from "../../../redux/actions";
 import { connect } from "react-redux";
-import CustomerLayout from "../CustomerLayout";
+import CustomerLayout from "../../customer/CustomerLayout";
+import SupplierLayout from "../../supplier/supplierLayout/SupplierLayout";
 import OrderListItem from "../../../components/orders/OrderListItem";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
@@ -15,6 +16,7 @@ class Orderlist extends Component {
     }
 
     render() {
+        
         const orders = this.props.orders.map((item) => (
             <Link
                 to={{
@@ -36,8 +38,12 @@ class Orderlist extends Component {
                 )}
             </Link>
         ));
-        return (
-            <CustomerLayout title="Orders" description="" location={"orders"}>
+        return this.props.userType === "supplier" ? (
+            <SupplierLayout title="Orders" location={"orders"}>
+                <Container fluid>{orders}</Container>
+            </SupplierLayout>
+        ) : (
+            <CustomerLayout title="Orders" location={"orders"}>
                 <Container fluid>{orders}</Container>
             </CustomerLayout>
         );
