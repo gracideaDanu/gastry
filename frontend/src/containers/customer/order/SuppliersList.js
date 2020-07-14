@@ -17,6 +17,7 @@ class SuppliersList extends Component {
         active: 1,
         pages: [],
         filteredList: [],
+        paginationList: [],
         searchInputValue: "",
     };
 
@@ -34,9 +35,10 @@ class SuppliersList extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(((prevProps.list !== this.props.list) && (this.props.list.length > 0)) ||  ( this.state.active !== prevState.active)) {
+        /*if(((prevProps.list !== this.props.list) && (this.props.list.length > 0)) ||  ( this.state.active !== prevState.active)) {
             this.renderPagination()
-        }
+            this.spliceSupplierList(1);
+        } */
     }
 
 
@@ -56,6 +58,40 @@ class SuppliersList extends Component {
         }
     };
 
+    spliceSupplierList = (number) => {
+        /*switch (number) {
+            case 1: slicedArray = this.props.list.slice(0,5); break;
+            default: slicedArray = this.props.list.slice(number * 5 - 5)
+        } */
+        const beginnerIndex = number * 4 - 4;
+        const endIndex = number * 4 ;
+        console.log(beginnerIndex)
+        console.log(endIndex)
+        let slicedArray = this.props.list.slice(beginnerIndex, endIndex)
+        console.log(slicedArray)
+        return slicedArray.map((supplier) => {
+            return (
+                <Link
+                    key={supplier._id}
+                    to={{
+                        pathname: `/catalog/${supplier.name}`,
+                        state: {
+                            supplierId: supplier._id,
+                            supplierName: supplier.name,
+                        },
+                    }}
+                >
+                    <Supplier
+                        key={supplier._id}
+                        name={supplier.name}
+                        address={supplier.address.street}
+                    />
+                </Link>
+            );
+        });
+
+    }
+
     /*changePageHandler = (number) => {
         console.log(this.state.active)
         const paginationItems = [...this.state.pages];
@@ -74,7 +110,6 @@ class SuppliersList extends Component {
     }; */
 
     changeActive = (x) => {
-        console.log(x)
         const active = x;
         this.setState({
             ...this.state,
@@ -82,30 +117,39 @@ class SuppliersList extends Component {
         });
     }
 
-    renderPagination = () => {
+
+
+    getPages = () => {
         let itemNumbers = 0;
+        let page = 1;
         const paginationItems = [];
-        for (let x = 1; x <= this.props.list.length; x++ ) {
-            if(itemNumbers === 0) {
+
+        for (let x = 0  ; x <= this.props.list.length; x++ ) {
+            console.log("for loop")
+            if(itemNumbers === 4) {
+                console.log("hi new page")
                 itemNumbers = 0;
-                paginationItems.push(<Pagination.Item onClick={() => this.changeActive(x)} active={this.state.active === x}> {x}</Pagination.Item>)
+                const p = page
+                paginationItems.push(<Pagination.Item onClick={() => this.changeActive(p)} active={this.state.active === p}> {p}</Pagination.Item>)
+                page += 1;
+            }
+            else if (x === this.props.list.length ) {
+                console.log("last new page")
+                const p = page
+                paginationItems.push(<Pagination.Item onClick={() => this.changeActive(p)} active={this.state.active === p}> {p}</Pagination.Item>)
+                page += 1;
+
+
             }
             else {
-
+                console.log("no new page")
                 itemNumbers++
-
             }
 
         }
-
-        this.setState({
-            ...this.state,
-            pages: paginationItems
-        })
-
-
-
-    };
+        console.log("HOi pagination")
+        return paginationItems;
+    }
 
     renderSuppliers = () => {
         console.log("renderiiing")
@@ -152,8 +196,8 @@ class SuppliersList extends Component {
                 />
 
                 <Container fluid>
-                    {this.renderSuppliers()}
-                    <Pagination> {this.state.pages}</Pagination>
+                    {this.props.list ? this.spliceSupplierList(this.state.active) : null}
+                    <Pagination> {this.props.list ? this.getPages() : null}</Pagination>
 
                 </Container>
             </UserLayout>
