@@ -15,7 +15,7 @@ import logo from "../../assets/icons/logo.svg";
 
 const Topbar = (props) => {
     return (
-        <Navbar fixed={"top"} expand={"*"} style={{backgroundColor: "transparent"}}>
+        <Navbar fixed={"top"} expand={"*"} >
             <Container>
                 <Row style={{ width: "100%", padding: "10px" }}>
                     {props.showBack ? (

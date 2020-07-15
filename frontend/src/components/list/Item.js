@@ -10,18 +10,23 @@ const Item = (props) => {
     }
     return (
         <Row style={{height: '100%'}} className="align-items-center">
-            <Col xs={5}>
+            <Col>
+                <p style={pStyle}>
+                    {props.catg}
+                </p>
+            </Col>
+            <Col xs={4}>
                 <p style={pStyle}>
                     {props.name}
                 </p>
 
             </Col>
-            <Col xs={4}>
+            <Col>
                 <p style={pStyle}>
                     {props.size}
                 </p>
             </Col>
-            <Col xs={3}>
+            <Col>
                 <p style={pStyle}>
                     {props.price}
                 </p>

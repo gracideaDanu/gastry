@@ -14,7 +14,6 @@ import drinks from "../../../assets/icons/drinks.svg";
 import foodanddrinks from "../../../assets/icons/foodanddrinks.svg";
 import basket from "../../../assets/icons/Warenkorb.svg";
 import {LinkContainer} from "react-router-bootstrap";
-import "./orderCustomer.scss"
 
 
 class OrderCustomer extends Component {
@@ -41,36 +40,37 @@ class OrderCustomer extends Component {
         return (
             <CustomerLayout
                 className='container-fluid'
-                description='Was möchtest \n du bestellen ?'
+                title='OrderCustomer Page'
+                description='Was möchtest du bestellen ?'
                 location={"home"}
             >
-                <Row style={{width: "100%", height: "50%",marginTop:"5vh"}}>
-                    <Col className={"d-flex flex-column justify-content-center "} style={{height: "100%",marginTop: "1em"}}>
-                        <button type={"button"} onClick={(e) => this.onSubmit(e, "food")}>
+                <Row style={{width: "100%", height: "100%"}}>
+                    <Col className={"d-flex flex-column justify-content-center "} style={{height: "100%",marginTop: "5em"}}>
+                        <Button type={"button"} onClick={(e) => this.onSubmit(e, "food")}>
                             <img
                                 src={food} width="150" height="150" alt={"food"} className={"align-self-center"}
                             />
-                        </button>
-                        <p className={'supplierButtons text-center'} >Food</p>
+                        </Button>
+                        <p style={{textAlign: "center"}}>Food</p>
                     </Col>
-                    <Col className={"d-flex flex-column justify-content-center"} style={{height: "100%",marginTop: "1em"}}>
-                        <button type={"button"} onClick={(e) => this.onSubmit(e, "drinks")}>
+                    <Col className={"d-flex flex-column justify-content-center"} style={{height: "100%",marginTop: "5em"}}>
+                        <Button type={"button"} onClick={(e) => this.onSubmit(e, "drinks")}>
                             <img
                                 src={drinks} width="150" height="150" alt={"drinks"} className={"align-self-center"}
                             />
-                        </button>
-                        <p className={'supplierButtons text-center'} >Drinks</p>
+                        </Button>
+                        <p style={{textAlign: "center"}}>Drinks</p>
                     </Col>
                 </Row>
-                <Row style={{width: "100%", height: "50%",marginBottom:"10vh"}}>
+                <Row style={{width: "100%", height: "50%"}}>
                     <Col className={"d-flex flex-column justify-content-center "} style={{height: "100%"}}>
-                        <button type={"button"} onClick={(e) => this.onSubmit(e, "foodandDrinks")}>
+                        <Button type={"button"} onClick={(e) => this.onSubmit(e, "foodandDrinks")}>
                             <img
                                 src={foodanddrinks} width="150" height="150" alt={"foodAndDrinks"}
                                 className={"align-self-center"}
                             />
-                        </button>
-                        <p className={'supplierButtons text-center'} >Food and Drinks</p>
+                        </Button>
+                        <p style={{textAlign: "center"}}>Food and Drinks</p>
                     </Col>
                 </Row>
             </CustomerLayout>
