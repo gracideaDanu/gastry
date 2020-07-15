@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import FormControl from "react-bootstrap/FormControl";
 
-import "./Search.css";
+import "./Search.scss";
 
 class Search extends Component {
     onChange = (e) => {
@@ -10,13 +10,15 @@ class Search extends Component {
 
     render() {
         return (
-            <FormControl
-                type="text"
-                placeholder="Search"
-                className="mr-sm-2 searchInput"
-                onChange={this.onChange}
-                value={this.props.value}
-            />
+            <div className={"searchInput"}>
+                <FormControl
+                    type="text"
+                    placeholder="Suchen..."
+                    className="mr-sm-2"
+                    onChange={this.onChange}
+                    value={this.props.value}
+                />
+            </div>
         );
     }
 }
