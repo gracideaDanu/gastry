@@ -15,8 +15,8 @@ import logo from "../../assets/icons/logo.svg";
 
 const Topbar = (props) => {
     return (
-        <Navbar fixed={"top"} expand={"*"} >
-            <Container>
+        <Navbar fixed={"top"} expand={"*"} style={{backgroundColor: "transparent"}}>
+            <Container className={"topBar"}>
                 <Row style={{ width: "100%", padding: "10px" }}>
                     {props.showBack ? (
                         <Col className={"d-flex justify-content-start align-middle"}>

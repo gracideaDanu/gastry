@@ -22,7 +22,7 @@ const NavigationBottom = (props) => {
     return (
         <>
             <Navbar expand={"*"} fixed={"bottom"} className="nav-bar">
-                <Container>
+                <Container className={"bottomBar"}>
                     <Row style={{height: "100%",width:"100%"}}>
                         {showpages}
                     </Row>
