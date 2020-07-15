@@ -6,6 +6,10 @@ import SupplierCatListView from "../../../components/list/SupplierCatListView";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import {SwipeableDrawer} from "@material-ui/core";
+import List from "@material-ui/core/List";
+import {Container} from "react-bootstrap";
+import './Catalog.css'
 
 const signUpSState = {
     form: {
@@ -58,8 +62,9 @@ class Catalog extends Component {
             description: ""
         },
         option: "add",
-        basket: []
-    }
+        basket: [],
+        anchor: true
+    };
 
 
     componentDidMount() {
@@ -77,7 +82,7 @@ class Catalog extends Component {
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("I updated")
+        console.log("I updated");
         if (this.props.items.length > 0) {
             console.log("Not empty:" + this.props.items[0].name)
         }
@@ -258,42 +263,43 @@ class Catalog extends Component {
             Object.values(this.state.errors).forEach((er) => er.length > 0 ? alert(er) : null)
 
         }
-    }
+    };
 
-    /*addItemToBasketHandler = (event, itemId) => {
-        event.preventDefault();
-        const catalog = [...this.state.catalog];
-        let item = catalog.find(catItem => catItem._id === itemId );
-        console.log(item);
-        const basket = [...this.state.basket];
-        let incrementItem = basket.find(element => item._id === element._id)
-        if (incrementItem) {
-            console.log("Duplicate, increment amount!")
-            const index = basket.findIndex(element => element === incrementItem)
-            const amount = incrementItem.amount + 1;
-            incrementItem = {
-                ...incrementItem,
-                amount: amount
-            }
-            basket[index] = incrementItem
 
+
+    toggleDrawer = ( open) => (event) => {
+        console.log("hi toggle");
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
         }
-        else {
-            console.log("New item");
-            item = {
-                ...item,
-                amount: 1
-            }
-            basket.push(item)
-        }
-        this.setState({
-            ...this.state,
-            basket: basket
-        })
 
+        this.setState({...this.state, anchor: open})
 
+    };
 
-    } */
+    toggle = (open) => {
+        console.log("hoi");
+        this.setState({...this.state, anchor: open})
+
+    };
+
+     list = () => (
+        <div
+            className="bottom"
+            role="presentation"
+            onClick={this.toggleDrawer( false)}
+            onKeyDown={this.toggleDrawer( false)}
+        >
+            <Container>
+            <List>
+                <p>Drawer</p>
+            </List>
+            <List>
+                <p> Hi </p>
+            </List>
+            </Container>
+        </div>
+    );
 
 
 
@@ -306,14 +312,26 @@ class Catalog extends Component {
     render() {
         const catArray = this.state.catalog.map((item, index) =>
             (
-            <SupplierCatListView  index={index} showModal={this.state.showModal} modal={this.showModalHandler} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
+            <SupplierCatListView  index={index} showModal={this.state.showModal} modal={this.showModalHandler} toggle={() => this.toggle(true)} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
 
         ));
         return (
             <SupplierLayout>
                 <div>
+
                     <button onClick={() => this.showModalHandler(-1)} >Add item</button>
                         {catArray}
+                        <React.Fragment key={"bottom"}>
+                            <SwipeableDrawer style={{backgroundColor: "transparent"}}
+                                anchor={"bottom"}
+                                open={this.state.anchor}
+                                onClose={this.toggleDrawer( false)}
+                                onOpen={this.toggleDrawer( true)}
+                            >
+                                {this.list("bottom")}
+                            </SwipeableDrawer>
+                        </React.Fragment>
+
                     <Modal show={this.state.showModal} onHide={this.showModalHandler}  >
 
 
@@ -382,7 +400,6 @@ class Catalog extends Component {
                         </Modal.Footer>
 
                     </Modal>
-
                 </div>
             </SupplierLayout>
         );
