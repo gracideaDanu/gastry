@@ -1,0 +1,18 @@
+div.card-body{
+  padding: 0.5rem 0px;
+
+  div{
+    padding: 0px
+  }
+  p{
+    margin-bottom: 0px;
+  }
+  img.supplierlogo{
+    margin-left: 1rem;
+    transform: rotate(20deg);
+  }
+  img.forward{
+    transform: rotate(180deg);
+  }
+}
+
