@@ -6,12 +6,14 @@ import SupplierCatListView from "../../../components/list/SupplierCatListView";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import {SwipeableDrawer, Fab} from "@material-ui/core";
+import {SwipeableDrawer, Fab, Divider} from "@material-ui/core";
 import List from "@material-ui/core/List";
 import {Container} from "react-bootstrap";
 import AddIcon from '@material-ui/icons/Add';
 
 import './Catalog.css'
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const signUpSState = {
     form: {
@@ -244,7 +246,6 @@ class Catalog extends Component {
                 token: this.props.token,
                 data: modifiedItem
             })
-            this.showModalHandler(-1);
         }
         else {
             Object.values(this.state.errors).forEach((er) => alert(er))
@@ -259,7 +260,6 @@ class Catalog extends Component {
                 token: this.props.token,
                 data: itemToAdd
             })
-            this.showModalHandler(-1);
         }
         else {
             Object.values(this.state.errors).forEach((er) => er.length > 0 ? alert(er) : null)
@@ -269,19 +269,72 @@ class Catalog extends Component {
 
 
 
-    toggleDrawer = ( open) => (event) => {
+    toggleDrawer = (open) => (event) => {
         console.log("hi toggle");
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
+        const errors = {
 
-        this.setState({...this.state, anchor: open})
+                name: 'Product name is required',
+                price: 'Product price is required',
+                size: 'Product size is required',
+                tags: 'Product tag is required' ,
+                description:  'Product description is required' ,
+
+
+        }
+        console.log("why no error")
+
+        this.setState({...this.state, anchor: open, errors: errors})
 
     };
 
-    toggle = (open) => {
+    toggle = (open,i) => {
         console.log("hoi");
-        this.setState({...this.state, anchor: open})
+        let currentItem =  {
+            tags: "",
+            name: "",
+            price: "",
+            size: "",
+            description: ""
+        }
+        let errors = {}
+        let option = ""
+        let index = -1;
+        console.log("why")
+        console.log(open)
+        console.log(i)
+        if (!this.state.anchor && i >= 0) {
+            index = i;
+            currentItem = this.state.catalog[i];
+            option = "modify";
+        }
+        else if(!this.state.anchor && i < 0) {
+            console.log("im in there elsing"
+            )
+            errors = {
+                name: 'Product name is required',
+                price: 'Product price is required',
+                size: 'Product size is required',
+                tags: 'Product tag is required' ,
+                description:  'Product description is required' ,
+
+            }
+            option = "add"
+        }
+
+
+
+        this.setState({
+            ...this.state,
+            index: index,
+            currentItem: currentItem,
+            errors: errors,
+            option: option,
+            anchor: open
+        })
+        //this.setState({...this.state, anchor: open})
 
     };
 
@@ -292,6 +345,22 @@ class Catalog extends Component {
             //onClick={this.toggleDrawer( false)}
             //onKeyDown={this.toggleDrawer( false)}
         >
+            <div className="row centerRow">
+                <div className="col-6">
+                    <h4>Add Item</h4>
+
+                </div>
+                <div className="col-3 sheet">
+                    {this.state.option === "modify"
+                        ?                     <button className="button yellow-btn text-center" onClick={(e) => this.modifyItemHandler(e)}>Save</button>
+                        :                     <button className="button yellow-btn text-center" onClick={(e) => this.addItemHandler(e)}>Save</button>
+
+                    }
+                </div>
+                <div className="col-3 sheet">            <button className="button red-btn" onClick={() => this.toggle(false,-1)}>Cancel</button>
+                </div>
+            </div>
+            <Divider/>
             <div className="form-group item">
                 <label>Name </label>
                 <input value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
@@ -327,11 +396,8 @@ class Catalog extends Component {
                 <label>Price</label>
                 <input value={this.state.currentItem['price']} name="price"  onChange={(e) => this.onChange(e, this.state.index)}/>
             </div>
-
+            <label>Description</label>
             <div className="form-group item">
-                <label>Description</label>
-
-
                 <textarea value={this.state.currentItem['description']} onChange={(e) => this.onChange(e, this.state.index)} className="form-control" rows="3" maxLength="100" name="description"/>
             </div>
 
@@ -349,7 +415,7 @@ class Catalog extends Component {
     render() {
         const catArray = this.state.catalog.map((item, index) =>
             (
-            <SupplierCatListView  index={index} showModal={this.state.showModal} modal={this.showModalHandler} toggle={() => this.toggle(true)} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
+            <SupplierCatListView  index={index} showModal={this.state.showModal} modal={this.showModalHandler} toggle={() => this.toggle(true, index)} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
 
         ));
         return (
@@ -438,7 +504,7 @@ class Catalog extends Component {
                     </Modal>
                 </div>
                 <footer className="fixed-bottom fab">
-                    <Fab onClick={this.toggle.bind(true)}> <AddIcon></AddIcon>  </Fab>
+                    <Fab onClick={() => this.toggle(true,-1)}> <AddIcon></AddIcon>  </Fab>
 
                 </footer>
             </SupplierLayout>
