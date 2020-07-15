@@ -6,9 +6,11 @@ import SupplierCatListView from "../../../components/list/SupplierCatListView";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import {SwipeableDrawer} from "@material-ui/core";
+import {SwipeableDrawer, Fab} from "@material-ui/core";
 import List from "@material-ui/core/List";
 import {Container} from "react-bootstrap";
+import AddIcon from '@material-ui/icons/Add';
+
 import './Catalog.css'
 
 const signUpSState = {
@@ -63,7 +65,7 @@ class Catalog extends Component {
         },
         option: "add",
         basket: [],
-        anchor: true
+        anchor: false
     };
 
 
@@ -287,17 +289,52 @@ class Catalog extends Component {
         <div
             className="bottom"
             role="presentation"
-            onClick={this.toggleDrawer( false)}
-            onKeyDown={this.toggleDrawer( false)}
+            //onClick={this.toggleDrawer( false)}
+            //onKeyDown={this.toggleDrawer( false)}
         >
-            <Container>
-            <List>
-                <p>Drawer</p>
-            </List>
-            <List>
-                <p> Hi </p>
-            </List>
-            </Container>
+            <div className="form-group item">
+                <label>Name </label>
+                <input value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
+            </div>
+
+            <div className="form-group item">
+                <label>Tag</label>
+                <select className="select-category" defaultValue="-" name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
+                    <option value="-">-</option>
+                    {this.props.userOffer === "both"
+                        ? <> <option value="Food">Food</option>
+                            <option value="Drink">Drink</option> </>
+                        : null
+                    }{this.props.userOffer === "food"
+                    ? <option value="Food">Food</option>
+
+                    : null
+                }{this.props.userOffer === "drinks"
+                    ? <option value="Drink">Drink</option>
+
+                    : null
+                }
+                </select>
+            </div>
+
+
+            <div className="form-group item">
+                <label>Size</label>
+                <input value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
+            </div>
+
+            <div className="form-group item">
+                <label>Price</label>
+                <input value={this.state.currentItem['price']} name="price"  onChange={(e) => this.onChange(e, this.state.index)}/>
+            </div>
+
+            <div className="form-group item">
+                <label>Description</label>
+
+
+                <textarea value={this.state.currentItem['description']} onChange={(e) => this.onChange(e, this.state.index)} className="form-control" rows="3" maxLength="100" name="description"/>
+            </div>
+
         </div>
     );
 
@@ -319,7 +356,6 @@ class Catalog extends Component {
             <SupplierLayout>
                 <div>
 
-                    <button onClick={() => this.showModalHandler(-1)} >Add item</button>
                         {catArray}
                         <React.Fragment key={"bottom"}>
                             <SwipeableDrawer style={{backgroundColor: "transparent"}}
@@ -401,6 +437,10 @@ class Catalog extends Component {
 
                     </Modal>
                 </div>
+                <footer className="fixed-bottom fab">
+                    <Fab onClick={this.toggle.bind(true)}> <AddIcon></AddIcon>  </Fab>
+
+                </footer>
             </SupplierLayout>
         );
     }
