@@ -12,16 +12,6 @@
   --color-nav: #626262;
 }
 
-@font-face {
-  font-family: 'Aleo-bold';
-  src: url("/assets/fonts/Aleo-Bold.otf");
-}
-
-@font-face {
-  font-family: 'Aleo';
-  src: url("/assets/fonts/Aleo-Regular.otf");
-}
-
 *,
 *::after,
 *::before {
@@ -54,14 +44,11 @@ $theme-colors: (
 #root{
   min-height: 100%;
   background-color: black;
-  font-family: Aleo, sans-serif;
 }
 
 #rootcontainer{
   min-height: 100vh;
-  background-color: #FEECAD;
-  margin: 0px;
-  padding: 0px;
+  //background-color: black;
 }
 html,body{
   //background-color: #626262;
@@ -72,6 +59,7 @@ html,body{
 div.container {
     max-width: 500px;
     min-height: 100%;
+    background-color: #626262;
 }
 
 // Import Bootstrap and its default variables

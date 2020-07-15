@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import './Layout.scss'
+//import '../../styles.css'
 import NavigationBottom from "../../components/navigation/NavigationBottom";
 import Topbar from "../../components/navigation/TopBar";
 import * as actions from "../../redux/actions";
@@ -51,12 +51,11 @@ const CustomerLayout = ({
             <>
                 <Topbar backButton={() => history.goBack()} showBack={showBack} showBasket={showBasket} basketState={basketState}/>
                 <NavigationBottom pagelist={bottomButtons} />
-                <Container fluid className={"h-100  d-flex flex-column"} style={{minHeight:"100vh",padding: "0px"}}>
+                <Container fluid className={"h-100  d-flex flex-column"} style={{minHeight:"100vh"}}>
                     <Row>
-                        <Container fluid style={{marginTop: "25%"}}>
-                            {description.split("\n").map((item, key) => {
-                                return <p className='lead text-center' key={key}> {item}</p>
-                            })}
+                        <Container fluid style={{marginTop: "12%"}}>
+                            <h3> {title} </h3>
+                            <p className='lead'> {description}</p>
                         </Container>
                     </Row>
                     <Row className={"flex-grow-1"} >

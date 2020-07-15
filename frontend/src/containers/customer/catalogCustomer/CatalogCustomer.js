@@ -1,16 +1,15 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import * as actions from "../../../redux/actions";
 import SupplierCatList from "../../../components/list/CatalogCustomerRow.js/CatalogCustomerRow";
 import CustomerLaylout from "../CustomerLayout";
 import Search from "../../../components/search/Search";
-import {addItemToBasket} from "../../../redux/actions";
+import { addItemToBasket } from "../../../redux/actions";
 import pt from "moment/locale/pt";
 import Container from "react-bootstrap/Container";
 
 let basketArray = [];
 let supplierName, supplierId;
-
 class CatalogCustomer extends Component {
     state = {
         basket: [],
@@ -41,7 +40,6 @@ class CatalogCustomer extends Component {
             }
         }
     }
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.catalog !== this.props.catalog) {
             this.setState({
@@ -51,10 +49,9 @@ class CatalogCustomer extends Component {
         }
         this.findItemAmount("5eea44202681241ad4fd9c42");
     }
-
     addItemToBasketHandler = (event, itemId, option, amount) => {
         event.preventDefault();
-        const {supplierId} = this.props.location.state;
+        const { supplierId } = this.props.location.state;
 
         const catalog = [...this.state.catalog];
         let item = catalog.find((catItem) => catItem._id === itemId);
@@ -126,7 +123,7 @@ class CatalogCustomer extends Component {
     };
 
     handleInputChange = (searchInputValue) => {
-        this.setState({searchInputValue});
+        this.setState({ searchInputValue });
         this.handleSearch(searchInputValue);
     };
 
@@ -137,13 +134,13 @@ class CatalogCustomer extends Component {
                 const filter = searchInputValue.toLowerCase();
                 return nameToLowerCase.includes(filter);
             });
-            this.setState({filteredList});
+            this.setState({ filteredList });
         }
     };
 
     renderCatalog = () => {
-        const {catalog} = this.props;
-        const {searchInputValue, filteredList} = this.state;
+        const { catalog } = this.props;
+        const { searchInputValue, filteredList } = this.state;
         const renderedList = searchInputValue.length > 0 ? filteredList : catalog;
 
         if (!catalog) return <div>loading</div>;
@@ -151,7 +148,7 @@ class CatalogCustomer extends Component {
         if (catalog.length === 0) {
             return <div>No Items Found</div>;
         }
-
+        
         return renderedList.map((item, index) => (
             <SupplierCatList
                 amount={this.findItemAmount(item._id)}
@@ -169,7 +166,6 @@ class CatalogCustomer extends Component {
             <CustomerLaylout
                 title="Catalog"
                 showBasket="true"
-                description={"Welche Produkte möchtest du?"}
                 basketState={{
                     supplierName: supplierName,
                     supplierId: supplierId,
@@ -178,12 +174,11 @@ class CatalogCustomer extends Component {
                 location={"home"}
                 showBack={true}
             >
-
+                <Search
+                    onChange={this.handleInputChange}
+                    value={this.state.searchInputValue}
+                />
                 <Container fluid>
-                    <Search
-                        onChange={this.handleInputChange}
-                        value={this.state.searchInputValue}
-                    />
                     {this.renderCatalog()}
                 </Container>
             </CustomerLaylout>
