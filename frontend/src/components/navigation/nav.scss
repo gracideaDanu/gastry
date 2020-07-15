@@ -5,12 +5,15 @@
 
 nav.navbar {
 	padding: 0;
-    background-color: white;
-    div.container {
-        margin-top: 0.5em;
+    div.bottomBar {
+        padding-top: 0.5em;
+        background-color: white;
         div.row {
             margin: 0;
         }
+    }
+    div.topBar {
+        background-color: #FEECAD;
     }
 }
 
