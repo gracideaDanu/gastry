@@ -192,14 +192,16 @@ class SuppliersList extends Component {
                 location={"home"}
                 showBack={true}
             >
+
                 <Container fluid>
                     <Search
                         onChange={this.handleInputChange}
                         value={this.state.searchInputValue}
                     />
                     {this.props.list ? this.spliceSupplierList(this.state.active) : null}
-                    <Pagination> {this.props.list ? this.getPages() : null}</Pagination>
                 </Container>
+                <Pagination> {this.props.list ? this.getPages() : null}</Pagination>
+
             </UserLayout>
         );
     }
