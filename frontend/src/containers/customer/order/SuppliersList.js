@@ -11,6 +11,7 @@ import "./SuppliersList.css";
 import CustomerLaylout from "../CustomerLayout";
 import Container from "react-bootstrap/Container";
 import {Pagination} from "react-bootstrap";
+import gastry from "../../../assets/icons/logo.svg"
 
 class SuppliersList extends Component {
     state = {
@@ -172,6 +173,7 @@ class SuppliersList extends Component {
                     }}
                 >
                     <Supplier
+                        pic={gastry}
                         key={supplier._id}
                         name={supplier.name}
                         address={supplier.address.street}
@@ -190,15 +192,13 @@ class SuppliersList extends Component {
                 location={"home"}
                 showBack={true}
             >
-                <Search
-                    onChange={this.handleInputChange}
-                    value={this.state.searchInputValue}
-                />
-
                 <Container fluid>
+                    <Search
+                        onChange={this.handleInputChange}
+                        value={this.state.searchInputValue}
+                    />
                     {this.props.list ? this.spliceSupplierList(this.state.active) : null}
                     <Pagination> {this.props.list ? this.getPages() : null}</Pagination>
-
                 </Container>
             </UserLayout>
         );
