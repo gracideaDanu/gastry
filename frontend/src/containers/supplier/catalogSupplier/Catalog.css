@@ -15,6 +15,11 @@ div.sheet > button {
     padding: 0 0.5rem;
 }
 
+div.errorMessage {
+    margin-left: 1.2rem;
+    color: #dc3545;
+}
+
 div.centerRow {
     align-items: center;
 }
@@ -31,11 +36,22 @@ hr.MuiDivider-root {
     background-color: black;
 }
 
-div.item {
+div.item, div.setMargin {
     display: flex;
     list-style: none;
     border: 1px solid #000;
     margin-bottom: 1rem;
+    padding: 0.2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-radius: 50px;
+}
+ div.unsetMargin {
+    display: flex;
+    list-style: none;
+    border: 1px solid #000;
+    margin-bottom: unset;
     padding: 0.2rem;
     overflow: hidden;
     white-space: nowrap;

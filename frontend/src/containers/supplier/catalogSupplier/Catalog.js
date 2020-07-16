@@ -361,12 +361,17 @@ class Catalog extends Component {
                 </div>
             </div>
             <Divider/>
-            <div className="form-group item">
+
+            <div className={ this.state.errors.name === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
                 <label>Name </label>
                 <input value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
+
+            </div>
+            <div className="errorMessage">
+                <p>{this.state.errors.name}</p>
             </div>
 
-            <div className="form-group item">
+            <div className={ this.state.errors.tags === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
                 <label>Tag</label>
                 <select className="select-category" defaultValue="-" name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
                     <option value="-">-</option>
@@ -385,20 +390,32 @@ class Catalog extends Component {
                 }
                 </select>
             </div>
+            <div className="errorMessage">
+                <p>{this.state.errors.tags}</p>
+            </div>
 
 
-            <div className="form-group item">
+            <div className={ this.state.errors.size === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
                 <label>Size</label>
                 <input value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
             </div>
+            <div className="errorMessage">
+                <p>{this.state.errors.size}</p>
+            </div>
 
-            <div className="form-group item">
+            <div className={ this.state.errors.price === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
                 <label>Price</label>
                 <input value={this.state.currentItem['price']} name="price"  onChange={(e) => this.onChange(e, this.state.index)}/>
             </div>
-            <label>Description</label>
-            <div className="form-group item">
+            <div className="errorMessage">
+                <p>{this.state.errors.price}</p>
+            </div>
+            <label style={{"margin-left":"1.2em"}}>Description</label>
+            <div className={ this.state.errors.description === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
                 <textarea value={this.state.currentItem['description']} onChange={(e) => this.onChange(e, this.state.index)} className="form-control" rows="3" maxLength="100" name="description"/>
+            </div>
+            <div className="errorMessage">
+                <p>{this.state.errors.description}</p>
             </div>
 
         </div>
