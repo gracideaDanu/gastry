@@ -34,13 +34,25 @@ const Input = (props) => {
     }
 
     return (
-        <input
+        <div>
+            <div className={ (props.error === "" && !props.display) | !props.display ? "setMarginRL" : "unsetMarginRL"}>
+
+            <input
             onChange={props.change}
             type={form.type}
             className="form-input"
             placeholder={form.placeholder}
             value={props.content}
         />
+
+
+            </div>
+            {props.display ? <div className="errorMessage">
+                <p>{props.error}</p>
+            </div> : null }
+
+        </div>
+
     );
 };
 

@@ -57,6 +57,7 @@ const signUpCState = {
         passwordConfirm: "Please confirm password",
     },
     exists: null,
+    display: false
 };
 
 const signUpSState = {
@@ -104,6 +105,7 @@ const signUpSState = {
     },
     exists: null,
     tag: "both",
+    display: false
 };
 
 const validPasswordRegex = new RegExp(
@@ -113,7 +115,7 @@ const validEmailRegex = new RegExp(
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
 const errorFormArray = [];
-
+let mailTaken;
 class Signup extends Component {
     state = signUpCState;
 
@@ -134,11 +136,15 @@ class Signup extends Component {
                 exists: this.props.error,
             });
         }
+        if (this.props.error){
+            mailTaken.scrollIntoView({behavior:"smooth"})
+        }
     }
 
     validateForm = (errors) => {
         let valid = true;
         console.log(this.state.errors);
+
         Object.values(errors).forEach(
             // if we have an error string set valid to false
             (val) => console.log(val)
@@ -164,6 +170,10 @@ class Signup extends Component {
                 display: true,
             },
         });
+        this.setState({
+            ...this.state,
+            display: true
+        })
     };
 
     getOffer = (event) => {
@@ -222,6 +232,8 @@ class Signup extends Component {
                 errors.password = validPasswordRegex.test(value)
                     ? ""
                     : "Password needs to contain at least one letter and one number and 6 characters!";
+
+
                 break;
 
             case "passwordConfirm":
@@ -304,6 +316,8 @@ class Signup extends Component {
 
         const signupForm = formArray.map((element) => (
             <Input
+                display={this.state.display}
+                error={this.state.errors[element.type]}
                 type={element.type}
                 name={element.name}
                 key={element.type}
@@ -318,8 +332,8 @@ class Signup extends Component {
         
         return (
             <div className="signup-container">
-            <h3 className="signup-msg">Sag uns <br/> wer du bist</h3>
-                {this.state.exists ? <h4>{this.props.error}</h4> : null}
+            <h3 ref={(el) => {mailTaken = el}} className="signup-msg">Sag uns <br/> wer du bist</h3>
+                {this.state.exists ? <div  className="errorMessage"> <h4 className="errorMessage">{this.props.error}</h4> </div>  : null}
                 <form onSubmit={this.onSubmit} className="signup-form">
                     {signupForm}
                     {this.props.match.params.userType === "supplier" ? (
@@ -336,8 +350,7 @@ class Signup extends Component {
                     ) : null}
                     <CustomButton type="submit" label="Register" className="button yellow-btn"/>
                 </form>
-                <Errors></Errors>
-                {errorDisplay}
+
             </div>
         );
     }

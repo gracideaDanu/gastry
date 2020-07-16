@@ -54,7 +54,7 @@ class UserController {
         try{
             UserModel.findOne({email: req.body.email}).then(user => {
                 if (user) {
-                    res.status(400).json({message: req.body.email + " this email already exists"})
+                    res.status(400).json({message: "A user with this E-Mail already exists, consider using another one"})
                     return
                 }
                 else {

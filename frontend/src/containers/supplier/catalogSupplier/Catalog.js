@@ -3,53 +3,12 @@ import {connect} from 'react-redux'
 import * as actions from "../../../redux/actions";
 import SupplierLayout from "../supplierLayout/SupplierLayout";
 import SupplierCatListView from "../../../components/list/SupplierCatListView";
-import Accordion from "react-bootstrap/Accordion";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import {SwipeableDrawer, Fab, Divider} from "@material-ui/core";
-import List from "@material-ui/core/List";
 import {Container} from "react-bootstrap";
 import AddIcon from '@material-ui/icons/Add';
 
 import './Catalog.css'
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
-const signUpSState = {
-    form: {
-        name: {
-            value: "",
-            type: "name",
-            name: "Product name"
-        },
-
-        tags: {
-            value: "",
-            type: "tags",
-            name: "Product tags"
-        },
-        size: {
-            value: "",
-            type: "size",
-            name: "Size"
-        },
-
-
-        price: {
-            value: "",
-            type: "price"
-        }
-
-    },
-    errors: {
-        name: 'Product name is required',
-        price: 'Product price is required',
-        size: 'Product size is required',
-        tags: 'Product tag is required'
-
-    }
-
-};
 
 class Catalog extends Component {
 
@@ -72,10 +31,6 @@ class Catalog extends Component {
 
 
     componentDidMount() {
-        console.log("I mounted ");
-        if (this.props.items.length <= 0) {
-            console.log("empty")
-        }
 
         this.props.fetchCatalog({
             token: this.props.token
@@ -86,10 +41,7 @@ class Catalog extends Component {
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("I updated");
-        if (this.props.items.length > 0) {
-            console.log("Not empty:" + this.props.items[0].name)
-        }
+
         if(prevProps.items !== this.props.items){
             this.setState({
                 catalog: this.props.items
@@ -98,64 +50,9 @@ class Catalog extends Component {
 
 
     }
-    showModalHandler = (i) => {
-        console.debug(i)
-        let currentItem =  {
-            tags: "",
-                name: "",
-                price: "",
-                size: "",
-            description: ""
-        }
-        let errors = {}
-        let option = ""
-        let index = -1;
-        if (!this.state.showModal && i >= 0) {
-            index = i;
-            currentItem = this.state.catalog[i];
-             option = "modify";
-        }
-        else if(!this.state.showModal && i < 0) {
-            errors = {
-                name: 'Product name is required',
-                price: 'Product price is required',
-                size: 'Product size is required',
-                tags: 'Product tag is required' ,
-                description:  'Product description is required' ,
-
-            }
-            option = "add"
-        }
 
 
 
-        const modal = !this.state.showModal;
-         this.setState({
-                ...this.state,
-                showModal: modal,
-                index: index,
-                currentItem: currentItem,
-             errors: errors,
-             option: option
-            })
-
-
- }
-
-    /*addHardItem = () => {
-        const payload = {
-            token: this.props.token,
-            data: {
-                name: "Rice cake",
-                price: "5",
-                size: "1kg",
-                description: "Made out of rice",
-                tags: "Food"
-            }
-        };
-        this.props.addItem(payload);
-
-    }; */
     validateForm = (errors) => {
         let valid = true;
         console.log(this.state.errors);
@@ -224,8 +121,6 @@ class Catalog extends Component {
         e.preventDefault();
         const property = e.target.name;
         const value = e.target.value;
-        console.log(Object.keys(this.state.errors).length)
-        const index = i;
         this.validationHandler(property,value);
         const item = {
             ...this.state.currentItem
@@ -248,7 +143,6 @@ class Catalog extends Component {
             })
         }
         else {
-            Object.values(this.state.errors).forEach((er) => alert(er))
 
         }
     }
@@ -262,7 +156,6 @@ class Catalog extends Component {
             })
         }
         else {
-            Object.values(this.state.errors).forEach((er) => er.length > 0 ? alert(er) : null)
 
         }
     };
@@ -334,16 +227,15 @@ class Catalog extends Component {
             option: option,
             anchor: open
         })
-        //this.setState({...this.state, anchor: open})
 
     };
 
      list = () => (
+
         <div
             className="bottom"
             role="presentation"
-            //onClick={this.toggleDrawer( false)}
-            //onKeyDown={this.toggleDrawer( false)}
+
         >
             <div className="row centerRow">
                 <div className="col-6">
@@ -432,7 +324,7 @@ class Catalog extends Component {
     render() {
         const catArray = this.state.catalog.map((item, index) =>
             (
-            <SupplierCatListView  index={index} showModal={this.state.showModal} modal={this.showModalHandler} toggle={() => this.toggle(true, index)} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
+            <SupplierCatListView  index={index} showModal={this.state.showModal}  toggle={() => this.toggle(true, index)} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
 
         ));
         return (
@@ -440,6 +332,7 @@ class Catalog extends Component {
                 <div>
 
                         {catArray}
+
                         <React.Fragment key={"bottom"}>
                             <SwipeableDrawer style={{backgroundColor: "transparent"}}
                                 anchor={"bottom"}
@@ -451,79 +344,17 @@ class Catalog extends Component {
                             </SwipeableDrawer>
                         </React.Fragment>
 
-                    <Modal show={this.state.showModal} onHide={this.showModalHandler}  >
 
-
-                        <Modal.Body>
-
-
-                            <div className="form-group">
-                            <label>Name </label>
-                            <input value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
-                            </div>
-
-                            <div className="form-group">
-                                <label>Tag</label>
-                                <select className="form-control" defaultValue="-" name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
-                                    <option value="-">-</option>
-                                    {this.props.userOffer === "both"
-                                        ? <> <option value="Food">Food</option>
-                                        <option value="Drink">Drink</option> </>
-                                        : null
-                                    }{this.props.userOffer === "food"
-                                        ? <option value="Food">Food</option>
-
-                                        : null
-                                    }{this.props.userOffer === "drinks"
-                                        ? <option value="Drink">Drink</option>
-
-                                        : null
-                                    }
-                                </select>
-                            </div>
-
-
-                            <div className="form-group">
-                            <label>Size</label>
-                            <input value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
-                            </div>
-
-                            <div className="form-group">
-                                <label>Price</label>
-                                <input value={this.state.currentItem['price']} name="price"  onChange={(e) => this.onChange(e, this.state.index)}/>
-                            </div>
-
-                            <div className="form-group">
-                                <label>Description</label>
-
-
-                                <textarea value={this.state.currentItem['description']} onChange={(e) => this.onChange(e, this.state.index)} className="form-control" rows="3" maxLength="100" name="description"/>
-                            </div>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={this.showModalHandler}>
-                                Close
-                            </Button>
-                            {this.state.option === "modify"
-                                ? <Button variant="primary" onClick={(e) => this.modifyItemHandler(e)}>
-                                    Modify Item
-                                </Button>
-
-                                : <Button variant="primary" onClick={(e) => this.addItemHandler(e)}>
-                                    Add Item
-                                </Button>
-
-
-                            }
-
-                        </Modal.Footer>
-
-                    </Modal>
                 </div>
-                <footer className="fixed-bottom fab">
-                    <Fab onClick={() => this.toggle(true,-1)}> <AddIcon></AddIcon>  </Fab>
+                    <footer className="fixed-bottom fab">
+                        <Container>
+                            <Fab onClick={() => this.toggle(true,-1)}> <AddIcon></AddIcon>  </Fab>
 
-                </footer>
+                        </Container>
+
+                    </footer>
+
+
             </SupplierLayout>
         );
     }
