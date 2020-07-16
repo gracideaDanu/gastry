@@ -50,7 +50,7 @@ const CustomerLayout = ({
             <>
                 <Topbar backButton={() => history.goBack()} showBack={showBack} showBasket={showBasket} basketState={basketState}/>
                 <NavigationBottom pagelist={bottomButtons} />
-                <Container fluid className={"h-100  d-flex flex-column"} style={{minHeight:"100vh",padding: "0px"}}>
+                <Container fluid className={"h-100  d-flex flex-column"}>
                     <Row>
                         <Container>
                             <h3 className="page-title">{title}</h3>
