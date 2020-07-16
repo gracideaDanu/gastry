@@ -2,6 +2,7 @@ export const LOGIN = 'LOGIN';
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGIN_FLUSH = 'LOGIN_FLUSH';
 export const TOKEN_INVALID = 'TOKEN_INVALID';
 
 export const REGISTER_START = 'REGISTER_START';

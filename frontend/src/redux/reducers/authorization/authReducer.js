@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS, LOGIN_FAILED, LOGIN_START} from '../../actions/actionTypes';
+import {LOGIN_SUCCESS, LOGIN_FAILED, LOGIN_START, LOGIN_FLUSH} from '../../actions/actionTypes';
 
 const initialState = {
     token: null,
@@ -26,8 +26,14 @@ export default function(state = initialState, action) {
         case LOGIN_FAILED:
             return {
                 ...state,
-                error: action.error
+                error: action.error.message
             };
+        case LOGIN_FLUSH:
+            return {
+                ...state,
+                error: null
+            };
+            break;
         default:
             return state;
     }

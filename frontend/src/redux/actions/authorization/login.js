@@ -13,12 +13,21 @@ export const login = (payload) => {
             .then(res => {
                 dispatch(loginSuccess(res.data));
                 dispatch(fetchUser(res.data.userId))
+                dispatch(loginFlush())
             })
 
             .catch(err => {
-                dispatch(loginFailed(err.data))
+                console.log(err.response.data)
+                dispatch(loginFailed(err.response.data))
             })
     }
+};
+
+
+export const loginFlush = () => {
+   return {
+       type: actionTypes.LOGIN_FLUSH
+   };
 };
 
  const loginSuccess =(data) =>{
