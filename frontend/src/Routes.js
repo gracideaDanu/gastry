@@ -40,6 +40,7 @@ class Routes extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if ( prevProps.token !== this.props.token && this.props.token === null){
             this.props.history.replace("/login");
+            privateRoutes.length = 0;
         }
         if ( prevProps.token !== this.props.token && this.props.token !== null){
             this.props.history.replace("/home");
