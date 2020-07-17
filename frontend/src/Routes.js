@@ -65,7 +65,7 @@ class Routes extends Component {
             else {
 
                 privateRoutes.push(<Route exact path={"/home"} component={OrderCustomer}></Route>)
-                privateRoutes.push(<Route exact path={"/home/suppliers"} component={SuppliersList}></Route>)
+                privateRoutes.push(<Route exact path={"/suppliers/:category"} component={SuppliersList}></Route>)
                 privateRoutes.push(<Route exact path={"/catalog/:supplierName/basket"} component={Basket}></Route>)
                 privateRoutes.push(<Route exact path={"/catalog/:supplierName"} component={CatalogCustomer}></Route>)
                 privateRoutes.push(<Route exact path={"/orders"} component={() => <Orderlist userType={"customer"}/>}></Route>)
