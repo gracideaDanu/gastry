@@ -9,31 +9,14 @@ class CustomerController extends UserController {
 
     getSuppliersList = async (req, res) => {
         try {
-            const category = req.params.category;
-            console.log(category)
-            const suppliers = await SupplierModel.find({});
-            const suppliersInfo = suppliers.filter((supplier) => {
-                if (category == "both"){
-                    return true;
-                }
-                else {
-                    if (supplier.category == "both") {
-                        return true
-                    }
-                    else {
-                        return supplier.category == category
-                    }
-                }
-            }).map((supplier) => {
-                return {
-                    _id: supplier._id,
-                    name: supplier.company,
-                    address: supplier.address,
-                };
-            });
+            const suppliers = await SupplierModel.find({
+                category: req.params.category,
+            }, 'company address')
+                .limit(parseInt(req.query.limit))
+                .skip(parseInt(req.query.skip));
             res.status(200).send({
                 message: "Successfully fetched all suppliers",
-                data: suppliersInfo,
+                data: suppliers,
             });
         } catch (e) {
             res.status(400).send({

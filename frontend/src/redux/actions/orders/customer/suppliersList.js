@@ -9,8 +9,11 @@ export const fetchSuppliersList = (payload) => async (dispatch) => {
     dispatch(fetchSuppliersListStart);
 
     try {
-        const category = payload.data.category;
-        const response = await axios.get("/customer/suppliersList/" + category);
+        const { category, limit, skip } = payload.data;
+        const response = await axios.get(
+            `/customer/suppliersList/${category}`,
+            { params: { limit, skip } }
+        );
         dispatch(fetchSuppliersListSuccess(response.data.data));
     } catch (err) {
         dispatch(fetchSuppliersListFailed(err));
