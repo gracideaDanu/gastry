@@ -89,6 +89,19 @@ export const fetchCatalog = (payload) => {
     }
 };
 
+export const flushCatalog = () => {
+    return dispatch => {
+        dispatch(flush())
+    }
+};
+
+
+const flush = () => {
+    return {
+        type: actionTypes.CATALOG_FLUSH
+    }
+};
+
 const addItemCatalogSuccess =(data) =>{
     return{
         type: actionTypes.ADD_ITEM_CATALOG_SUCCESS,

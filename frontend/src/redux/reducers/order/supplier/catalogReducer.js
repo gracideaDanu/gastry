@@ -3,7 +3,7 @@ import {
     FETCH_CATALOG_START, FETCH_CATALOG_SUCCESS, FETCH_CATALOG_FAILED,
     ADD_ITEM_CATALOG_START, ADD_ITEM_CATALOG_SUCCESS, ADD_ITEM_CATALOG_FAILED,
     DELETE_ITEM_CATALOG_START, DELETE_ITEM_CATALOG_SUCCESS, DELETE_ITEM_CATALOG_FAILED,
-    MODIFY_ITEM_CATALOG_START, MODIFY_ITEM_CATALOG_SUCCESS, MODIFY_ITEM_CATALOG_FAILED
+    MODIFY_ITEM_CATALOG_START, MODIFY_ITEM_CATALOG_SUCCESS, MODIFY_ITEM_CATALOG_FAILED, CATALOG_FLUSH
 } from "../../../actions/actionTypes";
 
 
@@ -110,6 +110,8 @@ export default function(state = initialState, action) {
                 loading: false,
                 data: action.data
             };
+        case CATALOG_FLUSH:
+            return initialState;
         default:
             return state;
     }

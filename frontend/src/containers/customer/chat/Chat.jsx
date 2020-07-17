@@ -65,6 +65,10 @@ class Chat extends Component {
         this.scrollToBottom()
     }
 
+    componentWillUnmount() {
+        this.props.flush();
+    }
+
 
     newMessage = (message) => {
         const userId = this.state.userId;
@@ -268,7 +272,8 @@ const mapsStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         postMessage: (payload) => dispatch(actions.postMessage(payload)),
-        fetchChat: (payload) => dispatch(actions.fetchChat(payload))
+        fetchChat: (payload) => dispatch(actions.fetchChat(payload)),
+        flush: () => dispatch(actions.flushChat())
     }
 };
 

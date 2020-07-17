@@ -1,7 +1,7 @@
 import {
     FETCH_ORDERS_START,
     FETCH_ORDERS_SUCCESS,
-    FETCH_ORDERS_FAILED
+    FETCH_ORDERS_FAILED, ORDERS_FLUSH
 } from "../../actions/actionTypes";
 
 const initialState = {
@@ -27,7 +27,9 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 error: action.error
-            }
+            };
+        case ORDERS_FLUSH:
+            return initialState;
         default:
             return state;
     }

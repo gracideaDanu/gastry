@@ -52,6 +52,10 @@ class CatalogCustomer extends Component {
         this.findItemAmount("5eea44202681241ad4fd9c42");
     }
 
+    componentWillUnmount() {
+        this.props.flush();
+    }
+
     changeAmountThroughField = (event, itemId) => {
         event.preventDefault();
         const {supplierId} = this.props.location.state;
@@ -254,6 +258,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(actions.fetchSupplierCatalog(payload)),
         addItemToBasket: (payload) =>
             dispatch(actions.addItemToBasket(payload)),
+        flush: () => dispatch(actions.flushSupplierCatalog())
     };
 };
 
