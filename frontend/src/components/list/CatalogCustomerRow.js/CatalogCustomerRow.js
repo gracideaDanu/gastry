@@ -28,10 +28,11 @@ class CatalogCustomerRow extends Component {
                             </Col>
                             <Col xs={4} className={"d-flex align-items-center "}>
                                 <Counter
+                                    itemId={item._id}
                                     amount={this.props.amount}
                                     countDown={this.props.subtract}
                                     countUp={this.props.add}
-                                    onChange={this.onChange}
+                                    onChange={this.props.change}
                                 />
                         </Col>
                         </Row>

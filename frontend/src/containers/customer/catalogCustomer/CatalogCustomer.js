@@ -52,10 +52,53 @@ class CatalogCustomer extends Component {
         this.findItemAmount("5eea44202681241ad4fd9c42");
     }
 
+    changeAmountThroughField = (event, itemId) => {
+        event.preventDefault();
+        const {supplierId} = this.props.location.state;
+        const catalog = [...this.state.catalog];
+
+        let item = catalog.find((catItem) => catItem._id === itemId);
+        const basket = [...this.state.basket];
+        let incrementItem = basket.find((element) => item._id === element._id);
+        if (incrementItem) {
+            const index = basket.findIndex(
+                (element) => element === incrementItem
+            );
+            let amount = event.target.value.length <= 0 ? 1 :  parseInt(event.target.value.replace(/\D/,''))
+
+            amount < 0 ? (amount = 0) : (amount = amount);
+            amount > 99 ? (amount = 99) : (amount = amount);
+            incrementItem = {
+                ...incrementItem,
+                amount: amount,
+            };
+            amount === 0
+                ? basket.splice(index, 1)
+                : (basket[index] = incrementItem);
+        } else {
+            item = {
+                ...item,
+                amount: event.target.value.length <= 0 ? 1 :  parseInt(event.target.value.replace(/\D/,''))
+
+            };
+            basket.push(item);
+            console.log("New item");
+        }
+        this.setState({
+            ...this.state,
+            basket: basket,
+        });
+        this.props.addItemToBasket({
+            basket: basket,
+            supplierId: supplierId,
+        });
+        console.log("HI PROPS");
+
+    };
+
     addItemToBasketHandler = (event, itemId, option, amount) => {
         event.preventDefault();
         const {supplierId} = this.props.location.state;
-
         const catalog = [...this.state.catalog];
         let item = catalog.find((catItem) => catItem._id === itemId);
         const basket = [...this.state.basket];
@@ -65,17 +108,23 @@ class CatalogCustomer extends Component {
                 (element) => element === incrementItem
             );
             let amount = incrementItem.amount;
+            console.log("amount why 99")
+            console.log(amount)
             switch (option) {
                 case 1:
+                    console.log("switch amount 1: " + amount)
                     amount += 1;
+                    console.log("switch amount 1 after adding: " + amount)
+
                     break;
                 case 2:
                     amount -= 1;
                     console.log(amount);
                     break;
             }
-            amount < 0 ? (amount = 0) : (amount = amount);
+            amount <= 0 ? (amount = 0) : (amount = amount);
             amount > 99 ? (amount = 99) : (amount = amount);
+            console.log(amount + " again checking amount")
             incrementItem = {
                 ...incrementItem,
                 amount: amount,
@@ -154,6 +203,7 @@ class CatalogCustomer extends Component {
 
         return renderedList.map((item, index) => (
             <SupplierCatList
+                change={this.changeAmountThroughField}
                 amount={this.findItemAmount(item._id)}
                 add={(e) => this.addItemToBasketHandler(e, item._id, 1)}
                 subtract={(e) => this.addItemToBasketHandler(e, item._id, 2)}
