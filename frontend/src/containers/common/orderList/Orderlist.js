@@ -39,9 +39,10 @@ class Orderlist extends Component {
             </Link>
         ));
         return this.props.userType === "supplier" ? (
-            <SupplierLayout title="Orders" location={"orders"}>
+            <SupplierLayout title="Orders" location="orders">
                 <Container fluid>{orders}</Container>
             </SupplierLayout>
+
         ) : (
             <CustomerLayout title="Orders" location={"orders"}>
                 <Container fluid>{orders}</Container>

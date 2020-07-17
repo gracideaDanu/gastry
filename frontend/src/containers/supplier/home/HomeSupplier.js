@@ -14,7 +14,7 @@ class HomeSupplier extends Component {
             <SupplierLayout
                 className="container-fluid"
                 title="Was möchtest du bestellen?"
-                location="bestelleingänge"
+                location="orders"
             >
                 <h2 className="mb-4">New Arrivals</h2>
                 <div className="row"></div>

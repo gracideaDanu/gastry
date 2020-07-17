@@ -25,14 +25,14 @@ const SupplierLayout = ({
 }) => {
     const navbuttons = [
         {
-            picref: (location === "bestelleingänge" ? bestelleingangActive : bestelleingangInactive),
+            picref: (location === "orders" ? bestelleingangActive : bestelleingangInactive),
             name: "Bestelleingänge",
-            link: "/home",
+            link: "/orders",
         },
         {
-            picref: (location==="orders" ? produktKatalogActive : produktKatalogInactive),
+            picref: (location === "catalog" ? produktKatalogActive  : produktKatalogInactive),
             name: "Productkatalog",
-            link: "/orders",
+            link: "/catalog",
         },
         {
             picref: (location==="profile" ? profileActive : profileInactive),
@@ -46,6 +46,7 @@ const SupplierLayout = ({
             <Navigation pagelist={navbuttons} />
             <Container fluid className={"h-100  d-flex flex-column"}>
                 <Row>
+                    {console.log(location)}
                     <h3 className="page-title">{title}</h3>
                 </Row>
                 <Row className={"flex-grow-1"}>
