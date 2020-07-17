@@ -31,7 +31,6 @@ class Chat extends Component {
         super(props);
         console.log(this.props.token)
 
-
     }
 
     componentDidMount() {

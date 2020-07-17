@@ -40,6 +40,11 @@ export class Login extends Component {
         }
     }
 
+    componentWillUnmount() {
+        console.log("I unmounted login");
+        this.props.loginFlush()
+    }
+
     onSubmit = (event) => {
         event.preventDefault();
         const loginData = {
@@ -72,6 +77,7 @@ export class Login extends Component {
 
         const signInForm = formArray.map((element) => (
             <Input
+
                 type={element.type}
                 key={element.type}
                 name={element.name}
@@ -87,6 +93,8 @@ export class Login extends Component {
                     Bestellen und Chatten. <br />
                     So einfach war deine Bestellung nie. <br />
                 </p>
+                {this.props.error ? <div className="errorMessage"> <h6 className="errorMessage">{this.props.error}</h6> </div>  : null}
+
                 <form onSubmit={this.onSubmit} id="login-form" className="login-form">
                     {signInForm}
                 </form>
@@ -108,6 +116,7 @@ export class Login extends Component {
 
 const mapsStateToProps = (state) => {
     return {
+        error: state.auth.error,
         userId: state.auth.userId,
         token: state.auth.token,
     };
@@ -117,6 +126,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchUser: (_id) => dispatch(actions.fetchUser(_id)),
         login: (data) => dispatch(actions.login(data)),
+        loginFlush: () => dispatch(actions.loginFlush())
     };
 };
 

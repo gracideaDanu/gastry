@@ -40,6 +40,27 @@
     background-color: transparent;
 }
 
+div.item, div.setMarginRL {
+    display: flex;
+    list-style: none;
+    margin-bottom: 1rem;
+    padding: 0.2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-radius: 50px;
+}
+div.unsetMarginRL {
+    display: flex;
+    list-style: none;
+    margin-bottom: unset;
+    padding: 0.2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-radius: 50px;
+}
+
 .form-options:focus {
     outline: none;
 }
@@ -83,7 +104,6 @@
 .signup-msg {
     padding: 2.5rem;
     background-color: #fff;
-    margin: 0 -14px;
     border-bottom-left-radius: 2rem;
     border-bottom-right-radius: 2rem;
     text-align: center;

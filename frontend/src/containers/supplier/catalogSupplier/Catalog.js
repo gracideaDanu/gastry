@@ -3,45 +3,12 @@ import {connect} from 'react-redux'
 import * as actions from "../../../redux/actions";
 import SupplierLayout from "../supplierLayout/SupplierLayout";
 import SupplierCatListView from "../../../components/list/SupplierCatListView";
-import Accordion from "react-bootstrap/Accordion";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import {SwipeableDrawer, Fab, Divider} from "@material-ui/core";
+import {Container} from "react-bootstrap";
+import AddIcon from '@material-ui/icons/Add';
 
-const signUpSState = {
-    form: {
-        name: {
-            value: "",
-            type: "name",
-            name: "Product name"
-        },
+import './Catalog.css'
 
-        tags: {
-            value: "",
-            type: "tags",
-            name: "Product tags"
-        },
-        size: {
-            value: "",
-            type: "size",
-            name: "Size"
-        },
-
-
-        price: {
-            value: "",
-            type: "price"
-        }
-
-    },
-    errors: {
-        name: 'Product name is required',
-        price: 'Product price is required',
-        size: 'Product size is required',
-        tags: 'Product tag is required'
-
-    }
-
-};
 
 class Catalog extends Component {
 
@@ -58,15 +25,12 @@ class Catalog extends Component {
             description: ""
         },
         option: "add",
-        basket: []
-    }
+        basket: [],
+        anchor: false
+    };
 
 
     componentDidMount() {
-        console.log("I mounted ");
-        if (this.props.items.length <= 0) {
-            console.log("empty")
-        }
 
         this.props.fetchCatalog({
             token: this.props.token
@@ -77,10 +41,7 @@ class Catalog extends Component {
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("I updated")
-        if (this.props.items.length > 0) {
-            console.log("Not empty:" + this.props.items[0].name)
-        }
+
         if(prevProps.items !== this.props.items){
             this.setState({
                 catalog: this.props.items
@@ -89,64 +50,9 @@ class Catalog extends Component {
 
 
     }
-    showModalHandler = (i) => {
-        console.debug(i)
-        let currentItem =  {
-            tags: "",
-                name: "",
-                price: "",
-                size: "",
-            description: ""
-        }
-        let errors = {}
-        let option = ""
-        let index = -1;
-        if (!this.state.showModal && i >= 0) {
-            index = i;
-            currentItem = this.state.catalog[i];
-             option = "modify";
-        }
-        else if(!this.state.showModal && i < 0) {
-            errors = {
-                name: 'Product name is required',
-                price: 'Product price is required',
-                size: 'Product size is required',
-                tags: 'Product tag is required' ,
-                description:  'Product description is required' ,
-
-            }
-            option = "add"
-        }
 
 
 
-        const modal = !this.state.showModal;
-         this.setState({
-                ...this.state,
-                showModal: modal,
-                index: index,
-                currentItem: currentItem,
-             errors: errors,
-             option: option
-            })
-
-
- }
-
-    /*addHardItem = () => {
-        const payload = {
-            token: this.props.token,
-            data: {
-                name: "Rice cake",
-                price: "5",
-                size: "1kg",
-                description: "Made out of rice",
-                tags: "Food"
-            }
-        };
-        this.props.addItem(payload);
-
-    }; */
     validateForm = (errors) => {
         let valid = true;
         console.log(this.state.errors);
@@ -215,8 +121,6 @@ class Catalog extends Component {
         e.preventDefault();
         const property = e.target.name;
         const value = e.target.value;
-        console.log(Object.keys(this.state.errors).length)
-        const index = i;
         this.validationHandler(property,value);
         const item = {
             ...this.state.currentItem
@@ -237,10 +141,8 @@ class Catalog extends Component {
                 token: this.props.token,
                 data: modifiedItem
             })
-            this.showModalHandler(-1);
         }
         else {
-            Object.values(this.state.errors).forEach((er) => alert(er))
 
         }
     }
@@ -252,48 +154,164 @@ class Catalog extends Component {
                 token: this.props.token,
                 data: itemToAdd
             })
-            this.showModalHandler(-1);
         }
         else {
-            Object.values(this.state.errors).forEach((er) => er.length > 0 ? alert(er) : null)
 
         }
-    }
+    };
 
-    /*addItemToBasketHandler = (event, itemId) => {
-        event.preventDefault();
-        const catalog = [...this.state.catalog];
-        let item = catalog.find(catItem => catItem._id === itemId );
-        console.log(item);
-        const basket = [...this.state.basket];
-        let incrementItem = basket.find(element => item._id === element._id)
-        if (incrementItem) {
-            console.log("Duplicate, increment amount!")
-            const index = basket.findIndex(element => element === incrementItem)
-            const amount = incrementItem.amount + 1;
-            incrementItem = {
-                ...incrementItem,
-                amount: amount
+
+
+    toggleDrawer = (open) => (event) => {
+        console.log("hi toggle");
+        if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+        const errors = {
+
+                name: 'Product name is required',
+                price: 'Product price is required',
+                size: 'Product size is required',
+                tags: 'Product tag is required' ,
+                description:  'Product description is required' ,
+
+
+        }
+        console.log("why no error")
+
+        this.setState({...this.state, anchor: open, errors: errors})
+
+    };
+
+    toggle = (open,i) => {
+        console.log("hoi");
+        let currentItem =  {
+            tags: "",
+            name: "",
+            price: "",
+            size: "",
+            description: ""
+        }
+        let errors = {}
+        let option = ""
+        let index = -1;
+        console.log("why")
+        console.log(open)
+        console.log(i)
+        if (!this.state.anchor && i >= 0) {
+            index = i;
+            currentItem = this.state.catalog[i];
+            option = "modify";
+        }
+        else if(!this.state.anchor && i < 0) {
+            console.log("im in there elsing"
+            )
+            errors = {
+                name: 'Product name is required',
+                price: 'Product price is required',
+                size: 'Product size is required',
+                tags: 'Product tag is required' ,
+                description:  'Product description is required' ,
+
             }
-            basket[index] = incrementItem
+            option = "add"
+        }
 
-        }
-        else {
-            console.log("New item");
-            item = {
-                ...item,
-                amount: 1
-            }
-            basket.push(item)
-        }
+
+
         this.setState({
             ...this.state,
-            basket: basket
+            index: index,
+            currentItem: currentItem,
+            errors: errors,
+            option: option,
+            anchor: open
         })
 
+    };
+
+     list = () => (
+
+        <div
+            className="bottom"
+            role="presentation"
+
+        >
+            <div className="row centerRow">
+                <div className="col-6">
+                    <h4>Add Item</h4>
+
+                </div>
+                <div className="col-3 sheet">
+                    {this.state.option === "modify"
+                        ?                     <button className="button yellow-btn text-center" onClick={(e) => this.modifyItemHandler(e)}>Save</button>
+                        :                     <button className="button yellow-btn text-center" onClick={(e) => this.addItemHandler(e)}>Save</button>
+
+                    }
+                </div>
+                <div className="col-3 sheet">            <button className="button red-btn" onClick={() => this.toggle(false,-1)}>Cancel</button>
+                </div>
+            </div>
+            <Divider/>
+
+            <div className={ this.state.errors.name === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
+                <label>Name </label>
+                <input value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
+
+            </div>
+            <div className="errorMessage">
+                <p>{this.state.errors.name}</p>
+            </div>
+
+            <div className={ this.state.errors.tags === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
+                <label>Tag</label>
+                <select className="select-category" defaultValue="-" name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
+                    <option value="-">-</option>
+                    {this.props.userOffer === "both"
+                        ? <> <option value="Food">Food</option>
+                            <option value="Drink">Drink</option> </>
+                        : null
+                    }{this.props.userOffer === "food"
+                    ? <option value="Food">Food</option>
+
+                    : null
+                }{this.props.userOffer === "drinks"
+                    ? <option value="Drink">Drink</option>
+
+                    : null
+                }
+                </select>
+            </div>
+            <div className="errorMessage">
+                <p>{this.state.errors.tags}</p>
+            </div>
 
 
-    } */
+            <div className={ this.state.errors.size === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
+                <label>Size</label>
+                <input value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
+            </div>
+            <div className="errorMessage">
+                <p>{this.state.errors.size}</p>
+            </div>
+
+            <div className={ this.state.errors.price === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
+                <label>Price</label>
+                <input value={this.state.currentItem['price']} name="price"  onChange={(e) => this.onChange(e, this.state.index)}/>
+            </div>
+            <div className="errorMessage">
+                <p>{this.state.errors.price}</p>
+            </div>
+            <label style={{"margin-left":"1.2em"}}>Description</label>
+            <div className={ this.state.errors.description === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
+                <textarea value={this.state.currentItem['description']} onChange={(e) => this.onChange(e, this.state.index)} className="form-control" rows="3" maxLength="100" name="description"/>
+            </div>
+            <div className="errorMessage">
+                <p>{this.state.errors.description}</p>
+            </div>
+
+        </div>
+    );
 
 
 
@@ -306,84 +324,37 @@ class Catalog extends Component {
     render() {
         const catArray = this.state.catalog.map((item, index) =>
             (
-            <SupplierCatListView  index={index} showModal={this.state.showModal} modal={this.showModalHandler} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
+            <SupplierCatListView  index={index} showModal={this.state.showModal}  toggle={() => this.toggle(true, index)} deleteHanlder={(event) => this.props.deleteItem({token: this.props.token, itemId: event.target.value})} item={item}></SupplierCatListView>
 
         ));
         return (
             <SupplierLayout>
                 <div>
-                    <button onClick={() => this.showModalHandler(-1)} >Add item</button>
+
                         {catArray}
-                    <Modal show={this.state.showModal} onHide={this.showModalHandler}  >
 
+                        <React.Fragment key={"bottom"}>
+                            <SwipeableDrawer style={{backgroundColor: "transparent"}}
+                                anchor={"bottom"}
+                                open={this.state.anchor}
+                                onClose={this.toggleDrawer( false)}
+                                onOpen={this.toggleDrawer( true)}
+                            >
+                                {this.list("bottom")}
+                            </SwipeableDrawer>
+                        </React.Fragment>
 
-                        <Modal.Body>
-
-
-                            <div className="form-group">
-                            <label>Name </label>
-                            <input value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
-                            </div>
-
-                            <div className="form-group">
-                                <label>Tag</label>
-                                <select className="form-control" defaultValue="-" name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
-                                    <option value="-">-</option>
-                                    {this.props.userOffer === "both"
-                                        ? <> <option value="Food">Food</option>
-                                        <option value="Drink">Drink</option> </>
-                                        : null
-                                    }{this.props.userOffer === "food"
-                                        ? <option value="Food">Food</option>
-
-                                        : null
-                                    }{this.props.userOffer === "drinks"
-                                        ? <option value="Drink">Drink</option>
-
-                                        : null
-                                    }
-                                </select>
-                            </div>
-
-
-                            <div className="form-group">
-                            <label>Size</label>
-                            <input value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
-                            </div>
-
-                            <div className="form-group">
-                                <label>Price</label>
-                                <input value={this.state.currentItem['price']} name="price"  onChange={(e) => this.onChange(e, this.state.index)}/>
-                            </div>
-
-                            <div className="form-group">
-                                <label>Description</label>
-
-
-                                <textarea value={this.state.currentItem['description']} onChange={(e) => this.onChange(e, this.state.index)} className="form-control" rows="3" maxLength="100" name="description"/>
-                            </div>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={this.showModalHandler}>
-                                Close
-                            </Button>
-                            {this.state.option === "modify"
-                                ? <Button variant="primary" onClick={(e) => this.modifyItemHandler(e)}>
-                                    Modify Item
-                                </Button>
-
-                                : <Button variant="primary" onClick={(e) => this.addItemHandler(e)}>
-                                    Add Item
-                                </Button>
-
-
-                            }
-
-                        </Modal.Footer>
-
-                    </Modal>
 
                 </div>
+                    <footer className="fixed-bottom fab">
+                        <Container>
+                            <Fab onClick={() => this.toggle(true,-1)}> <AddIcon></AddIcon>  </Fab>
+
+                        </Container>
+
+                    </footer>
+
+
             </SupplierLayout>
         );
     }

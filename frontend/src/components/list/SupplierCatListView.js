@@ -34,7 +34,7 @@ const SupplierCatListView = (props) => {
                 <Accordion.Collapse eventKey={index}>
                     <Card.Body>{item.description}
                         <button onClick={props.deleteHanlder.bind(this)} value={item._id}>Delete</button>
-                        <button onClick={() => props.modal(index)}>Modify</button>
+                        <button onClick={props.toggle}>Toggle</button>
                     </Card.Body>
 
                 </Accordion.Collapse>
