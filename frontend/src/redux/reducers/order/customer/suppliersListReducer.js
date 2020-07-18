@@ -1,7 +1,7 @@
 import {
     FETCH_SPPLIERS_LIST_START,
     FETCH_SPPLIERS_LIST_SUCCESS,
-    FETCH_SPPLIERS_LIST_FAILED,
+    FETCH_SPPLIERS_LIST_FAILED, FLUSH_SUPPLIER,
 } from "../../../actions/actionTypes";
 
 const initialState = {
@@ -27,7 +27,9 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 error: action.error
-            }
+            };
+        case FLUSH_SUPPLIER:
+            return initialState;
         default:
             return state;
     }

@@ -65,22 +65,54 @@ class Chat extends Component {
         this.scrollToBottom()
     }
 
+    componentWillUnmount() {
+        this.props.flush();
+    }
+
 
     newMessage = (message) => {
         const userId = this.state.userId;
-        socket.emit("newMessage", {
-            message: message,
-            userId: userId
-        })
+        try {
+            console.log("Try")
+            socket.emit("newMessage", {
+                message: message,
+                userId: userId
+            })
+            console.log("try finished")
+        } catch (e) {
+            console.log("catch oh no")
+
+            socket = null;
+            this.setupSocket()
+            socket.emit("newMessage", {
+                message: message,
+                userId: userId
+            })
+        }
+
 
     };
 
     fetchChat = () => {
         const order = this.props.location.state.order;
         const chatId = order.chat_id;
-        socket.emit("fetchChat", {
-            chatId: chatId
-        });
+        try {
+            console.log("in try block")
+            socket.emit("fetchChat", {
+                chatId: chatId
+            });
+            console.log("in try finished")
+
+        }catch (e) {
+            console.log("catch oh no")
+            socket = null;
+            this.setupSocket();
+            socket.emit("fetchChat", {
+                chatId: chatId
+            });
+
+        }
+
     };
 
     setupSocket = () => {
@@ -268,7 +300,8 @@ const mapsStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         postMessage: (payload) => dispatch(actions.postMessage(payload)),
-        fetchChat: (payload) => dispatch(actions.fetchChat(payload))
+        fetchChat: (payload) => dispatch(actions.fetchChat(payload)),
+        flush: () => dispatch(actions.flushChat())
     }
 };
 

@@ -1,7 +1,7 @@
 import {
     FETCH_ORDERS_START,
     FETCH_ORDERS_SUCCESS,
-    FETCH_ORDERS_FAILED,
+    FETCH_ORDERS_FAILED, ORDERS_FLUSH,
 } from "../actionTypes";
 import { axiosInstance as axios } from "../../axiosInstance";
 
@@ -22,6 +22,18 @@ export const fetchOrders = (payload) => async (dispatch) => {
         dispatch(fetchOrdersSuccess(response.data.data));
     } catch (err) {
         dispatch(fetchOrdersFailed(err));
+    }
+};
+
+export const flushOrders = () => {
+    return dispatch => {
+        dispatch(flush())
+    }
+};
+
+const flush = () => {
+    return {
+        type: ORDERS_FLUSH
     }
 };
 

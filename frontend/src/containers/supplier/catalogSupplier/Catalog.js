@@ -39,6 +39,11 @@ class Catalog extends Component {
 
    }
 
+   componentWillUnmount() {
+        this.props.flush();
+       console.log("I flushed catalog S")
+   }
+
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
@@ -328,7 +333,7 @@ class Catalog extends Component {
 
         ));
         return (
-            <SupplierLayout>
+            <SupplierLayout title="Catalog" location="catalog">
                 <div>
 
                         {catArray}
@@ -374,7 +379,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchCatalog: (payload) => dispatch(actions.fetchCatalog(payload)),
         addItem: (payload) => dispatch(actions.addItemCatalog(payload)),
         deleteItem: (payload) => dispatch(actions.deleteItemCatalog(payload)),
-        modifyItem: (payload) => dispatch(actions.modifyItemCatalog(payload))
+        modifyItem: (payload) => dispatch(actions.modifyItemCatalog(payload)),
+        flush: () => dispatch(actions.flushCatalog())
 
     }
 };

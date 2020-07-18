@@ -12,6 +12,8 @@ import CustomerLaylout from "../CustomerLayout";
 import Container from "react-bootstrap/Container";
 import {Pagination} from "react-bootstrap";
 import gastry from "../../../assets/icons/logo.svg"
+import * as actions from "../../../redux/actions/index"
+
 
 class SuppliersList extends Component {
     state = {
@@ -40,6 +42,10 @@ class SuppliersList extends Component {
             this.renderPagination()
             this.spliceSupplierList(1);
         } */
+    }
+
+    componentWillUnmount() {
+        this.props.flush();
     }
 
 
@@ -217,6 +223,7 @@ const mapsStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchSuppliersList: (payload) => dispatch(fetchSuppliersList(payload)),
+        flush: () => dispatch(actions.flushSuppliersList())
     };
 };
 

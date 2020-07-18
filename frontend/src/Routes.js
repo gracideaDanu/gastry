@@ -40,6 +40,7 @@ class Routes extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if ( prevProps.token !== this.props.token && this.props.token === null){
             this.props.history.replace("/login");
+            privateRoutes.length = 0;
         }
         if ( prevProps.token !== this.props.token && this.props.token !== null){
             this.props.history.replace("/home");
@@ -58,8 +59,8 @@ class Routes extends Component {
             privateRoutes.push(<Route exact path={"/order/chat"} component={Chat}></Route>)
 
             if (this.props.user.userType === "Supplier") {
-                privateRoutes.push(<Route exact path={"/home"} component={HomeSupplier}></Route>)
-                privateRoutes.push(<Route exact path={"/catalogSupplier"} component={Catalog}></Route>)
+                privateRoutes.push(<Route exact path={"/home"} component={() => <Orderlist userType={"supplier"}/>}></Route>)
+                privateRoutes.push(<Route exact path={"/catalog"} component={Catalog}></Route>)
                 privateRoutes.push(<Route exact path={"/orders"} component={() => <Orderlist userType={"supplier"}/>}></Route>)
             }
             else {

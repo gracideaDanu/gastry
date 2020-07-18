@@ -1,4 +1,12 @@
-import {FETCH_CHAT_START,FETCH_CHAT_SUCCESS,FETCH_CHAT_FAILED,POST_MESSAGE_START,POST_MESSAGE_SUCCESS,POST_MESSAGE_FAILED} from '../../actions/actionTypes';
+import {
+    FETCH_CHAT_START,
+    FETCH_CHAT_SUCCESS,
+    FETCH_CHAT_FAILED,
+    POST_MESSAGE_START,
+    POST_MESSAGE_SUCCESS,
+    POST_MESSAGE_FAILED,
+    CHAT_FLUSH
+} from '../../actions/actionTypes';
 
 const initialState = {
     messages: [],
@@ -45,6 +53,8 @@ export default function(state = initialState, action) {
                 loading: false,
                 errors: action.data.error
             };
+        case CHAT_FLUSH:
+            return initialState;
 
         default:
             return state;

@@ -4,7 +4,7 @@ import {
     FETCH_CHAT_FAILED,
     POST_MESSAGE_START,
     POST_MESSAGE_SUCCESS,
-    POST_MESSAGE_FAILED
+    POST_MESSAGE_FAILED, CHAT_FLUSH
 } from "../actionTypes";
 import {axiosInstance as axios} from "../../axiosInstance";
 
@@ -50,6 +50,18 @@ export const postMessage = (payload) => async (dispatch) => {
         console.log("redux is faster")
     } catch (err) {
         dispatch(postMessageFailed(err));
+    }
+};
+
+export const flushChat = () => {
+    return dispatch => {
+        dispatch(flush())
+    }
+};
+
+const flush = () => {
+    return {
+        type: CHAT_FLUSH
     }
 };
 

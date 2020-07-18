@@ -1,7 +1,7 @@
 import {
     FETCH_SUPPLIER_CATALOG_START,
     FETCH_SUPPLIER_CATALOG_SUCCESS,
-    FETCH_SUPPLIER_CATALOG_FAILED,
+    FETCH_SUPPLIER_CATALOG_FAILED, FLUSH_SUPPLIER_CATALOG,
 } from "../../../actions/actionTypes";
 
 const initialState = {
@@ -29,6 +29,8 @@ export default function (state = initialState, action) {
                 catalog: action.payload.catalog,
                 loading: false,
             };
+        case FLUSH_SUPPLIER_CATALOG:
+            return initialState;
         default:
             return state;
     }
