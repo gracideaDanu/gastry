@@ -1,7 +1,7 @@
 import {
     FETCH_SPPLIERS_LIST_START,
     FETCH_SPPLIERS_LIST_SUCCESS,
-    FETCH_SPPLIERS_LIST_FAILED,
+    FETCH_SPPLIERS_LIST_FAILED, FLUSH_SUPPLIER,
 } from "../../actionTypes";
 import { axiosInstance as axios } from "../../../axiosInstance";
 
@@ -14,6 +14,18 @@ export const fetchSuppliersList = (payload) => async (dispatch) => {
         dispatch(fetchSuppliersListSuccess(response.data.data));
     } catch (err) {
         dispatch(fetchSuppliersListFailed(err));
+    }
+};
+
+export const flushSuppliersList = () => {
+    return dispatch => {
+        dispatch(flush())
+    }
+};
+
+const flush = () => {
+    return {
+        type: FLUSH_SUPPLIER
     }
 };
 

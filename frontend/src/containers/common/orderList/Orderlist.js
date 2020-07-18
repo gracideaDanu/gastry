@@ -15,6 +15,11 @@ class Orderlist extends Component {
         this.props.fetchOrders(payload);
     }
 
+    componentWillUnmount() {
+        this.props.flush();
+        console.log("I unmounted and flushed orderslist")
+    }
+
     render() {
         
         const orders = this.props.orders.map((item) => (
@@ -61,6 +66,7 @@ const mapsStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrders: (payload) => dispatch(actions.fetchOrders(payload)),
+        flush: () => dispatch(actions.flushOrders())
     };
 };
 
