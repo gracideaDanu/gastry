@@ -328,7 +328,7 @@ class Catalog extends Component {
 
         ));
         return (
-            <SupplierLayout>
+            <SupplierLayout title="Catalog" location="catalog">
                 <div>
 
                         {catArray}
