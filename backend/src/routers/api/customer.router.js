@@ -15,6 +15,9 @@ customerRouter.post('/register', CustomerController.register);
 // GET
 customerRouter.get('/suppliersList/:category', CustomerController.getSuppliersList)
 
+customerRouter.get('/suppliersList/:category/size', CustomerController.getSuppliersListLength)
+
+
 // UDPATE a customer
 customerRouter.patch('/:_id', checkAuth, CustomerController.updateUser);
 
