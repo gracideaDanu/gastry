@@ -33,7 +33,8 @@ export {
 } from './user'
 
 export {
-    fetchSuppliersList
+    fetchSuppliersList,
+    fetchSuppliersListLength
 } from './orders/customer/suppliersList'
 
 export {

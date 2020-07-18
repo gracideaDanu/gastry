@@ -2,6 +2,9 @@ import {
     FETCH_SPPLIERS_LIST_START,
     FETCH_SPPLIERS_LIST_SUCCESS,
     FETCH_SPPLIERS_LIST_FAILED,
+    FETCH_SPPLIERS_LIST_LENGTH_START,
+    FETCH_SPPLIERS_LIST_LENGTH_SUCCESS,
+    FETCH_SPPLIERS_LIST_LENGTH_FAILED,
 } from "../../actionTypes";
 import { axiosInstance as axios } from "../../../axiosInstance";
 
@@ -42,6 +45,47 @@ const fetchSuppliersListSuccess = (suppliersList) => {
 const fetchSuppliersListFailed = (error) => {
     return {
         type: FETCH_SPPLIERS_LIST_FAILED,
+        error: error,
+    };
+};
+
+
+export const fetchSuppliersListLength = (payload) => async (dispatch) => {
+    dispatch(fetchSuppliersListLengthStart);
+
+    try {
+        const { category } = payload.data;
+        const response = await axios.get(
+            `/customer/suppliersList/${category}/size`
+        );
+        dispatch(fetchSuppliersListLengthSuccess(response.data.data));
+    } catch (err) {
+        dispatch(fetchSuppliersListLengthFailed(err));
+    }
+};
+
+const fetchSuppliersListLengthStart = () => {
+    return {
+        type: FETCH_SPPLIERS_LIST_LENGTH_START,
+        payload: {
+            loading: true,
+        },
+    };
+};
+
+const fetchSuppliersListLengthSuccess = (suppliersListLength) => {
+    return {
+        type: FETCH_SPPLIERS_LIST_LENGTH_SUCCESS,
+        payload: {
+            suppliersListLength: suppliersListLength,
+            loading: false,
+        },
+    };
+};
+
+const fetchSuppliersListLengthFailed = (error) => {
+    return {
+        type: FETCH_SPPLIERS_LIST_LENGTH_FAILED,
         error: error,
     };
 };
