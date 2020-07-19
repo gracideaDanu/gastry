@@ -36,6 +36,10 @@ class SuppliersList extends Component {
         this.props.flush();
     }
 
+    componentWillUnmount() {
+        this.props.flush();
+    }
+
 
     handleInputChange = (searchInputValue) => {
         this.setState({ searchInputValue });
