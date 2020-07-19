@@ -35,6 +35,7 @@ export {
 
 export {
     fetchSuppliersList,
+    fetchSuppliersListLength,
     flushSuppliersList
 } from './orders/customer/suppliersList'
 
