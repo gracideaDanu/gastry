@@ -5,6 +5,7 @@ import {
     FETCH_SPPLIERS_LIST_LENGTH_START,
     FETCH_SPPLIERS_LIST_LENGTH_SUCCESS,
     FETCH_SPPLIERS_LIST_LENGTH_FAILED,
+    FETCH_SPPLIERS_LIST_FAILED, FLUSH_SUPPLIER,
 } from "../../../actions/actionTypes";
 
 const initialState = {
@@ -48,6 +49,8 @@ export default function (state = initialState, action) {
                 ...state,
                 error: action.error,
             };
+        case FLUSH_SUPPLIER:
+            return initialState;
         default:
             return state;
     }

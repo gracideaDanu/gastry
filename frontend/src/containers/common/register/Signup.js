@@ -316,6 +316,8 @@ class Signup extends Component {
 
         const signupForm = formArray.map((element) => (
             <Input
+                display={this.state.display}
+                error={this.state.errors[element.type]}
                 type={element.type}
                 name={element.name}
                 key={element.type}

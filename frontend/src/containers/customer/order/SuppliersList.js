@@ -11,6 +11,8 @@ import Pagination from "../../../components/pagination/Pagination";
 import Search from "../../../components/search/Search";
 import Container from "react-bootstrap/Container";
 import "./SuppliersList.css";
+import * as actions from "../../../redux/actions/index"
+
 
 class SuppliersList extends Component {
     state = {
@@ -29,6 +31,11 @@ class SuppliersList extends Component {
             data: { category },
         });
     }
+
+    componentWillUnmount() {
+        this.props.flush();
+    }
+
 
     handleInputChange = (searchInputValue) => {
         this.setState({ searchInputValue });
@@ -127,6 +134,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchSuppliersList: (payload) => dispatch(fetchSuppliersList(payload)),
         fetchSuppliersListLength: (payload) =>
             dispatch(fetchSuppliersListLength(payload)),
+        flush: () => dispatch(actions.flushSuppliersList())
     };
 };
 

@@ -13,7 +13,8 @@ export {
     fetchCatalog,
     addItemCatalog,
     deleteItemCatalog,
-    modifyItemCatalog
+    modifyItemCatalog,
+    flushCatalog
 } from './orders/supplier/catalog'
 
 export {
@@ -34,11 +35,13 @@ export {
 
 export {
     fetchSuppliersList,
-    fetchSuppliersListLength
+    fetchSuppliersListLength,
+    flushSuppliersList
 } from './orders/customer/suppliersList'
 
 export {
     fetchSupplierCatalog,
+    flushSupplierCatalog,
 } from './orders/customer/customerCatalog'
 
 export {
@@ -46,10 +49,12 @@ export {
 } from './orders/customer/placeOrder'
 
 export {
-    fetchOrders
+    fetchOrders,
+    flushOrders
 } from './orders/fetchOrders'
 
 export {
     fetchChat,
-    postMessage
+    postMessage,
+    flushChat
 } from './chat/chat'
