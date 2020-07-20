@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions";
 
-import Button from "../../../components/button/Button"
+import logo from "../../../assets/icons/login-logo.svg";
+import Button from "../../../components/button/Button";
 import Input from "../../../components/auth/Input";
 
 import "./Login.css";
@@ -42,7 +43,7 @@ export class Login extends Component {
 
     componentWillUnmount() {
         console.log("I unmounted login");
-        this.props.loginFlush()
+        this.props.loginFlush();
     }
 
     onSubmit = (event) => {
@@ -77,14 +78,13 @@ export class Login extends Component {
 
         const signInForm = formArray.map((element) => (
             <Input
-
                 type={element.type}
                 key={element.type}
                 name={element.name}
                 change={(e) => this.onChange(e)}
             />
         ));
-        
+
         return (
             <div className="login-container">
                 <div className="logo"></div>
@@ -93,15 +93,32 @@ export class Login extends Component {
                     Bestellen und Chatten. <br />
                     So einfach war deine Bestellung nie. <br />
                 </p>
-                {this.props.error ? <div className="errorMessage"> <h6 className="errorMessage">{this.props.error}</h6> </div>  : null}
+                {this.props.error ? (
+                    <div className="errorMessage">
+                        <h6 className="errorMessage">{this.props.error}</h6>
+                    </div>
+                ) : null}
 
-                <form onSubmit={this.onSubmit} id="login-form" className="login-form">
+                <form
+                    onSubmit={this.onSubmit}
+                    id="login-form"
+                    className="login-form"
+                >
                     {signInForm}
                 </form>
                 <div className="auth-buttons">
-                    <Button type="submit" label="Login" form="login-form" className="button submit-btn"/>
+                    <Button
+                        type="submit"
+                        label="Login"
+                        form="login-form"
+                        className="button submit-btn"
+                    />
                     <Link to="/register">
-                        <Button type="register" label="Register" className="register button yellow-btn"/>
+                        <Button
+                            type="register"
+                            label="Register"
+                            className="register button yellow-btn"
+                        />
                     </Link>
                 </div>
                 <div className="legal">
@@ -126,7 +143,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchUser: (_id) => dispatch(actions.fetchUser(_id)),
         login: (data) => dispatch(actions.login(data)),
-        loginFlush: () => dispatch(actions.loginFlush())
+        loginFlush: () => dispatch(actions.loginFlush()),
     };
 };
 
