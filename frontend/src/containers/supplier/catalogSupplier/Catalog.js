@@ -146,6 +146,8 @@ class Catalog extends Component {
                 token: this.props.token,
                 data: modifiedItem
             })
+            this.toggle(false,-1)
+
         }
         else {
 
@@ -159,6 +161,7 @@ class Catalog extends Component {
                 token: this.props.token,
                 data: itemToAdd
             })
+            this.toggle(false,-1)
         }
         else {
 
