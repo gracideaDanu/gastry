@@ -1,14 +1,19 @@
 .login-container {
     display: flex;
     flex-direction: column;
+    align-content: stretch;
+    padding: 0 1rem;
+    background-color: var(--color-main-background);
 }
 
 .logo {
     width: 10rem;
     height: 10rem;
-    background-color: white;
     align-self: center;
     margin: 1.8rem 0;
+    background-image: url(/static/media/login-logo.074dd3c5.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .welcome-msg {

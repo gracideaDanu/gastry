@@ -8,17 +8,6 @@ import "./Signup.css"
 
 const SignupOptions = (props) => {
     return (
-        // <Container fluid className={"h-100  d-flex flex-column"}>
-        //     <Row>
-        //         <h3>Sag uns was du bist</h3>
-        //     </Row>
-        //     <Row className={"flex-grow-1 d-flex flex-column"}>
-        //         <CustomButton type="submit" label="Lieferant" className="button yellow-btn"/>
-        //         <p className="middle-border">Oder</p>
-        //         <CustomButton type="submit" label="Gastronom" className="button yellow-btn"/>
-        //     </Row>
-        // </Container>
-
         <div className="signup-container">
             <h3 className="signup-msg">Sag uns <br/> was du bist</h3>
             <div className="signup-options">
