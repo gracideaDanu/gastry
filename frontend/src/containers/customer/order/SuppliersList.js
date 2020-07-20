@@ -72,15 +72,16 @@ class SuppliersList extends Component {
         const { list } = this.props;
         if (!list) return <div>Loading</div>;
 
+
         return list.map((supplier) => {
             return (
                 <Link
                     key={supplier._id}
                     to={{
-                        pathname: `/catalog/${supplier.name}`,
+                        pathname: `/catalog/${supplier.company}`,
                         state: {
                             supplierId: supplier._id,
-                            supplierName: supplier.name,
+                            supplierName: supplier.company,
                         },
                     }}
                 >

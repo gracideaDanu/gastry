@@ -22,6 +22,8 @@ class CatalogCustomer extends Component {
     componentDidMount() {
         supplierId = this.props.location.state.supplierId;
         supplierName = this.props.location.state.supplierName;
+        console.log(supplierId);
+        console.log(supplierName)
         this.props.fetchSupplierCatalog(supplierId);
         if (this.props.basket !== null) {
             basketArray = [...this.props.basket];

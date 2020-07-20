@@ -31,6 +31,7 @@ class Catalog extends Component {
 
 
     componentDidMount() {
+        console.log()
 
         this.props.fetchCatalog({
             token: this.props.token
