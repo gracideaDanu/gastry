@@ -4,12 +4,14 @@
     align-items: stretch;
     min-height: 100vh;
     justify-content: space-between;
+    background-color: var(--color-main-background);
 }
 
 .signup-form {
     display: flex;
     flex-direction: column;
     margin-top: 2rem;
+    padding: 0 1rem;
 }
 
 .signup-form > .button {
@@ -18,51 +20,11 @@
 
 .form-options-label {
     border: 1px solid #fff;
-    background-color: transparent;
-    color: var(--color-font-light);
-    display: flex;
     position: relative;
     white-space: nowrap;
     text-overflow: ellipsis;
     border-radius: 50px;
     margin: 0;
-}
-
-.form-options {
-    width: 100%;
-    appearance: none;
-    -webkit-appearance: none;
-    padding: 1.2rem;
-    overflow: hidden;
-    border-radius: 50px;
-    border: none;
-    color: var(--color-font-light);
-    background-color: transparent;
-}
-
-div.item, div.setMarginRL {
-    display: flex;
-    list-style: none;
-    margin-bottom: 1rem;
-    padding: 0.2rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    border-radius: 50px;
-}
-div.unsetMarginRL {
-    display: flex;
-    list-style: none;
-    margin-bottom: unset;
-    padding: 0.2rem;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    border-radius: 50px;
-}
-
-.form-options:focus {
-    outline: none;
 }
 
 .form-options-label:after {
@@ -77,6 +39,22 @@ div.unsetMarginRL {
     top: 1rem;
 }
 
+.form-options {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 1.2rem;
+    overflow: hidden;
+    border-radius: 50px;
+    border: none;
+    color: var(--color-font-light);
+    background-color: transparent;
+}
+
+.form-options:focus {
+    outline: none;
+}
+
 .form-options select:focus {
     outline: none;
 }
@@ -89,6 +67,7 @@ div.unsetMarginRL {
     margin: 1rem;
     color: var(--color-font-light);
     font-size: 0.9rem;
+    text-align: center;
 }
 
 .middle-border::before,
@@ -110,8 +89,7 @@ div.unsetMarginRL {
 }
 
 .signup-options {
-    display: flex;
-    flex-direction: column;
+    padding: 0 1rem;
 }
 
 .signup-options button {

@@ -1,11 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Button from "react-bootstrap/Button";
-
 import * as actions from "../../../redux/actions";
 import Errors from "../../../components/auth/error";
 import Input from "../../../components/auth/Input";
