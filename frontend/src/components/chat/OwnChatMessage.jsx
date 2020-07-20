@@ -3,29 +3,22 @@ import Toast from "react-bootstrap/Toast";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import './chatMessage.css'
+import './chatMessage.scss'
+import Container from "react-bootstrap/Container";
 
 const OwnChatMessage = (props) => {
     return (
-        <Row className="messageBlock">
-            <Col sx={2}>
-            </Col>
-            <Col xs={10}>
-                <Card>
-                    <Card.Body>
-                        <Card.Text className="blockquote mb-0 messageBlock">
-                            <p style={{textAlign:"right",fontSize:"14px"}}>
-                                {props.text}
-                            </p>
-                            <footer className={"blockquote-footer float-right"}>
-                                {props.date}
+        <div className="messageRow d-flex justify-content-end">
+            <div className={"messageframe ownMessage"}>
+                <p style={{textAlign: "right", fontSize: "14px"}}>
+                    {props.text}
+                </p>
+                <footer className={"float-right"} style={{fontSize: "10px"}}>
+                    <p>{props.date}</p>
 
-                            </footer>
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-            </Col>
-        </Row>
+                </footer>
+            </div>
+        </div>
 
     );
 };

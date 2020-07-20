@@ -1,0 +1,32 @@
+.messageRow {
+  margin: 0.2rem 0px 0.3rem 0px;
+
+  div {
+    div {
+      background-color: white;
+    }
+  }
+
+  p {
+    margin-bottom: 0.1rem;
+    word-wrap: break-word;
+  }
+
+  .messageframe {
+    max-width: 80%;
+    padding: 0.2em 0.5em;
+    background-color: white;
+    border: #707070 solid 1px;
+
+  }
+
+  .ownMessage {
+    border-radius: 10px 0 10px 10px
+  }
+
+  .otherMessage {
+    border-radius: 0px 10px 10px 10px
+  }
+}
+
+

@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, {Component} from 'react';
 import * as actions from "../../../redux/actions";
 import {connect} from 'react-redux'
 import './Basket.css'
@@ -6,24 +6,26 @@ import Container from "react-bootstrap/Container";
 import {Summary} from '../../../components/basket/Summary'
 import EstimatedTotal from "../../../components/basket/EstimatedTotal";
 import CustomerLayout from "../../customer/CustomerLayout";
+import Button from "../../../components/button/Button";
 
 export class Basket extends Component {
-    state={
+    state = {
         basket: [],
         total: 0
     }
+
     componentDidMount() {
         console.log(this.props.location)
         const basket = this.props.location.state.basket;
 
         let total = 0;
-        for(let element of basket){
+        for (let element of basket) {
             total += (element.price * element.amount)
 
         }
         this.setState({
             ...this.state,
-            basket:basket,
+            basket: basket,
             total: total
         });
         console.log(basket)
@@ -47,40 +49,39 @@ export class Basket extends Component {
 
     render() {
         const basketItems = this.state.basket.map(element => {
-            return (
-                <Summary key={element._id} item={element}/>
+                return (
+                    <Summary key={element._id} item={element}/>
 
-            )
-        }
-
-
+                )
+            }
         )
-        return(
+        return (
             <CustomerLayout title="Basket"
                             location={"home"}
                             showBack={true}
+                            description={"Mein Warenkorb"}
             >
-            <div className="purchase-card">
-                <Container >
+                <Container>
                     {basketItems}
                     <EstimatedTotal total={this.state.total}/>
                     {
-                        this.state.total > 0 ? <button onClick={this.placeOrder}>Place order</button> : <p>Consider adding some items to your basket first</p>
+                        this.state.total > 0 ? <Button className={"button submit-btn"} onClick={this.placeOrder}
+                                                       label={"Bestellung abschließen"}/> :
+                            <p>Consider adding some items to your basket first</p>
                     }
                 </Container>
-            </div>
             </CustomerLayout>
-
 
 
         )
     }
 
 }
+
 const mapsStateToProps = (state) => {
     return {
         token: state.auth.token
-};
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -89,4 +90,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapsStateToProps,mapDispatchToProps)(Basket);
+export default connect(mapsStateToProps, mapDispatchToProps)(Basket);
