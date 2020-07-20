@@ -12,6 +12,7 @@ class CustomerController extends UserController {
             const suppliers = await SupplierModel.find(
                 {
                     category: req.params.category,
+                    company: { $regex:  req.params.searchValue || '' , $options: "i" },
                 },
                 "company address"
             )
@@ -32,6 +33,7 @@ class CustomerController extends UserController {
         try {
             const listLength = await SupplierModel.count({
                 category: req.params.category,
+                company: { $regex:  req.params.searchValue || '' , $options: "i" },
             });
             res.status(200).send({
                 message: "Successfully fetched data",

@@ -13,9 +13,9 @@ export const fetchSuppliersList = (payload) => async (dispatch) => {
     dispatch(fetchSuppliersListStart);
 
     try {
-        const { category, limit, skip } = payload.data;
+        const { category, searchValue = "", limit, skip } = payload.data;
         const response = await axios.get(
-            `/customer/suppliersList/${category}`,
+            `/customer/suppliersList/${category}/${searchValue}`,
             { params: { limit, skip } }
         );
         dispatch(fetchSuppliersListSuccess(response.data.data));
@@ -25,15 +25,15 @@ export const fetchSuppliersList = (payload) => async (dispatch) => {
 };
 
 export const flushSuppliersList = () => {
-    return dispatch => {
-        dispatch(flush())
-    }
+    return (dispatch) => {
+        dispatch(flush());
+    };
 };
 
 const flush = () => {
     return {
-        type: FLUSH_SUPPLIER
-    }
+        type: FLUSH_SUPPLIER,
+    };
 };
 
 const fetchSuppliersListStart = () => {
@@ -62,15 +62,15 @@ const fetchSuppliersListFailed = (error) => {
     };
 };
 
-
 export const fetchSuppliersListLength = (payload) => async (dispatch) => {
     dispatch(fetchSuppliersListLengthStart);
 
     try {
-        const { category } = payload.data;
-        const response = await axios.get(
-            `/customer/suppliersList/${category}/size`
-        );
+        const { category, searchValue } = payload.data;
+        let url = searchValue
+            ? `/customer/suppliersList/${category}/${searchValue}/size`
+            : `/customer/suppliersList/${category}/size`;
+        const response = await axios.get(url);
         dispatch(fetchSuppliersListLengthSuccess(response.data.data));
     } catch (err) {
         dispatch(fetchSuppliersListLengthFailed(err));

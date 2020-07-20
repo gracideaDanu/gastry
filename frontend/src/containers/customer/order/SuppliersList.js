@@ -11,8 +11,7 @@ import Pagination from "../../../components/pagination/Pagination";
 import Search from "../../../components/search/Search";
 import Container from "react-bootstrap/Container";
 import "./SuppliersList.css";
-import * as actions from "../../../redux/actions/index"
-
+import * as actions from "../../../redux/actions/index";
 
 class SuppliersList extends Component {
     state = {
@@ -36,25 +35,24 @@ class SuppliersList extends Component {
         this.props.flush();
     }
 
-    componentWillUnmount() {
-        this.props.flush();
-    }
-
-
     handleInputChange = (searchInputValue) => {
         this.setState({ searchInputValue });
         this.handleSearch(searchInputValue);
     };
 
     handleSearch = (searchInputValue) => {
-        if (searchInputValue.length > 0) {
-            const filteredList = this.props.list.filter((row) => {
-                const nameToLowerCase = row.company.toLowerCase();
-                const filter = searchInputValue.toLowerCase();
-                return nameToLowerCase.includes(filter);
-            });
-            this.setState({ filteredList });
-        }
+        const { category } = this.props.match.params;
+        this.props.fetchSuppliersList({
+            data: {
+                category: category,
+                searchValue: searchInputValue,
+                limit: this.state.limit,
+                skip: 0,
+            },
+        });
+        this.props.fetchSuppliersListLength({
+            data: { category, searchValue: searchInputValue },
+        });
     };
 
     onPageClick = (pageNr) => {
@@ -72,12 +70,9 @@ class SuppliersList extends Component {
 
     renderSuppliers = () => {
         const { list } = this.props;
-        const { searchInputValue, filteredList } = this.state;
-        const renderedList = searchInputValue.length > 0 ? filteredList : list;
-
         if (!list) return <div>Loading</div>;
 
-        return renderedList.map((supplier) => {
+        return list.map((supplier) => {
             return (
                 <Link
                     key={supplier._id}
@@ -138,7 +133,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchSuppliersList: (payload) => dispatch(fetchSuppliersList(payload)),
         fetchSuppliersListLength: (payload) =>
             dispatch(fetchSuppliersListLength(payload)),
-        flush: () => dispatch(actions.flushSuppliersList())
+        flush: () => dispatch(actions.flushSuppliersList()),
     };
 };
 

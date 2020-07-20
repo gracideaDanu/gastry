@@ -13,9 +13,10 @@ customerRouter.post('/register', CustomerController.register);
 
 
 // GET
-customerRouter.get('/suppliersList/:category', CustomerController.getSuppliersList)
 
-customerRouter.get('/suppliersList/:category/size', CustomerController.getSuppliersListLength)
+customerRouter.get('/suppliersList/:category/:searchValue?/size', CustomerController.getSuppliersListLength)
+
+customerRouter.get('/suppliersList/:category/:searchValue?', CustomerController.getSuppliersList)
 
 
 // UDPATE a customer
