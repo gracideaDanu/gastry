@@ -6,6 +6,7 @@ import Input from "../../../components/auth/Input";
 import CustomButton from "../../../components/button/Button"
 
 import "./Signup.css";
+import {Container} from "react-bootstrap";
 
 const signUpCState = {
     form: {
@@ -342,7 +343,9 @@ class Signup extends Component {
                         </label>
                         
                     ) : null}
-                    <CustomButton type="submit" label="Register" className="button yellow-btn"/>
+                    <Container fluid>
+                        <CustomButton type="submit" label="Register" className="button yellow-btn"/>
+                    </Container>
                 </form>
 
             </div>

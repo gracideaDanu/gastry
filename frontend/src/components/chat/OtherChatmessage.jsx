@@ -9,10 +9,10 @@ const OtherChatMessage = (props) => {
     return (
         <div className="messageRow d-flex justify-content-start">
             <div className={"messageframe otherMessage"}>
-                <p style={{ fontSize: "14px"}}>
+                <p style={{ fontSize: "18px"}}>
                     {props.text}
                 </p>
-                <footer className={"float-right"}  style={{fontSize: "10px"}}>
+                <footer className={"float-right"}  style={{fontSize: "12px"}}>
                     <p>{props.date}</p>
 
                 </footer>

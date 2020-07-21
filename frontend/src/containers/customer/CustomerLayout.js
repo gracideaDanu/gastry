@@ -13,6 +13,8 @@ import orderButtonActive from "../../assets/icons/BestelleingangAusgewählt.svg"
 import profileButtonInactive from "../../assets/icons/ProfilButton.svg";
 import profileButtonActive from "../../assets/icons/ProfilButtonAusgewählt.svg";
 import {useHistory} from "react-router-dom";
+import {Fade} from "@material-ui/core";
+import SupplierLayout from "../supplier/supplierLayout/SupplierLayout";
 
 
 const CustomerLayout = ({
@@ -53,7 +55,7 @@ const CustomerLayout = ({
                         basketState={basketState}/>
                 <NavigationBottom pagelist={bottomButtons}/>
                 <Container fluid className={"h-100  d-flex flex-column"} style={{minHeight: "100vh", padding: "0px"}}>
-                    <Row style={{marginTop: "20%"}}>
+                    <Row style={{marginTop: "15%"}}>
                         {description !== "" &&
                         <Container fluid >
                             {description.split("\n").map((item, key) => {
@@ -62,7 +64,13 @@ const CustomerLayout = ({
                         </Container>
                         }
                     </Row>
-                    {children}
+                    <Row className={"flex-grow-1 content"}>
+                        <Fade in={true}>
+                            <div style={{marginBottom: "18%", width: "100%"}}>
+                                {children}
+                            </div>
+                        </Fade>
+                    </Row>
                 </Container>
             </>
         )

@@ -3,20 +3,21 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../supplier/home/home.scss";
 import * as actions from "../../../redux/actions";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 import CustomerLayout from "../CustomerLayout";
 import food from "../../../assets/icons/food.svg";
 import drinks from "../../../assets/icons/drinks.svg";
 import foodanddrinks from "../../../assets/icons/foodanddrinks.svg";
 import "./orderCustomer.scss";
+import {Fade} from "@material-ui/core";
 
 class OrderCustomer extends Component {
     render() {
         return (
             <CustomerLayout
                 className="container-fluid"
-                title={`Was möchtest \n du bestellen?`}
+                description={`Was möchtest \n du bestellen?`}
                 location={"home"}
             >
                 <Row style={{ width: "100%", height: "50%", marginTop: "5vh" }}>
@@ -61,7 +62,7 @@ class OrderCustomer extends Component {
                     style={{
                         width: "100%",
                         height: "50%",
-                        margin: "10vh 0",
+                        marginBottom: "10vh",
                     }}
                 >
                     <Col

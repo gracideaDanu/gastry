@@ -12,13 +12,14 @@ import Search from "../../../components/search/Search";
 import Container from "react-bootstrap/Container";
 import "./SuppliersList.css";
 import * as actions from "../../../redux/actions/index";
+import logo from "../../../assets/icons/login-logo.svg"
 
 class SuppliersList extends Component {
     state = {
         filteredList: [],
         searchInputValue: "",
         page: 0,
-        limit: 3,
+        limit: 2,
     };
 
     componentDidMount() {
@@ -71,6 +72,7 @@ class SuppliersList extends Component {
     renderSuppliers = () => {
         const { list } = this.props;
         if (!list) return <div>Loading</div>;
+
 
         return list.map((supplier) => {
             return (

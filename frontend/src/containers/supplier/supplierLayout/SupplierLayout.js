@@ -1,5 +1,4 @@
 import React from "react";
-import "../../../styles.css";
 import Navigation from "../../../components/navigation/NavigationBottom";
 import Topbar from "../../../components/navigation/TopBar";
 import * as actions from "../../../redux/actions";
@@ -20,6 +19,7 @@ const SupplierLayout = ({
     title = "Title",
     className,
     children,
+    description="",
     onClicklogout,
     location= ""
 }) => {
@@ -45,12 +45,19 @@ const SupplierLayout = ({
             <Topbar onClick={onClicklogout} />
             <Navigation pagelist={navbuttons} />
             <Container fluid className={"h-100  d-flex flex-column"}>
-                <Row>
-                    {console.log(location)}
-                    <h3 className="page-title">{title}</h3>
+                <Row style={{marginTop: "20%"}}>
+                    {description !== "" &&
+                    <Container fluid style={{marginBottom: "1rem"}}>
+                        {description.split("\n").map((item, key) => {
+                            return <p className='lead text-center' key={key}> {item}</p>
+                        })}
+                    </Container>
+                    }
                 </Row>
-                <Row className={"flex-grow-1"}>
-                    {children}
+                <Row className={"flex-grow-1 content"} >
+                    <div style={{marginBottom: "18%",width:"100%"}}>
+                        {children}
+                    </div>
                 </Row>
             </Container>
         </>

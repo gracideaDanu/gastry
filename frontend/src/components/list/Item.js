@@ -6,28 +6,37 @@ const Item = (props) => {
     const pStyle= {
         height: '100%',
         marginBottom:'0px',
-
+    }
+    const pStyleName ={
+        height: '100%',
+        marginBottom:'0px',
+        fontFamily: "Aleo-bold, sans-serif",
+        fontWeight: "bold",
+        space: "nowrap"
     }
     return (
-        <Row style={{height: '100%'}} className="align-items-center">
-            <Col xs={6}>
-                <p style={pStyle}>
-                    {props.name}
-                </p>
+        <>
+            <Row>
+                <Col>
+                    <p style={pStyleName} >
+                        {props.name}
+                    </p>
+                </Col>
+            </Row>
+            <Row >
+                <Col xs={6}>
+                    <p style={pStyle}>
+                        {props.size}
+                    </p>
+                </Col>
+                <Col xs={6}>
+                    <p style={pStyle}>
+                        {props.price}  €
+                    </p>
+                </Col>
+            </Row>
+        </>
 
-            </Col>
-            <Col xs={3}>
-                <p style={pStyle}>
-                    {props.size}
-                </p>
-            </Col>
-            <Col xs={3}>
-                <p style={pStyle}>
-                    {props.price}  €
-                </p>
-            </Col>
-
-        </Row>
     );
 };
 

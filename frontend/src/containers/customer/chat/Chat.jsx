@@ -48,12 +48,13 @@ class Chat extends Component {
             token: token,
             chatId: chatId
         });
-        console.log(order);
+        console.log("chatId:" + chatId);
 
         this.setState({
             ...this.state,
             order: order,
-            userId: userId
+            userId: userId,
+            chatId: chatId
         });
 
         this.fetchChat();
@@ -106,7 +107,7 @@ class Chat extends Component {
             });
             console.log("in try finished")
 
-        }catch (e) {
+        } catch (e) {
             console.log("catch oh no")
             socket = null;
             this.setupSocket();
@@ -244,7 +245,7 @@ class Chat extends Component {
             const date = new Date(message.date)
             date.toUTCString()
             let datesplitted = date.toString().split(" ")
-            let formattedTime = datesplitted[4].substring(0,datesplitted.length -3)
+            let formattedTime = datesplitted[4].substring(0, datesplitted.length - 3)
             if (message.user === userId) {
                 return <OwnChatMessage text={message.message} date={formattedTime}/>
             } else return <OtherChatMessage text={message.message} date={formattedTime}/>
@@ -265,6 +266,13 @@ class Chat extends Component {
                 location={"orders"}
                 showBack={true}
             >
+                <div className={"orderNrChat"}>
+                    <div className={"d-flex justify-content-center"}>
+                        <p>
+                            Bestellnummer: {this.state.chatId.toString().substr(this.state.chatId.toString().length - 5).toUpperCase()}
+                        </p>
+                    </div>
+                </div>
                 <Container className="Containerli">
                     {this.renderMessages()}
                     <div ref={(el) => {
@@ -273,7 +281,7 @@ class Chat extends Component {
                 </Container>
                 <footer className={"messageInput fixed-bottom"}>
                     <Container>
-                        <Form >
+                        <Form>
                             <Row>
                                 <Col xs={10}>
                                     <Form.Control value={this.state.pendingMessage}

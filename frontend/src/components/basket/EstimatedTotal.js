@@ -1,16 +1,17 @@
-import { Row, Col } from "react-bootstrap";
+import {Row, Col} from "react-bootstrap";
 import React from "react";
 
 export const EstimatedTotal = (props) => {
     return (
-        <Row>
-            <Col xs={6}>
-                <h3>Est. Total:</h3>
-            </Col>
-            <Col xs={6}>
-                <h3>{props.total}</h3>
-            </Col>
-        </Row>
+        <>
+            <Row>
+                <h3>Gesamtpreis: </h3>
+
+            </Row>
+            <Row >
+                <h3 className={"text-right"}>{props.total} €</h3>
+            </Row>
+        </>
     );
 
 }

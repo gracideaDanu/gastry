@@ -10,7 +10,7 @@ const UserInfoForm = (props) => {
         <form className="user-info-container" onSubmit={onSubmit}>
             <ul className="list">
                 <li className="item">
-                    Company:
+                    Firma:
                     <input
                         type="text"
                         name="company"
@@ -20,7 +20,7 @@ const UserInfoForm = (props) => {
                     ></input>
                 </li>
                 <li className="item">
-                    Street:
+                    Straße:
                     <input
                         type="text"
                         name="street"
@@ -29,7 +29,7 @@ const UserInfoForm = (props) => {
                     ></input>
                 </li>
                 <li className="item">
-                    City:
+                    Stadt:
                     <input
                         type="text"
                         name="city"
@@ -38,7 +38,7 @@ const UserInfoForm = (props) => {
                     ></input>
                 </li>
                 <li className="item">
-                    State:
+                    Bundesland:
                     <input
                         type="text"
                         name="state"
@@ -47,7 +47,7 @@ const UserInfoForm = (props) => {
                     ></input>
                 </li>
                 <li className="item">
-                    Postcode:
+                    PLZ:
                     <input
                         type="text"
                         name="code"
@@ -64,16 +64,16 @@ const UserInfoForm = (props) => {
                                 onChange={(e) => props.onChangeOffer(e)}
                             >
                                 <option value="0" disabled>Produktangebot</option>
-                                <option value="food">Food</option>
-                                <option value="drinks">Drinks</option>
-                                <option value="both">Both</option>
+                                <option value="food">Lebensmittel</option>
+                                <option value="drinks">Getränke</option>
+                                <option value="both">Beides</option>
                                 <option></option>
                             </select>
                         </label>
                     </li>
                 ) : null}
             </ul>
-            <Button className="button submit-btn" type="submit" label="Save" />
+            <Button className="button submit-btn" type="submit" label="Speichern" />
         </form>
     );
 };

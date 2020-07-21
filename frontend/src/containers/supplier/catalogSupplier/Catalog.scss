@@ -10,6 +10,7 @@ div.MuiPaper-root  {
 footer.fab {
     margin-bottom: 4.5rem;
 
+  .container{
 }
 
 p.priceStyling {
@@ -19,6 +20,7 @@ p.priceStyling {
 
 footer > div.container {
     text-align-last: end;
+  }
 }
 
 div.sheet > button {
@@ -41,8 +43,8 @@ hr.MuiDivider-root {
     margin: 0 0 0.5em 0;
 }
 
-.fab.MuiFab-root {
-    background-color: white;
+button.MuiFab-root {
+    background-color: #9CBB49;
 }
 .fab.MuiFab-label {
     background-color: black;

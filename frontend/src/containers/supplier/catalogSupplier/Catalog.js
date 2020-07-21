@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import * as actions from "../../../redux/actions";
 import SupplierLayout from "../supplierLayout/SupplierLayout";
-import SupplierCatListView from "../../../components/list/SupplierCatListView";
+import SupplierCatListView from "../../../components/list/CatalogSupplierRow/SupplierCatListView";
 import {SwipeableDrawer, Fab, Divider} from "@material-ui/core";
 import {Container} from "react-bootstrap";
 import AddIcon from '@material-ui/icons/Add';
 
-import './Catalog.css'
+import './Catalog.scss'
 
 
 class Catalog extends Component {
@@ -99,8 +99,6 @@ class Catalog extends Component {
                     value.length < 1
                         ? 'Product price is required!'
                         : '';
-                const priceRegex = new RegExp("[0-9]+([./,][0-9]+)?");
-                priceRegex.test(value) ? errors.price = errors.price : errors.price = errors.price + " Nutzen Sie nur Zahlen und ein Komma"
                 break;
             case 'tags':
                 errors.tags =
@@ -128,15 +126,8 @@ class Catalog extends Component {
     onChange = (e, i) => {
         e.preventDefault();
         const property = e.target.name;
-        let value = e.target.value;
-        console.log(property);
-        property === "price" && (value = Math.round((parseFloat(value) + Number.EPSILON) * 100) / 100);
+        const value = e.target.value;
         this.validationHandler(property,value);
-
-
-
-
-
         const item = {
             ...this.state.currentItem
         };
@@ -146,7 +137,7 @@ class Catalog extends Component {
             currentItem: item
         })
 
-    };
+    }
 
     modifyItemHandler = (e) => {
         e.preventDefault();
@@ -155,7 +146,7 @@ class Catalog extends Component {
             this.props.modifyItem({
                 token: this.props.token,
                 data: modifiedItem
-            });
+            })
             this.toggle(false,-1)
 
         }
@@ -256,16 +247,8 @@ class Catalog extends Component {
 
         >
             <div className="row centerRow">
-                <div className="col-6">
+                <div className="col-9">
                     <h4>Add Item</h4>
-
-                </div>
-                <div className="col-3 sheet">
-                    {this.state.option === "modify"
-                        ?                     <button className="button yellow-btn text-center" onClick={(e) => this.modifyItemHandler(e)}>Save</button>
-                        :                     <button className="button yellow-btn text-center" onClick={(e) => this.addItemHandler(e)}>Save</button>
-
-                    }
                 </div>
                 <div className="col-3 sheet">            <button className="button red-btn" onClick={() => this.toggle(false,-1)}>Cancel</button>
                 </div>
@@ -273,8 +256,8 @@ class Catalog extends Component {
             <Divider/>
 
             <div className={ this.state.errors.name === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Name </label>
-                <input autoComplete="off" value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
+                <label>Name:</label>
+                <input value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
 
             </div>
             <div className="errorMessage">
@@ -282,19 +265,19 @@ class Catalog extends Component {
             </div>
 
             <div className={ this.state.errors.tags === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Tag</label>
+                <label>Tag: </label>
                 <select className="select-category" defaultValue="-" name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
-                    <option value="-">-</option>
+                    <option value="-"> -</option>
                     {this.props.userOffer === "both"
-                        ? <> <option value="Food">Food</option>
-                            <option value="Drink">Drink</option> </>
+                        ? <> <option value="Food"> Food</option>
+                            <option value="Drink"> Drink</option> </>
                         : null
                     }{this.props.userOffer === "food"
-                    ? <option value="Food">Food</option>
+                    ? <option value="Food"> Food</option>
 
                     : null
                 }{this.props.userOffer === "drinks"
-                    ? <option value="Drink">Drink</option>
+                    ? <option value="Drink"> Drink</option>
 
                     : null
                 }
@@ -306,17 +289,16 @@ class Catalog extends Component {
 
 
             <div className={ this.state.errors.size === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Size</label>
-                <input autoComplete="off" value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
+                <label>Size:</label>
+                <input value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
             </div>
             <div className="errorMessage">
                 <p>{this.state.errors.size}</p>
             </div>
 
             <div className={ this.state.errors.price === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Price</label>
-                <input   autoComplete="off" value={this.state.currentItem['price']} name="price" type="number" step="0.01"  pattern="[0-9]+([,\.][0-9]+)?"  onChange={(e) => this.onChange(e, this.state.index)}/>
-                <p className="priceStyling">€</p>
+                <label>Price:</label>
+                <input value={this.state.currentItem['price']} name="price"  onChange={(e) => this.onChange(e, this.state.index)}/>
             </div>
             <div className="errorMessage">
                 <p>{this.state.errors.price}</p>
@@ -328,6 +310,11 @@ class Catalog extends Component {
             <div className="errorMessage">
                 <p>{this.state.errors.description}</p>
             </div>
+            {this.state.option === "modify"
+                ?                     <button className="button yellow-btn text-center" onClick={(e) => this.modifyItemHandler(e)}>Save</button>
+                :                     <button className="button yellow-btn text-center" onClick={(e) => this.addItemHandler(e)}>Save</button>
+
+            }
 
         </div>
     );
@@ -347,10 +334,12 @@ class Catalog extends Component {
 
         ));
         return (
-            <SupplierLayout title="Catalog" location="catalog">
-                <div>
+            <SupplierLayout title="Catalog" description={"Mein Produktkatalog"} location="catalog">
+                <Container fluid>
+                    {catArray}
 
-                        {catArray}
+                </Container>
+                <div>
 
                         <React.Fragment key={"bottom"}>
                             <SwipeableDrawer style={{backgroundColor: "transparent"}}
@@ -367,7 +356,7 @@ class Catalog extends Component {
                 </div>
                     <footer className="fixed-bottom fab">
                         <Container>
-                            <Fab onClick={() => this.toggle(true,-1)}> <AddIcon></AddIcon>  </Fab>
+                            <Fab onClick={() => this.toggle(true,-1)}> <AddIcon/>  </Fab>
 
                         </Container>
 
