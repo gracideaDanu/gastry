@@ -44,7 +44,7 @@ const SupplierLayout = ({
         <>
             <Topbar onClick={onClicklogout} />
             <Navigation pagelist={navbuttons} />
-            <Container fluid className={"h-100  d-flex flex-column"}>
+            <Container fluid className={"d-flex flex-column min-vh-100"}>
                 <Row style={{marginTop: "20%"}}>
                     {description !== "" &&
                     <Container fluid style={{marginBottom: "1rem"}}>

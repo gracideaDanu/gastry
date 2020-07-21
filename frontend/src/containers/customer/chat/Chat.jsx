@@ -15,6 +15,7 @@ import {connect} from "react-redux";
 import * as actions from '../../../redux/actions';
 import CustomerLayout from "../CustomerLayout";
 import sendbutton from "../../../assets/icons/send.svg"
+import SupplierLayout from '../../supplier/supplierLayout/SupplierLayout';
 
 let socket;
 let messagesEnd;
@@ -261,8 +262,10 @@ class Chat extends Component {
 
 
     render() {
+        const { userType } = this.props.user;
+        let Layout = userType === "Supplier" ? SupplierLayout : CustomerLayout;
         return (
-            <CustomerLayout
+            <Layout
                 location={"orders"}
                 showBack={true}
             >
@@ -303,7 +306,7 @@ class Chat extends Component {
                 </footer>
 
 
-            </CustomerLayout>
+            </Layout>
         );
     }
 }
