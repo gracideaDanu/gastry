@@ -62,9 +62,7 @@ const CustomerLayout = ({
                         </Container>
                         }
                     </Row>
-                    <Row className={"flex-grow-1 content"} >
-                        {children}
-                    </Row>
+                    {children}
                 </Container>
             </>
         )

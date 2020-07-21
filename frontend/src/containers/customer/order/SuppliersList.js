@@ -18,7 +18,7 @@ class SuppliersList extends Component {
         filteredList: [],
         searchInputValue: "",
         page: 0,
-        limit: 2,
+        limit: 3,
     };
 
     componentDidMount() {
@@ -72,7 +72,6 @@ class SuppliersList extends Component {
         const { list } = this.props;
         if (!list) return <div>Loading</div>;
 
-
         return list.map((supplier) => {
             return (
                 <Link
@@ -104,19 +103,25 @@ class SuppliersList extends Component {
                 location={"home"}
                 showBack={true}
             >
-                <Search
-                    onChange={this.handleInputChange}
-                    value={this.state.searchInputValue}
-                />
-                <Container fluid>{this.renderSuppliers()}</Container>
-                <Container className="d-flex justify-content-center">
-                    <Pagination
-                        listLength={this.props.listLength}
-                        limit={this.state.limit}
-                        page={this.state.page}
-                        onPageClick={this.onPageClick}
-                    />
-                </Container>
+                <div className="suppliers-container">
+                    <div>
+                        <Container fluid>
+                            <Search
+                                onChange={this.handleInputChange}
+                                value={this.state.searchInputValue}
+                            />
+                        </Container>
+                        <Container fluid>{this.renderSuppliers()}</Container>
+                    </div>
+                    <div className="pagination-buttons">
+                        <Pagination
+                            listLength={this.props.listLength}
+                            limit={this.state.limit}
+                            page={this.state.page}
+                            onPageClick={this.onPageClick}
+                        />
+                    </div>
+                </div>
             </CustomerLayout>
         );
     }
