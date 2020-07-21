@@ -57,7 +57,7 @@ const CustomerLayout = ({
                 <Container fluid className={"h-100  d-flex flex-column"} style={{minHeight: "100vh", padding: "0px"}}>
                     <Row style={{marginTop: "15%"}}>
                         {description !== "" &&
-                        <Container fluid style={{marginBottom: "1rem"}}>
+                        <Container fluid >
                             {description.split("\n").map((item, key) => {
                                 return <p className='lead text-center' key={key}> {item}</p>
                             })}

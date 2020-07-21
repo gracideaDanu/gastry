@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../supplier/home/home.scss";
@@ -20,71 +20,72 @@ class OrderCustomer extends Component {
                 description={`Was möchtest \n du bestellen?`}
                 location={"home"}
             >
-                    <Row style={{width: "100%", height: "50%"}}>
-                        <Col
-                            className={"d-flex flex-column justify-content-center "}
-                            style={{height: "100%", marginTop: "1em"}}
-                        >
-                            <Link
-                                className="supplierLink"
-                                to={{pathname: `suppliers/food`}}
-                            >
-                                <img
-                                    src={food}
-                                    width="150"
-                                    height="150"
-                                    alt={"Essen"}
-                                    className={"align-self-center"}
-                                />
-                            </Link>
-                            <p className={"supplierButtons text-center"}>Lebensmittel</p>
-                        </Col>
-                        <Col
-                            className={"d-flex flex-column justify-content-center"}
-                            style={{height: "100%", marginTop: "1em"}}
-                        >
-                            <Link
-                                className="supplierLink"
-                                to={{pathname: `suppliers/drinks/`}}
-                            >
-                                <img
-                                    src={drinks}
-                                    width="150"
-                                    height="150"
-                                    alt={"Getränke"}
-                                    className={"align-self-center"}
-                                />
-                            </Link>
-                            <p className={"supplierButtons text-center"}>Getränke</p>
-                        </Col>
-                    </Row>
-                    <Row
-                        style={{
-                            width: "100%",
-                            height: "50%",
-                        }}
+                <Row style={{ width: "100%", height: "50%", marginTop: "5vh" }}>
+                    <Col
+                        className={"d-flex flex-column justify-content-center "}
+                        style={{ height: "100%", marginTop: "1em" }}
                     >
-                        <Col
-                            className={"d-flex flex-column justify-content-center "}
-                            style={{height: "100%"}}
+                        <Link
+                            className="supplierLink"
+                            to={{ pathname: `suppliers/food` }}
                         >
-                            <Link
-                                className="supplierLink"
-                                to={{pathname: `suppliers/both/`}}
-                            >
-                                <img
-                                    src={foodanddrinks}
-                                    width="150"
-                                    height="150"
-                                    alt={"Essen und Getränke"}
-                                    className={"align-self-center"}
-                                />
-                            </Link>
-                            <p className={"supplierButtons text-center"}>
-                                Beides
-                            </p>
-                        </Col>
-                    </Row>
+                            <img
+                                src={food}
+                                width="150"
+                                height="150"
+                                alt={"food"}
+                                className={"align-self-center"}
+                            />
+                        </Link>
+                        <p className={"supplierButtons text-center"}>Food</p>
+                    </Col>
+                    <Col
+                        className={"d-flex flex-column justify-content-center"}
+                        style={{ height: "100%", marginTop: "1em" }}
+                    >
+                        <Link
+                            className="supplierLink"
+                            to={{ pathname: `suppliers/drinks/` }}
+                        >
+                            <img
+                                src={drinks}
+                                width="150"
+                                height="150"
+                                alt={"drinks"}
+                                className={"align-self-center"}
+                            />
+                        </Link>
+                        <p className={"supplierButtons text-center"}>Drinks</p>
+                    </Col>
+                </Row>
+                <Row
+                    style={{
+                        width: "100%",
+                        height: "50%",
+                        marginBottom: "10vh",
+                    }}
+                >
+                    <Col
+                        className={"d-flex flex-column justify-content-center "}
+                        style={{ height: "100%" }}
+                    >
+                        <Link
+                            className="supplierLink"
+                            to={{ pathname: `suppliers/both/` }}
+                        >
+                            <img
+                                src={foodanddrinks}
+                                width="150"
+                                height="150"
+                                alt={"foodAndDrinks"}
+                                className={"align-self-center"}
+                            />
+                        </Link>
+                        <p className={"supplierButtons text-center"}>
+                            Food and Drinks
+                        </p>
+                    </Col>
+                </Row>
             </CustomerLayout>
         );
     }

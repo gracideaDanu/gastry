@@ -87,7 +87,6 @@ class SuppliersList extends Component {
                     }}
                 >
                     <Supplier
-                        pic={logo}
                         key={supplier._id}
                         name={supplier.company}
                         address={supplier.address.street}
@@ -102,24 +101,28 @@ class SuppliersList extends Component {
             <CustomerLayout
                 className="container-fluid"
                 title="Suppliers"
-                description={"Bei wem möchtest \n du bestellen?"}
+                description="Bei wem möchtest du bestellen?"
                 location={"home"}
                 showBack={true}
             >
-                <Container fluid style={{height:"90%"}}>
-                    <Search
-                        onChange={this.handleInputChange}
-                        value={this.state.searchInputValue}
-                    />
-                    {this.renderSuppliers()}
-                </Container>
-                <div style={{height:"10%"}} className="d-flex justify-content-center pageBar">
-                    <Pagination
-                        listLength={this.props.listLength}
-                        limit={this.state.limit}
-                        page={this.state.page}
-                        onPageClick={this.onPageClick}
-                    />
+                <div className="suppliers-container">
+                    <div>
+                        <Container fluid>
+                            <Search
+                                onChange={this.handleInputChange}
+                                value={this.state.searchInputValue}
+                            />
+                        </Container>
+                        <Container fluid>{this.renderSuppliers()}</Container>
+                    </div>
+                    <div className="pagination-buttons">
+                        <Pagination
+                            listLength={this.props.listLength}
+                            limit={this.state.limit}
+                            page={this.state.page}
+                            onPageClick={this.onPageClick}
+                        />
+                    </div>
                 </div>
             </CustomerLayout>
         );

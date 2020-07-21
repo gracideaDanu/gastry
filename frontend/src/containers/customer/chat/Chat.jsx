@@ -69,6 +69,7 @@ class Chat extends Component {
     }
 
     componentWillUnmount() {
+        socket.close()
         this.props.flush();
     }
 
