@@ -254,8 +254,8 @@ class CatalogCustomer extends Component {
                     />
 
                         <Tabs>
-                            <Tab label="Food" onClick={() => this.tabChangeHandler(1)} />
-                            <Tab label="Drinks" onClick={() => this.tabChangeHandler(2)} />
+                            <Tab label="Food" className={this.state.tab === "Food" ? "on" : ""} onClick={() => this.tabChangeHandler(1)} />
+                            <Tab label="Drinks" className={this.state.tab === "Drink" ? "on" : ""} onClick={() => this.tabChangeHandler(2)} />
                         </Tabs>
 
 
