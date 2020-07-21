@@ -6,7 +6,8 @@ div.orderNrChat{
   padding-top: 1rem;
   position: fixed;
   width: 100%;
-  height: 5rem;
+  margin-left: -15px;
+  margin-top: -5%;
   background-color: var(--color-second-background);
   border-bottom: darkgray solid 1px;
   p {
@@ -29,7 +30,9 @@ div.orderNrChat{
 }
 
 footer.messageInput{
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
+  padding: 1rem 0;
+  background-color: var(--color-second-background);
   div.container{
     background-color: #FEECAD;
     max-height: 6rem;

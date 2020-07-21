@@ -55,9 +55,9 @@ const CustomerLayout = ({
                         basketState={basketState}/>
                 <NavigationBottom pagelist={bottomButtons}/>
                 <Container fluid className={"h-100  d-flex flex-column"} style={{minHeight: "100vh", padding: "0px"}}>
-                    <Row style={{marginTop: "15%"}}>
+                    <Row style={{marginTop: "20%"}}>
                         {description !== "" &&
-                        <Container fluid >
+                        <Container fluid style={{marginBottom: "1rem"}}>
                             {description.split("\n").map((item, key) => {
                                 return <p className='lead text-center' key={key}> {item}</p>
                             })}
