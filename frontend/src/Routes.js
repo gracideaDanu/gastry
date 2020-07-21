@@ -29,11 +29,16 @@ class Routes extends Component {
                 this.props.checkTokenValidity({
                     token: this.props.token
                 });
-                this.props.history.push("/home");
+                this.props.history.replace("/home");
             }
             else {
-                this.props.history.push("/login")
+                this.props.history.replace("/login")
             }
+        }
+
+        if(!this.props.token && this.props.location.pathname !== "/") {
+            this.props.history.replace("/login")
+
         }
     }
 
