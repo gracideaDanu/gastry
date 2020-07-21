@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import * as actions from "../../../redux/actions";
 
 import logo from "../../../assets/icons/login-logo.svg";
 import Button from "../../../components/button/Button";
 import Input from "../../../components/auth/Input";
 
-import "./Login.css";
+import loginstyling from "./Login.scss";
 
 const signInState = {
     form: {
@@ -64,7 +64,7 @@ export class Login extends Component {
             },
         };
 
-        this.setState({ form: value });
+        this.setState({form: value});
     };
 
     render() {
@@ -86,47 +86,50 @@ export class Login extends Component {
         ));
 
         return (
-            <div className="login-container">
-                <div className="logo"></div>
-                <p className="welcome-msg">
-                    Herzlich Willkommen bei Gastry, <br />
-                    Bestellen und Chatten. <br />
-                    So einfach war deine Bestellung nie. <br />
-                </p>
-                {this.props.error ? (
-                    <div className="errorMessage">
-                        <h6 className="errorMessage">{this.props.error}</h6>
-                    </div>
-                ) : null}
+            <>
+                <link rel="stylesheet" type="text/css" href={loginstyling} />
+                <div className="login-container">
+                    <div className="logo"/>
+                    <p className="welcome-msg">
+                        Herzlich Willkommen bei Gastry, <br/>
+                        Bestellen und Chatten. <br/>
+                        So einfach war deine Bestellung nie. <br/>
+                    </p>
+                    {this.props.error ? (
+                        <div className="errorMessage">
+                            <h6 className="errorMessage">{this.props.error}</h6>
+                        </div>
+                    ) : null}
 
-                <form
-                    onSubmit={this.onSubmit}
-                    id="login-form"
-                    className="login-form"
-                >
-                    {signInForm}
-                </form>
-                <div className="auth-buttons">
-                    <Button
-                        type="submit"
-                        label="Login"
-                        form="login-form"
-                        className="button submit-btn"
-                    />
-                    <Link to="/register">
+                    <form
+                        onSubmit={this.onSubmit}
+                        id="login-form"
+                        className="login-form"
+                    >
+                        {signInForm}
+                    </form>
+                    <div className="auth-buttons">
                         <Button
-                            type="register"
-                            label="Register"
-                            className="register button yellow-btn"
+                            type="submit"
+                            label="Login"
+                            form="login-form"
+                            className="button submit-btn"
                         />
-                    </Link>
+                        <Link to="/register">
+                            <Button
+                                type="register"
+                                label="Registrieren"
+                                className="register button yellow-btn"
+                            />
+                        </Link>
+                    </div>
+                    <div className="legal">
+                        <Link>AGB |</Link>
+                        <Link> Impressum |</Link>
+                        <Link> Cookie</Link>
+                    </div>
                 </div>
-                <div className="legal">
-                    <Link>AGB |</Link>
-                    <Link> Impressum |</Link>
-                    <Link> Cookie</Link>
-                </div>
-            </div>
+            </>
         );
     }
 }

@@ -67,7 +67,7 @@ export class Basket extends Component {
                     {
                         this.state.total > 0 ? <Button className={"button submit-btn"} onClick={this.placeOrder}
                                                        label={"Bestellung abschließen"}/> :
-                            <p>Consider adding some items to your basket first</p>
+                            <p>Dein Warenkorb ist leer. Füge Produkte zum Warenkorb hinzu.</p>
                     }
                 </Container>
             </CustomerLayout>

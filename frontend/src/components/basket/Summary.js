@@ -18,11 +18,11 @@ export const Summary = (props) => {
                                 name={item.name}
                                 price={item.price}
                                 size={item.size}
-                            ></Item>
+                            />
 
                         </Col>
-                        <Col xs={3} className={"align-items-center row"}>
-                            <p style={{margin:"0px"}}>{item.amount}x</p>
+                        <Col xs={3}>
+                            <p style={{marginTop:"2em",marginBottom:"0em"}}>{item.amount}x</p>
                         </Col>
                     </Row>
                 </Card.Header>

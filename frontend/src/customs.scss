@@ -10,6 +10,7 @@
 
   --color-main-background: #626262;
   --color-nav: #626262;
+  --color-second-background: #FEECAD;
 }
 
 @font-face {
@@ -46,7 +47,7 @@ $theme-colors: (
     "primary": #facd2a,
     "danger": #eb0f0f,
     "secondary": #9dba51,
-    "light": #f8e6a9,
+    "light": #FEECAD,
     "dark": #626262,
 );
 
@@ -57,7 +58,7 @@ $theme-colors: (
   font-family: Aleo, sans-serif;
 }
 
-#rootcontainer{
+div.rootcontainer{
   min-height: 100vh;
   background-color: #FEECAD;
   //margin: 0px;
@@ -67,6 +68,8 @@ html,body{
   //background-color: #626262;
   min-height: 100%;
   background-color: black;
+  color: var(--color-font-dark);
+
 }
 
 div.container {

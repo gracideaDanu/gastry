@@ -265,19 +265,19 @@ class Catalog extends Component {
             </div>
 
             <div className={ this.state.errors.tags === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Tag</label>
+                <label>Tag: </label>
                 <select className="select-category" defaultValue="-" name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
-                    <option value="-">-</option>
+                    <option value="-"> -</option>
                     {this.props.userOffer === "both"
-                        ? <> <option value="Food">Food</option>
-                            <option value="Drink">Drink</option> </>
+                        ? <> <option value="Food"> Food</option>
+                            <option value="Drink"> Drink</option> </>
                         : null
                     }{this.props.userOffer === "food"
-                    ? <option value="Food">Food</option>
+                    ? <option value="Food"> Food</option>
 
                     : null
                 }{this.props.userOffer === "drinks"
-                    ? <option value="Drink">Drink</option>
+                    ? <option value="Drink"> Drink</option>
 
                     : null
                 }
@@ -356,7 +356,7 @@ class Catalog extends Component {
                 </div>
                     <footer className="fixed-bottom fab">
                         <Container>
-                            <Fab onClick={() => this.toggle(true,-1)}> <AddIcon></AddIcon>  </Fab>
+                            <Fab onClick={() => this.toggle(true,-1)}> <AddIcon/>  </Fab>
 
                         </Container>
 

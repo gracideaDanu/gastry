@@ -102,25 +102,25 @@ class SuppliersList extends Component {
             <CustomerLayout
                 className="container-fluid"
                 title="Suppliers"
-                description="Bei wem möchtest du bestellen?"
+                description={"Bei wem möchtest \n du bestellen?"}
                 location={"home"}
                 showBack={true}
             >
-                <Container fluid>
+                <Container fluid style={{height:"90%"}}>
                     <Search
                         onChange={this.handleInputChange}
                         value={this.state.searchInputValue}
                     />
                     {this.renderSuppliers()}
                 </Container>
-                <Container className="d-flex justify-content-center">
+                <div style={{height:"10%"}} className="d-flex justify-content-center pageBar">
                     <Pagination
                         listLength={this.props.listLength}
                         limit={this.state.limit}
                         page={this.state.page}
                         onPageClick={this.onPageClick}
                     />
-                </Container>
+                </div>
             </CustomerLayout>
         );
     }

@@ -3,3 +3,8 @@
     border-radius: 40px;
     color: black;
 }
+
+div.pageBar{
+    width: 100%;
+    position: fixed;
+}

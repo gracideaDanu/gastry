@@ -53,8 +53,10 @@ class Orderlist extends Component {
                 </Fade>
             </SupplierLayout>
         ) : (
-            <CustomerLayout title="Orders" location={"orders"} description={"Meine Bestellungen"}>
-                <Container fluid>{orders}</Container>
+            <CustomerLayout title="Orders" location={"orders"} description={"Meine \n Bestellungen"}>
+                <Fade in={true}>
+                    <Container fluid>{orders}</Container>
+                </Fade>
             </CustomerLayout>
         );
     }

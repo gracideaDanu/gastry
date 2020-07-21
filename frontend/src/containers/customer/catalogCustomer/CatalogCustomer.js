@@ -236,7 +236,7 @@ class CatalogCustomer extends Component {
             <CustomerLaylout
                 title="Catalog"
                 showBasket="true"
-                description={"Welche Produkte möchtest du?"}
+                description={"Welche Produkte \n möchtest du?"}
                 basketState={{
                     supplierName: supplierName,
                     supplierId: supplierId,
@@ -254,8 +254,8 @@ class CatalogCustomer extends Component {
                     />
 
                         <Tabs>
-                            <Tab label="Food" className={this.state.tab === "Food" ? "on" : ""} onClick={() => this.tabChangeHandler(1)} />
-                            <Tab label="Drinks" className={this.state.tab === "Drink" ? "on" : ""} onClick={() => this.tabChangeHandler(2)} />
+                            <Tab label="Lebensmittel" className={this.state.tab === "Food" ? "on" : ""} onClick={() => this.tabChangeHandler(1)} />
+                            <Tab label="Getränke" className={this.state.tab === "Drink" ? "on" : ""} onClick={() => this.tabChangeHandler(2)} />
                         </Tabs>
 
 

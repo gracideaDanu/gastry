@@ -13,7 +13,7 @@ class App extends Component {
                 <PersistGate loading={null} persistor={persistor}>
                     <BrowserRouter>
                         <Container
-                            className="justify-content-center"
+                            className="justify-content-center rootcontainer"
                             id={"rootcontainer"}
                         >
                             <Routes class="routes" />

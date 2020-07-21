@@ -7,7 +7,7 @@
 div.accordion{
     border-radius: 0.5rem;
 
-    margin-bottom: 0.5em;
+    margin-bottom: 1rem;
     -webkit-box-shadow: 2px 5px 5px -1px rgba(176,176,176,1);
     -moz-box-shadow: 2px 5px 5px -1px rgba(176,176,176,1);
     box-shadow: 2px 5px 5px -1px rgba(176,176,176,1);
@@ -24,16 +24,12 @@ div.card-header{
 div.col-9{
     padding: 0.5rem 0.5rem;
 }
-div.col-3{
-    padding: 0px;
-}
+
 
 div.col-4{
     padding: 0px 0px 0px 0.5rem;
 }
-div.col-5{
-    padding: 0px;
-}
+
 .counter {
     display: flex;
     align-items: center;

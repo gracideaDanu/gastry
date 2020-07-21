@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Counter from "../../counter/Counter";
 
 import "./CatalogCustomerRow.scss";
+import Button from "react-bootstrap/Button";
 
 class CatalogCustomerRow extends Component {
 
@@ -16,15 +17,18 @@ class CatalogCustomerRow extends Component {
         return (
             <Accordion>
                 <Card key={item._id}>
-                    <Card.Header>
+                    <Card.Header style={{backgroundColor:"white"}}>
                         <Row>
                             <Col xs={8}>
-                                <Item
-                                    key={item._id}
-                                    name={item.name}
-                                    price={item.price}
-                                    size={item.size}
-                                />
+                                <Accordion.Toggle style={{textAlign: "left", backgroundColor: "white", border: "none",width:"100%"}}
+                                                  eventKey={item._id}>
+                                    <Item
+                                        key={item._id}
+                                        name={item.name}
+                                        price={item.price}
+                                        size={item.size}
+                                    />
+                                </Accordion.Toggle>
                             </Col>
                             <Col xs={4} className={"d-flex align-items-center "}>
                                 <Counter
@@ -34,9 +38,15 @@ class CatalogCustomerRow extends Component {
                                     countUp={this.props.add}
                                     onChange={this.props.change}
                                 />
-                        </Col>
+                            </Col>
                         </Row>
                     </Card.Header>
+                    <Accordion.Collapse eventKey={item._id}>
+                        <Card.Body>{
+                            item.description}
+                        </Card.Body>
+
+                    </Accordion.Collapse>
                 </Card>
             </Accordion>
         );
