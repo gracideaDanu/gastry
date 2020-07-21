@@ -13,6 +13,8 @@ import orderButtonActive from "../../assets/icons/BestelleingangAusgewählt.svg"
 import profileButtonInactive from "../../assets/icons/ProfilButton.svg";
 import profileButtonActive from "../../assets/icons/ProfilButtonAusgewählt.svg";
 import {useHistory} from "react-router-dom";
+import {Fade} from "@material-ui/core";
+import SupplierLayout from "../supplier/supplierLayout/SupplierLayout";
 
 
 const CustomerLayout = ({
@@ -62,10 +64,12 @@ const CustomerLayout = ({
                         </Container>
                         }
                     </Row>
-                    <Row className={"flex-grow-1 content"} >
-                        <div style={{marginBottom: "18%",width:"100%"}}>
-                            {children}
-                        </div>
+                    <Row className={"flex-grow-1 content"}>
+                        <Fade in={true}>
+                            <div style={{marginBottom: "18%", width: "100%"}}>
+                                {children}
+                            </div>
+                        </Fade>
                     </Row>
                 </Container>
             </>

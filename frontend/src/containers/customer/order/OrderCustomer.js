@@ -20,7 +20,6 @@ class OrderCustomer extends Component {
                 description={`Was möchtest \n du bestellen?`}
                 location={"home"}
             >
-                <Fade in={true}>
                     <Row style={{width: "100%", height: "50%"}}>
                         <Col
                             className={"d-flex flex-column justify-content-center "}
@@ -59,8 +58,6 @@ class OrderCustomer extends Component {
                             <p className={"supplierButtons text-center"}>Getränke</p>
                         </Col>
                     </Row>
-                </Fade>
-                <Fade in={true}>
                     <Row
                         style={{
                             width: "100%",
@@ -88,7 +85,6 @@ class OrderCustomer extends Component {
                             </p>
                         </Col>
                     </Row>
-                </Fade>
             </CustomerLayout>
         );
     }

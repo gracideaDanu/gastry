@@ -147,12 +147,9 @@ class Profilepage extends Component {
                 description="Mein Profil"
                 location={"profile"}
             >
-                <Fade in={true}>
                     <Container>
                         {this.state.canEdit ? this.userInfoForm() : this.userInfo()}
                     </Container>
-                </Fade>
-
             </CustomerLayout>
             :
             <SupplierLayout
@@ -160,11 +157,9 @@ class Profilepage extends Component {
                 description="Mein Profil"
                 location={"profile"}
             >
-                <Fade in={true}>
                     <Container>
                         {this.state.canEdit ? this.userInfoForm() : this.userInfo()}
                     </Container>
-                </Fade>
             </SupplierLayout>
 
     }
