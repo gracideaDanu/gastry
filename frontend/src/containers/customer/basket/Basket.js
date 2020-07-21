@@ -7,6 +7,7 @@ import {Summary} from '../../../components/basket/Summary'
 import EstimatedTotal from "../../../components/basket/EstimatedTotal";
 import CustomerLayout from "../../customer/CustomerLayout";
 import Button from "../../../components/button/Button";
+import {Link} from "react-router-dom";
 
 export class Basket extends Component {
     state = {
@@ -44,6 +45,11 @@ export class Basket extends Component {
             },
         }
         this.props.placeOrder(payload)
+
+        this.props.history.push("/finished", {
+            order: true
+        })
+
         console.log(this.state.basket)
     }
 
@@ -64,6 +70,8 @@ export class Basket extends Component {
                 <Container>
                     {basketItems}
                     <EstimatedTotal total={this.state.total}/>
+
+
                     {
                         this.state.total > 0 ? <Button className={"button submit-btn"} onClick={this.placeOrder}
                                                        label={"Bestellung abschließen"}/> :
