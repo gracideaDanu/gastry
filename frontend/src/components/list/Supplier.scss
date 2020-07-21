@@ -1,5 +1,35 @@
+.supplier-container {
+  display: flex;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  max-height: 5.5rem;
+  border-radius: 1rem;
+  line-height: 1;
+  background-color: #fff;
+  color: var(--color-font-dark);
+}
+
+.supplier-info {
+  margin-left: 1rem;
+  padding: 5px 0;
+}
+
+.supplier-logo {
+  background-color: #4d4d4d;
+  border-radius: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+.forward-icon {
+  align-self: center;
+  margin-left: auto;
+}
+
 div.card-body{
   padding: 0.5rem 0px;
+  // background-color: red;
+  border-radius: 50% !important;
 
   div{
     padding: 0px
