@@ -126,8 +126,9 @@ class Catalog extends Component {
     onChange = (e, i) => {
         e.preventDefault();
         const property = e.target.name;
-        const value = e.target.value;
+        let value = e.target.value;
         this.validationHandler(property,value);
+        property === "price" && (value = Math.round((parseFloat(value) + Number.EPSILON) * 100) / 100);
         const item = {
             ...this.state.currentItem
         };
