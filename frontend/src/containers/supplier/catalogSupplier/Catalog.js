@@ -256,24 +256,18 @@ class Catalog extends Component {
 
         >
             <div className="row centerRow">
-                <div className="col-6">
+                <div className="col-8">
                     <h4>Add Item</h4>
 
                 </div>
-                <div className="col-3 sheet">
-                    {this.state.option === "modify"
-                        ?                     <button className="button yellow-btn text-center" onClick={(e) => this.modifyItemHandler(e)}>Save</button>
-                        :                     <button className="button yellow-btn text-center" onClick={(e) => this.addItemHandler(e)}>Save</button>
-
-                    }
-                </div>
-                <div className="col-3 sheet">            <button className="button red-btn" onClick={() => this.toggle(false,-1)}>Cancel</button>
+                <div className="col-4 sheet">
+                    <button className="button red-btn" onClick={() => this.toggle(false,-1)}>Abbrechen</button>
                 </div>
             </div>
             <Divider/>
 
             <div className={ this.state.errors.name === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Name </label>
+                <label>Name:  </label>
                 <input autoComplete="off" value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
 
             </div>
@@ -286,15 +280,15 @@ class Catalog extends Component {
                 <select className="select-category" defaultValue="-" name="tags" onChange={(e) => this.onChange(e, this.state.index)}>
                     <option value="-">-</option>
                     {this.props.userOffer === "both"
-                        ? <> <option value="Food">Food</option>
-                            <option value="Drink">Drink</option> </>
+                        ? <> <option value="Food">Lebensmittel</option>
+                            <option value="Drink">Getränke</option> </>
                         : null
                     }{this.props.userOffer === "food"
-                    ? <option value="Food">Food</option>
+                    ? <option value="Food">Lebensmittel</option>
 
                     : null
                 }{this.props.userOffer === "drinks"
-                    ? <option value="Drink">Drink</option>
+                    ? <option value="Drink">Getränke</option>
 
                     : null
                 }
@@ -306,7 +300,7 @@ class Catalog extends Component {
 
 
             <div className={ this.state.errors.size === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Size</label>
+                <label>Einheit: </label>
                 <input autoComplete="off" value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
             </div>
             <div className="errorMessage">
@@ -314,7 +308,7 @@ class Catalog extends Component {
             </div>
 
             <div className={ this.state.errors.price === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Price</label>
+                <label>Preis: </label>
                 <input   autoComplete="off" value={this.state.currentItem['price']} name="price" type="number" step="0.01"  pattern="[0-9]+([,\.][0-9]+)?"  onChange={(e) => this.onChange(e, this.state.index)}/>
                 <p className="priceStyling">€</p>
             </div>
@@ -327,6 +321,13 @@ class Catalog extends Component {
             </div>
             <div className="errorMessage">
                 <p>{this.state.errors.description}</p>
+            </div>
+            <div className="">
+                {this.state.option === "modify"
+                    ?                     <button className="button yellow-btn text-center" onClick={(e) => this.modifyItemHandler(e)}>Speichern</button>
+                    :                     <button className="button yellow-btn text-center" onClick={(e) => this.addItemHandler(e)}>Speichern</button>
+
+                }
             </div>
 
         </div>
