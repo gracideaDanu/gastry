@@ -6,7 +6,9 @@ import CustomerLaylout from "../CustomerLayout";
 import Search from "../../../components/search/Search";
 import {addItemToBasket} from "../../../redux/actions";
 import pt from "moment/locale/pt";
+import {AppBar, Tabs, Tab} from "@material-ui/core";
 import Container from "react-bootstrap/Container";
+import './CatalogCustomer.css'
 
 let basketArray = [];
 let supplierName, supplierId;
@@ -17,6 +19,7 @@ class CatalogCustomer extends Component {
         catalog: [],
         filteredList: [],
         searchInputValue: "",
+        tab: "Food"
     };
 
     componentDidMount() {
@@ -164,16 +167,8 @@ class CatalogCustomer extends Component {
     };
     findItemAmount = (itemId) => {
         let amount;
-        /*const { supplierId } = this.props.location.state;
-        basketArray = this.props.basket.slice()
-        let basketSingle = basketArray.find(basket => basket.supplierId === supplierId);
-        let basketItems = [];
-        basketSingle ? basketItems = [...basketSingle.basketItems] : basketSingle = []; basketSingle.basketItems = [];
-        console.log(basketSingle.basketItems);
-        let item = basketSingle.basketItems.find(items => items._id === itemId);
-        item ? amount = item.amount : amount = 0;
-        return amount;
-        return 0*/
+
+
         let basket = [...this.state.basket];
         let item = basket.find((inc) => inc._id === itemId);
         item ? (amount = item.amount) : (amount = 0);
@@ -196,7 +191,7 @@ class CatalogCustomer extends Component {
         }
     };
 
-    renderCatalog = () => {
+    renderCatalog = (tab) => {
         const {catalog} = this.props;
         const {searchInputValue, filteredList} = this.state;
         const renderedList = searchInputValue.length > 0 ? filteredList : catalog;
@@ -207,18 +202,34 @@ class CatalogCustomer extends Component {
             return <div>No Items Found</div>;
         }
 
-        return renderedList.map((item, index) => (
-            <SupplierCatList
-                change={this.changeAmountThroughField}
-                amount={this.findItemAmount(item._id)}
-                add={(e) => this.addItemToBasketHandler(e, item._id, 1)}
-                subtract={(e) => this.addItemToBasketHandler(e, item._id, 2)}
-                key={item._id}
-                index={index}
-                item={item}
-            ></SupplierCatList>
-        ));
+        return renderedList.map((item, index) => {
+            if(item.tags === tab) {
+                return <SupplierCatList
+                    change={this.changeAmountThroughField}
+                    amount={this.findItemAmount(item._id)}
+                    add={(e) => this.addItemToBasketHandler(e, item._id, 1)}
+                    subtract={(e) => this.addItemToBasketHandler(e, item._id, 2)}
+                    key={item._id}
+                    index={index}
+                    item={item}
+                ></SupplierCatList>
+            }
+        });
     };
+
+    tabChangeHandler = (index) => {
+        switch (index) {
+            case 1: this.setState({
+                ...this.state,
+                tab: "Food"
+            }); break;
+
+            case 2: this.setState({
+                ...this.state,
+                tab: "Drink"
+            }); break
+        }
+    }
 
     render() {
         return (
@@ -235,12 +246,20 @@ class CatalogCustomer extends Component {
                 showBack={true}
             >
 
+
                 <Container fluid>
                     <Search
                         onChange={this.handleInputChange}
                         value={this.state.searchInputValue}
                     />
-                    {this.renderCatalog()}
+
+                        <Tabs>
+                            <Tab label="Food" className={this.state.tab === "Food" ? "on" : ""} onClick={() => this.tabChangeHandler(1)} />
+                            <Tab label="Drinks" className={this.state.tab === "Drink" ? "on" : ""} onClick={() => this.tabChangeHandler(2)} />
+                        </Tabs>
+
+
+                    {this.renderCatalog(this.state.tab)}
                 </Container>
             </CustomerLaylout>
         );
