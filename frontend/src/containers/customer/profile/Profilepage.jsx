@@ -144,8 +144,7 @@ class Profilepage extends Component {
         return this.props.user.user.userType === "Customer" ?
             <CustomerLayout
                 className="container-fluid"
-                title={"Profile"}
-                description="Update Profile"
+                description="Mein Profil"
                 location={"profile"}
             >
                 <Container>
@@ -155,8 +154,7 @@ class Profilepage extends Component {
             :
             <SupplierLayout
                 className="container-fluid"
-                title={"Profile"}
-                description="Update Profile"
+                description="Mein Profil"
                 location={"profile"}
             >
                 <Container>

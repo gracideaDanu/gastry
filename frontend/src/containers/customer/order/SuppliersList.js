@@ -12,6 +12,7 @@ import Search from "../../../components/search/Search";
 import Container from "react-bootstrap/Container";
 import "./SuppliersList.css";
 import * as actions from "../../../redux/actions/index";
+import logo from "../../../assets/icons/login-logo.svg"
 
 class SuppliersList extends Component {
     state = {
@@ -86,6 +87,7 @@ class SuppliersList extends Component {
                     }}
                 >
                     <Supplier
+                        pic={logo}
                         key={supplier._id}
                         name={supplier.company}
                         address={supplier.address.street}
@@ -104,11 +106,13 @@ class SuppliersList extends Component {
                 location={"home"}
                 showBack={true}
             >
-                <Search
-                    onChange={this.handleInputChange}
-                    value={this.state.searchInputValue}
-                />
-                <Container fluid>{this.renderSuppliers()}</Container>
+                <Container fluid>
+                    <Search
+                        onChange={this.handleInputChange}
+                        value={this.state.searchInputValue}
+                    />
+                    {this.renderSuppliers()}
+                </Container>
                 <Container className="d-flex justify-content-center">
                     <Pagination
                         listLength={this.props.listLength}

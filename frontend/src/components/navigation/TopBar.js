@@ -11,7 +11,7 @@ import basket from "../../assets/icons/Warenkorb.svg";
 import back from "../../assets/icons/arrow.svg";
 import Col from "react-bootstrap/Col";
 import NavigationButton from "./NavigationButton";
-import logo from "../../assets/icons/logo.svg";
+import logo from "../../assets/icons/login-logo.svg";
 
 const Topbar = (props) => {
     return (
@@ -20,7 +20,7 @@ const Topbar = (props) => {
                 <Row style={{ width: "100%", padding: "10px" }}>
                     {props.showBack ? (
                         <Col className={"d-flex justify-content-start align-middle"}>
-                            <Button variant="dark" className={""} onClick={props.backButton} size="sm" className={"align-self-center"}>
+                            <Button variant="transparent" onClick={props.backButton} size="sm" className={"align-self-center"}>
                                 <img
                                     src={back} width="30" height="30" alt={"back"}
                                 />

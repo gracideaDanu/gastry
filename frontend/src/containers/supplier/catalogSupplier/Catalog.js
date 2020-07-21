@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import * as actions from "../../../redux/actions";
 import SupplierLayout from "../supplierLayout/SupplierLayout";
-import SupplierCatListView from "../../../components/list/SupplierCatListView";
+import SupplierCatListView from "../../../components/list/CatalogSupplierRow/SupplierCatListView";
 import {SwipeableDrawer, Fab, Divider} from "@material-ui/core";
 import {Container} from "react-bootstrap";
 import AddIcon from '@material-ui/icons/Add';
 
-import './Catalog.css'
+import './Catalog.scss'
 
 
 class Catalog extends Component {
@@ -247,16 +247,8 @@ class Catalog extends Component {
 
         >
             <div className="row centerRow">
-                <div className="col-6">
+                <div className="col-9">
                     <h4>Add Item</h4>
-
-                </div>
-                <div className="col-3 sheet">
-                    {this.state.option === "modify"
-                        ?                     <button className="button yellow-btn text-center" onClick={(e) => this.modifyItemHandler(e)}>Save</button>
-                        :                     <button className="button yellow-btn text-center" onClick={(e) => this.addItemHandler(e)}>Save</button>
-
-                    }
                 </div>
                 <div className="col-3 sheet">            <button className="button red-btn" onClick={() => this.toggle(false,-1)}>Cancel</button>
                 </div>
@@ -264,7 +256,7 @@ class Catalog extends Component {
             <Divider/>
 
             <div className={ this.state.errors.name === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Name </label>
+                <label>Name:</label>
                 <input value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
 
             </div>
@@ -297,7 +289,7 @@ class Catalog extends Component {
 
 
             <div className={ this.state.errors.size === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Size</label>
+                <label>Size:</label>
                 <input value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
             </div>
             <div className="errorMessage">
@@ -305,7 +297,7 @@ class Catalog extends Component {
             </div>
 
             <div className={ this.state.errors.price === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
-                <label>Price</label>
+                <label>Price:</label>
                 <input value={this.state.currentItem['price']} name="price"  onChange={(e) => this.onChange(e, this.state.index)}/>
             </div>
             <div className="errorMessage">
@@ -318,6 +310,11 @@ class Catalog extends Component {
             <div className="errorMessage">
                 <p>{this.state.errors.description}</p>
             </div>
+            {this.state.option === "modify"
+                ?                     <button className="button yellow-btn text-center" onClick={(e) => this.modifyItemHandler(e)}>Save</button>
+                :                     <button className="button yellow-btn text-center" onClick={(e) => this.addItemHandler(e)}>Save</button>
+
+            }
 
         </div>
     );
@@ -337,10 +334,12 @@ class Catalog extends Component {
 
         ));
         return (
-            <SupplierLayout title="Catalog" location="catalog">
-                <div>
+            <SupplierLayout title="Catalog" description={"Mein Produktkatalog"} location="catalog">
+                <Container fluid>
+                    {catArray}
 
-                        {catArray}
+                </Container>
+                <div>
 
                         <React.Fragment key={"bottom"}>
                             <SwipeableDrawer style={{backgroundColor: "transparent"}}

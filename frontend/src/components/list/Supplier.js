@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import "./Supplier.scss"
-import goto from "../../assets/icons/arrow.svg";
+import goto from "../../assets/icons/next.svg";
 
 const Supplier = (props) => {
     return (

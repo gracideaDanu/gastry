@@ -16,7 +16,7 @@ class OrderCustomer extends Component {
         return (
             <CustomerLayout
                 className="container-fluid"
-                title={`Was möchtest \n du bestellen?`}
+                description={`Was möchtest \n du bestellen?`}
                 location={"home"}
             >
                 <Row style={{ width: "100%", height: "50%", marginTop: "5vh" }}>
@@ -32,11 +32,11 @@ class OrderCustomer extends Component {
                                 src={food}
                                 width="150"
                                 height="150"
-                                alt={"food"}
+                                alt={"Essen"}
                                 className={"align-self-center"}
                             />
                         </Link>
-                        <p className={"supplierButtons text-center"}>Food</p>
+                        <p className={"supplierButtons text-center"}>Essen</p>
                     </Col>
                     <Col
                         className={"d-flex flex-column justify-content-center"}
@@ -50,11 +50,11 @@ class OrderCustomer extends Component {
                                 src={drinks}
                                 width="150"
                                 height="150"
-                                alt={"drinks"}
+                                alt={"Getränke"}
                                 className={"align-self-center"}
                             />
                         </Link>
-                        <p className={"supplierButtons text-center"}>Drinks</p>
+                        <p className={"supplierButtons text-center"}>Getränke</p>
                     </Col>
                 </Row>
                 <Row
@@ -76,12 +76,12 @@ class OrderCustomer extends Component {
                                 src={foodanddrinks}
                                 width="150"
                                 height="150"
-                                alt={"foodAndDrinks"}
+                                alt={"Essen und Getränke"}
                                 className={"align-self-center"}
                             />
                         </Link>
                         <p className={"supplierButtons text-center"}>
-                            Food and Drinks
+                            Essen und Getränke
                         </p>
                     </Col>
                 </Row>

@@ -1,6 +1,6 @@
 import React from "react";
 import {mount, shallow} from 'enzyme';
-import SupplierCatListView from "./SupplierCatListView";
+import SupplierCatListView from "./CatalogSupplierRow/SupplierCatListView";
 import {findByTestAtrr, testStore} from "../../../Utils";
 import Item from "./Item";
 

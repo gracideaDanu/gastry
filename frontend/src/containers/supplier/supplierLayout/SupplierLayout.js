@@ -20,6 +20,7 @@ const SupplierLayout = ({
     title = "Title",
     className,
     children,
+    description="",
     onClicklogout,
     location= ""
 }) => {
@@ -45,9 +46,14 @@ const SupplierLayout = ({
             <Topbar onClick={onClicklogout} />
             <Navigation pagelist={navbuttons} />
             <Container fluid className={"h-100  d-flex flex-column"}>
-                <Row>
-                    {console.log(location)}
-                    <h3 className="page-title">{title}</h3>
+                <Row style={{marginTop: "20%"}}>
+                    {description !== "" &&
+                    <Container fluid >
+                        {description.split("\n").map((item, key) => {
+                            return <p className='lead text-center' key={key}> {item}</p>
+                        })}
+                    </Container>
+                    }
                 </Row>
                 <Row className={"flex-grow-1"}>
                     {children}
