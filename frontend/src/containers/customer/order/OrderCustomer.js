@@ -61,7 +61,7 @@ class OrderCustomer extends Component {
                     style={{
                         width: "100%",
                         height: "50%",
-                        marginBottom: "10vh",
+                        margin: "10vh 0",
                     }}
                 >
                     <Col
