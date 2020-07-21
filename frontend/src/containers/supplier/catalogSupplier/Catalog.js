@@ -99,6 +99,8 @@ class Catalog extends Component {
                     value.length < 1
                         ? 'Product price is required!'
                         : '';
+                const priceRegex = new RegExp("[0-9]+([./,][0-9]+)?");
+                priceRegex.test(value) ? errors.price = errors.price : errors.price = errors.price + " Nutzen Sie nur Zahlen und ein Komma"
                 break;
             case 'tags':
                 errors.tags =
@@ -126,8 +128,15 @@ class Catalog extends Component {
     onChange = (e, i) => {
         e.preventDefault();
         const property = e.target.name;
-        const value = e.target.value;
+        let value = e.target.value;
+        console.log(property);
+        property === "price" && (value = Math.round((parseFloat(value) + Number.EPSILON) * 100) / 100);
         this.validationHandler(property,value);
+
+
+
+
+
         const item = {
             ...this.state.currentItem
         };
@@ -137,7 +146,7 @@ class Catalog extends Component {
             currentItem: item
         })
 
-    }
+    };
 
     modifyItemHandler = (e) => {
         e.preventDefault();
@@ -146,7 +155,7 @@ class Catalog extends Component {
             this.props.modifyItem({
                 token: this.props.token,
                 data: modifiedItem
-            })
+            });
             this.toggle(false,-1)
 
         }
@@ -265,7 +274,7 @@ class Catalog extends Component {
 
             <div className={ this.state.errors.name === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
                 <label>Name </label>
-                <input value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
+                <input autoComplete="off" value={this.state.currentItem['name']} name="name"  onChange={(e) => this.onChange(e, this.state.index)}/>
 
             </div>
             <div className="errorMessage">
@@ -298,7 +307,7 @@ class Catalog extends Component {
 
             <div className={ this.state.errors.size === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
                 <label>Size</label>
-                <input value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
+                <input autoComplete="off" value={this.state.currentItem['size']} name="size"  onChange={(e) => this.onChange(e, this.state.index)}/>
             </div>
             <div className="errorMessage">
                 <p>{this.state.errors.size}</p>
@@ -306,7 +315,8 @@ class Catalog extends Component {
 
             <div className={ this.state.errors.price === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
                 <label>Price</label>
-                <input value={this.state.currentItem['price']} name="price"  onChange={(e) => this.onChange(e, this.state.index)}/>
+                <input   autoComplete="off" value={this.state.currentItem['price']} name="price" type="number" step="0.01"  pattern="[0-9]+([,\.][0-9]+)?"  onChange={(e) => this.onChange(e, this.state.index)}/>
+                <p className="priceStyling">€</p>
             </div>
             <div className="errorMessage">
                 <p>{this.state.errors.price}</p>

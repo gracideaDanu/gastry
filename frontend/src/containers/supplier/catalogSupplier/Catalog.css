@@ -12,6 +12,11 @@ footer.fab {
 
 }
 
+p.priceStyling {
+    margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
+}
+
 footer > div.container {
     text-align-last: end;
 }
