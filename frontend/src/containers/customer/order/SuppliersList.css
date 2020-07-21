@@ -14,8 +14,7 @@ div.pageBar{
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    flex-grow: 1;
-    padding-bottom: 4rem;
+    min-height: 99%;
 }
 
 .pagination-buttons {
