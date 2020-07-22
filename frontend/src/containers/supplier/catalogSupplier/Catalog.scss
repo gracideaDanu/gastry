@@ -43,7 +43,7 @@ hr.MuiDivider-root {
 }
 
 button.MuiFab-root {
-    background-color: #9CBB49;
+    background-color: var(--color-submit-button);
 }
 .fab.MuiFab-label {
     background-color: black;
@@ -119,4 +119,8 @@ div.select-category:focus {
 
 footer.fab.MuiTouchRipple-rippleVisible {
     background-color: green;
+}
+
+div.swipeable-list-item__content{
+  background-color: var(--color-second-background);
 }

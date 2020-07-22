@@ -5,9 +5,9 @@ import Col from "react-bootstrap/Col";
 
 import "./OrderListItem.scss"
 
-const OrderListItem = ({ name, orderNr,logo }) => {
+const OrderListItem = ({ name, orderNr,logo,status }) => {
     return (
-        <Card className="supplier-card order-list">
+        <Card className={"supplier-card order-list "+status}>
             <Card.Body>
                 <Row className="align-items-center">
                     <Col xs={3}>

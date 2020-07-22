@@ -38,7 +38,7 @@ const orderSchema = new Schema({
         status: {
             type: String,
             default: "open",
-            enum: ["open", "accepted", "closed"]
+            enum: ["open", "closed","canceled"]
         }
 
 
