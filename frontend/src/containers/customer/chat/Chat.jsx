@@ -269,7 +269,7 @@ class Chat extends Component {
                 location={"orders"}
                 showBack={true}
             >
-                <div className={"orderNrChat"}>
+                <div className={"orderNrChat container"}>
                     <div className={"d-flex justify-content-center"}>
                         <p>
                             Bestellnummer: {this.state.chatId.toString().substr(this.state.chatId.toString().length - 5).toUpperCase()}
@@ -282,7 +282,7 @@ class Chat extends Component {
                         messagesEnd = el
                     }}/>
                 </Container>
-                <footer className={"messageInput fixed-bottom"}>
+                <footer className={"messageInput fixed-bottom container"}>
                     <Container>
                         <Form>
                             <Row>
@@ -304,8 +304,6 @@ class Chat extends Component {
                         </Form>
                     </Container>
                 </footer>
-
-
             </Layout>
         );
     }

@@ -40,7 +40,7 @@ export default function (state = initialState, action) {
                 loading: true
             }
         case MODIFY_ORDER_SUCCESS:
-            let orderArray = state.orders
+            let orderArray = [...state.orders]
             for (let i = 0; i < orderArray.length; i++) {
                 const order = {
                     ...orderArray[i]
@@ -48,7 +48,6 @@ export default function (state = initialState, action) {
                 if (action.data.orderId === order._id) {
                     order.status = action.status
                     orderArray[i] = order
-
                 }
             }
             return {
@@ -67,10 +66,14 @@ export default function (state = initialState, action) {
                 loading: true,
             }
         case FETCH_NOTIFICATION_SUCCESS:
-            let orderArray2 = state.orders
-            for(let order of orderArray2) {
-                if(action.orderId === order._id){
+            let orderArray2 = [...state.orders]
+            for (let i = 0; i < orderArray2.length; i++) {
+                const order = {
+                    ...orderArray2[i]
+                };
+                if (action.data.orderId === order._id) {
                     order.newMessages = action.data
+                    orderArray2[i] = order
                 }
             }
             return {

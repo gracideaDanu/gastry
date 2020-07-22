@@ -50,7 +50,6 @@ export const fetchNotifications = (payload) => async (dispatch) => {
     }
 };
 
-
 export const modifyOrders = (payload) => async (dispatch) => {
     dispatch(modifyOrdersStart);
 
@@ -67,6 +66,7 @@ export const modifyOrders = (payload) => async (dispatch) => {
         const response = await axios.patch(`/supplier/order/${payload.orderId}`,payload.data,config);
         dispatch(modifyOrdersSuccess(response.data,payload.data.status));
     } catch (err) {
+        console.log("err:"+ err)
         dispatch(modifyOrdersFailed(err));
     }
 };
@@ -87,9 +87,6 @@ const flush = () => {
 const fetchOrdersStart = () => {
     return {
         type: FETCH_ORDERS_START,
-        payload: {
-            loading: true,
-        },
     };
 };
 
@@ -110,10 +107,7 @@ const fetchOrdersFailed = (error) => {
 
 const modifyOrdersStart = () => {
     return {
-        type: MODIFY_ORDER_START,
-        payload: {
-            loading: true,
-        },
+        type: MODIFY_ORDER_START
     };
 };
 
@@ -135,10 +129,7 @@ const modifyOrdersFailed = (error) => {
 
 const fetchNotificationsStart = () => {
     return {
-        type: FETCH_NOTIFICATION_START,
-        payload: {
-            loading: true,
-        },
+        type: FETCH_NOTIFICATION_START
     };
 };
 
