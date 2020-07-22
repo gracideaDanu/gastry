@@ -12,6 +12,7 @@ import back from "../../assets/icons/arrow.svg";
 import Col from "react-bootstrap/Col";
 import NavigationButton from "./NavigationButton";
 import logo from "../../assets/icons/login-logo.svg";
+import {Badge} from "@material-ui/core";
 
 const Topbar = (props) => {
     return (
@@ -38,9 +39,11 @@ const Topbar = (props) => {
                                     props.basketState.supplierName + "/basket",
                                 state: props.basketState,
                             }}>
-                                <img
-                                    src={basket} width="30" height="30" alt={"basket"} className={"align-self-center"}
-                                />
+                                <Badge badgeContent={props.basketState.basket.length} color={"secondary"}>
+                                    <img
+                                        src={basket} width="30" height="30" alt={"basket"} className={"align-self-center"}
+                                    />
+                                </Badge>
                             </LinkContainer>
                         </Col>
                     ) : <Col/>}

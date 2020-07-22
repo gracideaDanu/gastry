@@ -51,6 +51,7 @@ export {
 export {
     fetchOrders,
     modifyOrders,
+    fetchNotifications,
     flushOrders
 } from './orders/fetchOrders'
 

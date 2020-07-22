@@ -282,7 +282,7 @@ class Chat extends Component {
                         messagesEnd = el
                     }}/>
                 </Container>
-                <footer className={"messageInput fixed-bottom"}>
+                <footer className={"messageInput fixed-bottom container"}>
                     <Container>
                         <Form>
                             <Row>
@@ -304,8 +304,6 @@ class Chat extends Component {
                         </Form>
                     </Container>
                 </footer>
-
-
             </Layout>
         );
     }
