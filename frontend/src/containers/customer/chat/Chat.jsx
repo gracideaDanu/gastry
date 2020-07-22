@@ -269,7 +269,7 @@ class Chat extends Component {
                 location={"orders"}
                 showBack={true}
             >
-                <div className={"orderNrChat container"}>
+                <div className={"orderNrChat"}>
                     <div className={"d-flex justify-content-center"}>
                         <p>
                             Bestellnummer: {this.state.chatId.toString().substr(this.state.chatId.toString().length - 5).toUpperCase()}

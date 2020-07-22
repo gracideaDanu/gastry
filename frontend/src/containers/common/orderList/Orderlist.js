@@ -106,7 +106,7 @@ class Orderlist extends Component {
                             name={item.customer_id.company}
                             orderNr={item._id}
                             status={item.status}
-                            newMessages={item.newMessages}
+                            newMessages={item.hasOwnProperty('newMessages') ? item.newMessages: 0}
                         />
                     </SwipeableListItem>
                 )}

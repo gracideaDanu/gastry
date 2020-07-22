@@ -71,9 +71,10 @@ export default function (state = initialState, action) {
                 const order = {
                     ...orderArray2[i]
                 };
-                if (action.data.orderId === order._id) {
-                    order.newMessages = action.data
+                if (action.orderId === order._id) {
+                    order.newMessages = action.data.data
                     orderArray2[i] = order
+                    console.log(order)
                 }
             }
             return {
