@@ -10,7 +10,7 @@ class Notfound extends Component {
     render() {
         return (
             <div>
-                <h1>Shit.</h1>
+
             </div>
         )
     };

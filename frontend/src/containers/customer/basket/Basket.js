@@ -10,15 +10,15 @@ import Button from "../../../components/button/Button";
 import {Link} from "react-router-dom";
 import { SwipeableList, SwipeableListItem } from '@sandstreamdev/react-swipeable-list';
 import '@sandstreamdev/react-swipeable-list/dist/styles.css';
-import {SwipeableDrawer} from "@material-ui/core";
-//import truck from '../../../assets/icons/truck.svg'
-//import dust from '../../../assets/icons/smoke.svg'
+import {Divider, SwipeableDrawer} from "@material-ui/core";
+import truck from '../../../assets/icons/truck.svg'
+import dust from '../../../assets/icons/smoke.svg'
 
 export class Basket extends Component {
     state = {
         basket: [],
         total: 0,
-        anchor: true
+        anchor: false
     }
 
     componentDidMount() {
@@ -30,6 +30,7 @@ export class Basket extends Component {
             total += (element.price * element.amount)
 
         }
+        total = Math.round((parseFloat(total) + Number.EPSILON) * 100) / 100;
         this.setState({
             ...this.state,
             basket: basket,
@@ -40,8 +41,7 @@ export class Basket extends Component {
 
     }
 
-    placeOrder = (event) => {
-        event.preventDefault()
+    placeOrder = () => {
         let payload = {
             token: this.props.token,
             data: {
@@ -76,13 +76,33 @@ export class Basket extends Component {
 
     swipeToOrder = (props) => {
         return (
-            <SwipeableList scrollStartThreshold={0.1}>
-                <SwipeableListItem
-                                   swipeRight={{
-                                       content: <div>Bestellung bestätigen -------------- <img style={{'max-width': '2rem', 'transform':'scale(-1,1)'}}  /></div>,
-                                       action: () => console.info('swipe action triggered')
-                                   }}> <img style={{'max-width': '3rem'}} /> </SwipeableListItem>
-            </SwipeableList>
+            <div className="bottom"
+                 role="presentation"   >
+                <div className="row centerRow">
+
+
+                    <div className="col-7">
+                        <h5>Bestellung aufgeben</h5>
+                    </div>
+                    <div className="col-5 sheet">
+                        <button className="button red-btn" onClick={() => this.toggle(false)}>Abbrechen</button>
+                    </div>
+                </div>
+                <Divider style={{marginBottom: "1rem"}}/>
+                <h6 >Wische um die Bestellung aufzugeben</h6>
+                <div>
+                    <SwipeableList scrollStartThreshold={0.1} threshold={0.9} >
+                        <SwipeableListItem
+
+                            swipeRight={{
+                                content: <div>Bestellung bestätigen ------------ <img src={dust} style={{'max-width': '2rem', 'transform':'scale(-1,1)'}}  /></div>,
+                                action: () => this.placeOrder()
+                            }}>  <img src={truck} style={{'max-width': '3rem'}} /> </SwipeableListItem>
+                    </SwipeableList>
+                </div>
+
+            </div>
+
             )
 
     }
@@ -104,7 +124,6 @@ export class Basket extends Component {
                 <Container>
                     {basketItems}
                     <EstimatedTotal total={this.state.total}/>
-                    <button onClick={() => this.toggle(true)}> open</button>
                     <React.Fragment key={"bottom"}>
                         <SwipeableDrawer style={{backgroundColor: "transparent"}}
                                          anchor={"bottom"}
@@ -112,13 +131,16 @@ export class Basket extends Component {
                                          onClose={this.toggleDrawer( false)}
                                          onOpen={this.toggleDrawer( true)}
                         >
-                            {this.swipeToOrder()}
+                            <div className="swipeWhite">
+                                {this.swipeToOrder()}
+
+                            </div>
                         </SwipeableDrawer>
                     </React.Fragment>
 
 
                     {
-                        this.state.total > 0 ? <Button className={"button submit-btn"} onClick={this.placeOrder}
+                        this.state.total > 0 ? <Button className={"button submit-btn"} onClick={()=>this.toggle(true)}
                                                        label={"Bestellung abschließen"}/> :
                             <p>Dein Warenkorb ist leer. Füge Produkte zum Warenkorb hinzu.</p>
                     }
