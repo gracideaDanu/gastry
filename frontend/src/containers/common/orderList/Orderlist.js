@@ -10,6 +10,7 @@ import gastry from "../../../assets/icons/logo.svg"
 import {SwipeableList, SwipeableListItem} from "@sandstreamdev/react-swipeable-list";
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
+import supplier from "../../../assets/icons/logistics.svg";
 
 class Orderlist extends Component {
     componentDidMount() {
@@ -48,9 +49,17 @@ class Orderlist extends Component {
         }
     }
 
+    renderOrders = () => {
+        if (this.props.orders){
+            if (this.props.orders.length <= 0){
+                let empty;
+                this.props.userType === "customer"
+                ? empty = <div style={{'text-align':'center', 'margin-top': "3rem"}}>  <h5 style={{'margin-top':"8rem"}}>Du hast noch keine Bestellungen getätigt </h5> <h5> Vielleicht fehlt dir noch was!</h5> </div>
+                : empty = <div style={{'text-align':'center', 'margin-top': "3rem"}}>  <h5 style={{'margin-top':"8rem"}}>Bei dir sind noch keine Bestellungen eingegangen </h5> <h5> Schau später vorbei!</h5> </div>
+                return empty
+            }
 
-    render() {
-
+        }
         const orders = this.props.orders.map((item, key) => (
             <Link
                 to={{
@@ -111,17 +120,25 @@ class Orderlist extends Component {
                     </SwipeableListItem>
                 )}
             </Link>        ));
+        console.log(orders)
+        return orders;
+    };
+
+
+    render() {
+
+
         return this.props.userType === "supplier" ? (
             <SupplierLayout title="Orders" location={"orders"} description={"Bestelleingänge"}>
                 <Container fluid>
                     <SwipeableList>
-                        {orders}
+                        {this.renderOrders()}
                     </SwipeableList>
                 </Container>
             </SupplierLayout>
         ) : (
             <CustomerLayout title="Orders" location={"orders"} description={"Meine \n Bestellungen"}>
-                <Container fluid>{orders}</Container>
+                <Container fluid>{this.renderOrders()}</Container>
             </CustomerLayout>
         );
     }

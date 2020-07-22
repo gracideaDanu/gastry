@@ -13,7 +13,9 @@ import Container from "react-bootstrap/Container";
 import "./SuppliersList.css";
 import * as actions from "../../../redux/actions/index";
 import logo from "../../../assets/icons/login-logo.svg"
+import supplier from "../../../assets/icons/logistics.svg"
 
+let category;
 class SuppliersList extends Component {
     state = {
         filteredList: [],
@@ -23,7 +25,8 @@ class SuppliersList extends Component {
     };
 
     componentDidMount() {
-        const { category } = this.props.match.params;
+        category = this.props.match.params.category;
+        console.log(category);
         this.props.fetchSuppliersList({
             data: { category: category, limit: this.state.limit, skip: 0 },
         });
@@ -34,6 +37,7 @@ class SuppliersList extends Component {
 
     componentWillUnmount() {
         this.props.flush();
+        category = undefined;
     }
 
     handleInputChange = (searchInputValue) => {
@@ -71,7 +75,14 @@ class SuppliersList extends Component {
 
     renderSuppliers = () => {
         const { list } = this.props;
-        if (!list) return <div>Loading</div>;
+        if (!list) return <div>Loading</div>
+        if (list){
+            if (list.length <= 0) {
+                return <div style={{'text-align':'center', 'margin-top': "3rem"}}> <img className="popupImage" src={supplier} style={{'max-width':'12rem'}} /> <h5 style={{'margin-top':"3rem"}}>Leider keinen Lieferanten gefunden </h5> <h5> Versuche es wo anders</h5> </div>
+
+            }
+        }
+       console.log("hoi")
 
 
         return list.map((supplier) => {
@@ -83,6 +94,7 @@ class SuppliersList extends Component {
                         state: {
                             supplierId: supplier._id,
                             supplierName: supplier.company,
+                            category: category
                         },
                     }}
                 >
@@ -106,15 +118,19 @@ class SuppliersList extends Component {
                 showBack={true}
             >
                 <div className="suppliers-container">
-                    <div>
-                        <Container fluid>
-                            <Search
-                                onChange={this.handleInputChange}
-                                value={this.state.searchInputValue}
-                            />
-                        </Container>
-                        <Container fluid>{this.renderSuppliers()}</Container>
-                    </div>
+
+                     <div>
+                            <Container fluid>
+                                <Search
+                                    onChange={this.handleInputChange}
+                                    value={this.state.searchInputValue}
+                                />
+                            </Container>
+
+                         <Container fluid>{this.renderSuppliers()}</Container>
+
+                        </div>
+
                     <div className="pagination-buttons">
                         <Pagination
                             listLength={this.props.listLength}

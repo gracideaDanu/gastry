@@ -11,7 +11,7 @@ import Container from "react-bootstrap/Container";
 import './CatalogCustomer.css'
 
 let basketArray = [];
-let supplierName, supplierId;
+let supplierName, supplierId, category
 
 class CatalogCustomer extends Component {
     state = {
@@ -19,12 +19,13 @@ class CatalogCustomer extends Component {
         catalog: [],
         filteredList: [],
         searchInputValue: "",
-        tab: "Food"
+        tab: ""
     };
 
     componentDidMount() {
         supplierId = this.props.location.state.supplierId;
         supplierName = this.props.location.state.supplierName;
+        category = this.props.location.state.category
         console.log(supplierId);
         console.log(supplierName)
         this.props.fetchSupplierCatalog(supplierId);
@@ -38,10 +39,19 @@ class CatalogCustomer extends Component {
                 ? (basketItems = [...basketSingle.basketItems])
                 : (basketItems = []);
             console.log(basketItems);
+            let tab;
+            switch (category) {
+                case "food":
+                case "both":  tab = "Food";
+                break;
+                default: tab = "Drink"
+            }
             if (basketItems !== null) {
                 this.setState({
                     ...this.state,
                     basket: basketItems,
+                    tab: tab
+
                 });
             }
         }
@@ -202,7 +212,7 @@ class CatalogCustomer extends Component {
             return <div>No Items Found</div>;
         }
 
-        return renderedList.map((item, index) => {
+        const renderedListFiltered = renderedList.map((item, index) => {
             if(item.tags === tab) {
                 return <SupplierCatList
                     change={this.changeAmountThroughField}
@@ -214,7 +224,22 @@ class CatalogCustomer extends Component {
                     item={item}
                 ></SupplierCatList>
             }
-        });
+            else {
+                return
+            }
+        })
+        ;
+        console.log("if clause")
+        if (renderedListFiltered[0] === undefined){
+            console.log("No length");
+            return <div style={{'text-align':'center', 'margin-top': "3rem"}}> <h5 style={{'margin-top':"8rem"}}>Hier gibt es wohl noch keine Produkte</h5></div>
+        }
+        else {
+            console.log(renderedListFiltered);
+            console.log(renderedListFiltered.length)
+            console.log("else case");
+            return renderedListFiltered
+        }
     };
 
     tabChangeHandler = (index) => {
