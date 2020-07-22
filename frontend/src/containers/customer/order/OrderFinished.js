@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container} from "react-bootstrap";
-import ticked from '../../../assets/icons/bestellungBestaetigung.svg'
+import ticked from '../../../assets/icons/orderReceived.svg'
 import CustomerLayout from "../CustomerLayout";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

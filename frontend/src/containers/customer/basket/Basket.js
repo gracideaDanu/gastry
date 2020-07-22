@@ -11,8 +11,8 @@ import {Link} from "react-router-dom";
 import { SwipeableList, SwipeableListItem } from '@sandstreamdev/react-swipeable-list';
 import '@sandstreamdev/react-swipeable-list/dist/styles.css';
 import {SwipeableDrawer} from "@material-ui/core";
-import truck from '../../../assets/icons/truck.svg'
-import dust from '../../../assets/icons/smoke.svg'
+//import truck from '../../../assets/icons/truck.svg'
+//import dust from '../../../assets/icons/smoke.svg'
 
 export class Basket extends Component {
     state = {
@@ -79,9 +79,9 @@ export class Basket extends Component {
             <SwipeableList scrollStartThreshold={0.1}>
                 <SwipeableListItem
                                    swipeRight={{
-                                       content: <div>Bestellung bestätigen -------------- <img style={{'max-width': '2rem', 'transform':'scale(-1,1)'}} src={dust} /></div>,
+                                       content: <div>Bestellung bestätigen -------------- <img style={{'max-width': '2rem', 'transform':'scale(-1,1)'}}  /></div>,
                                        action: () => console.info('swipe action triggered')
-                                   }}> <img style={{'max-width': '3rem'}} src={truck}/> </SwipeableListItem>
+                                   }}> <img style={{'max-width': '3rem'}} /> </SwipeableListItem>
             </SwipeableList>
             )
 
