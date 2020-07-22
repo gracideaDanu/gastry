@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Container} from "react-bootstrap";
-import ticked from '../../../assets/icons/orderReceived.svg'
+import ticked from '../../../assets/icons/bestellungBestaetigung.svg'
 import CustomerLayout from "../CustomerLayout";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import './OrderFinished.css'
 
 class OrderFinished extends Component {
 
@@ -34,6 +35,7 @@ class OrderFinished extends Component {
             'margin': "1rem"
         }
         const height = {
+            'background-color': "var(--secondary)",
             'min-height': "100vh",
             'padding': "10rem 0"
         }
