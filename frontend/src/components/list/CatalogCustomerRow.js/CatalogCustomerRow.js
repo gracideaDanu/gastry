@@ -30,7 +30,7 @@ class CatalogCustomerRow extends Component {
                                     />
                                 </Accordion.Toggle>
                             </Col>
-                            <Col xs={4} className={"d-flex align-items-center "}>
+                            <Col xs={4} className={"d-flex align-items-center middleRow"}>
                                 <Counter
                                     itemId={item._id}
                                     amount={this.props.amount}

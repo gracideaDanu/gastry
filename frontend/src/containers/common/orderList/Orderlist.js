@@ -23,6 +23,34 @@ class Orderlist extends Component {
             }
             this.props.fetchNotifications(notificationpayload)
         }
+        let fetchedOrders = this.props.fetchOrders(payload);
+        this.setState({
+                ...this.state,
+                orders: fetchedOrders
+            }
+        )
+    }
+
+    changeStatus = (e, id) => {
+        if (e === 1) {
+            let payload = {
+                token: this.props.token,
+                orderId: id,
+                data: {
+                    status: "closed"
+                }
+            }
+            this.props.modifyOrder(payload)
+        } else if (e === -1) {
+            let payload = {
+                token: this.props.token,
+                orderId: id,
+                data: {
+                    status: "canceled"
+                }
+            }
+            this.props.modifyOrder(payload)
+        }
     }
 
 
@@ -41,21 +69,61 @@ class Orderlist extends Component {
                         logo={gastry}
                         name={item.supplier_id.company}
                         orderNr={item._id}
+                        status={item.status}
+                        style={{color: "green"}}
                     />
                 ) : (
-                    <OrderListItem
-                        logo={gastry}
-                        name={item.customer_id.company}
-                        orderNr={item._id}
-                    />
+                    <SwipeableListItem
+                        swipeLeft={{
+                            content:
+                                <Container style={{paddingRight: "0"}}>
+                                    <Card style={{backgroundColor: "#ff8282", padding: "0.35rem 0.8rem"}}>
+                                        <Card.Header style={{backgroundColor: "transparent", border: "none"}}>
+                                            <Row className={"d-flex justify-content-end"}>
+                                                <p style={{marginBottom: "0"}}>Bestellung</p>
+                                            </Row>
+                                            <Row className={"d-flex justify-content-end"}>
+                                                <p style={{marginBottom: "0"}}>stornieren</p>
+                                            </Row>
+                                        </Card.Header>
+                                    </Card>
+                                </Container>,
+                            action: () => this.changeStatus(-1, item._id)
+                        }}
+                        swipeRight={{
+                            content:
+                                <Container style={{paddingLeft: "0"}}>
+                                    <Card style={{backgroundColor: "#9CBB49", padding: "0.35rem 0.8rem"}}>
+                                        <Card.Header style={{backgroundColor: "transparent", border: "none"}}>
+                                            <Row className={"d-flex justify-content-start"}>
+                                                <p style={{marginBottom: "0"}}>Bestellung</p>
+                                            </Row>
+                                            <Row className={"d-flex justify-content-start"}>
+                                                <p style={{marginBottom: "0"}}>abschließen</p>
+                                            </Row>
+                                        </Card.Header>
+                                    </Card>
+                                </Container>,
+                            action: () => this.changeStatus(1, item._id)
+                        }}
+                    >
+                        <OrderListItem
+                            logo={gastry}
+                            name={item.customer_id.company}
+                            orderNr={item._id}
+                            status={item.status}
+                        />
+                    </SwipeableListItem>
                 )}
             </Link>
         ));
         return this.props.userType === "supplier" ? (
             <SupplierLayout title="Orders" location={"orders"} description={"Bestelleingänge"}>
-                    <Container fluid>
+                <Container fluid>
+                    <SwipeableList>
                         {orders}
-                    </Container>
+                    </SwipeableList>
+                </Container>
             </SupplierLayout>
         ) : (
             <CustomerLayout title="Orders" location={"orders"} description={"Meine \n Bestellungen"}>
@@ -68,7 +136,7 @@ class Orderlist extends Component {
 const mapsStateToProps = (state) => {
     return {
         token: state.auth.token,
-        orders: state.fetchOrders.orders,
+        orders: state.orders.orders,
     };
 };
 
@@ -76,6 +144,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrders: (payload) => dispatch(actions.fetchOrders(payload)),
         flush: () => dispatch(actions.flushOrders()),
+        modifyOrder: (payload) => dispatch(actions.modifyOrders(payload)),
         fetchNotifications: (payload) => dispatch(actions.fetchNotifications(payload))
     };
 };

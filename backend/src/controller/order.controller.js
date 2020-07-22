@@ -159,8 +159,8 @@ class OrderController {
             })
             res.status(200).send({
                 message: "Updated item successfully!",
-                id: itemId,
-                orders: doc.users
+                orderId: itemId,
+                updatedUsers: doc.users
             })
 
         }

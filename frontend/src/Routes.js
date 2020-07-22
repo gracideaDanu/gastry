@@ -17,6 +17,7 @@ import SuppliersList from "./containers/customer/order/SuppliersList";
 import Orderlist from "./containers/common/orderList/Orderlist";
 import Chat from "./containers/customer/chat/Chat";
 import axiosInstance from "./redux/axiosInstance";
+import OrderFinished from "./containers/customer/order/OrderFinished";
 
 const privateRoutes = [];
 
@@ -29,11 +30,16 @@ class Routes extends Component {
                 this.props.checkTokenValidity({
                     token: this.props.token
                 });
-                this.props.history.push("/home");
+                this.props.history.replace("/home");
             }
             else {
-                this.props.history.push("/login")
+                this.props.history.replace("/login")
             }
+        }
+
+        if(!this.props.token && this.props.location.pathname !== "/") {
+            this.props.history.replace("/login")
+
         }
     }
 
@@ -66,6 +72,7 @@ class Routes extends Component {
             else {
 
                 privateRoutes.push(<Route exact path={"/home"} component={OrderCustomer}></Route>)
+                privateRoutes.push(<Route exact path={"/finished"} component={OrderFinished}></Route>)
                 privateRoutes.push(<Route exact path={"/suppliers/:category"} component={SuppliersList}></Route>)
                 privateRoutes.push(<Route exact path={"/catalog/:supplierName/basket"} component={Basket}></Route>)
                 privateRoutes.push(<Route exact path={"/catalog/:supplierName"} component={CatalogCustomer}></Route>)

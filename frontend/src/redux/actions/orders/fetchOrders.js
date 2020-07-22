@@ -7,8 +7,7 @@ import {
     FETCH_NOTIFICATION_FAILED,
     FETCH_ORDERS_START,
     FETCH_ORDERS_SUCCESS,
-    FETCH_ORDERS_FAILED,
-    ORDERS_FLUSH,
+    FETCH_ORDERS_FAILED, ORDERS_FLUSH,
 } from "../actionTypes";
 import { axiosInstance as axios } from "../../axiosInstance";
 

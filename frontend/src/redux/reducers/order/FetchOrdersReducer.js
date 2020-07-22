@@ -41,9 +41,14 @@ export default function (state = initialState, action) {
             }
         case MODIFY_ORDER_SUCCESS:
             let orderArray = state.orders
-            for(let order of orderArray) {
-                if(action.data.orderId === order._id){
+            for (let i = 0; i < orderArray.length; i++) {
+                const order = {
+                    ...orderArray[i]
+                };
+                if (action.data.orderId === order._id) {
                     order.status = action.status
+                    orderArray[i] = order
+
                 }
             }
             return {
