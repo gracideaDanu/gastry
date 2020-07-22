@@ -16,6 +16,13 @@ class Orderlist extends Component {
             token: this.props.token,
         };
         this.props.fetchOrders(payload);
+        for(let order of this.props.orders){
+            let notificationpayload = {
+                token: this.props.token,
+                chatId: order._id
+            }
+            this.props.fetchNotifications(notificationpayload)
+        }
     }
 
 
@@ -68,7 +75,8 @@ const mapsStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrders: (payload) => dispatch(actions.fetchOrders(payload)),
-        flush: () => dispatch(actions.flushOrders())
+        flush: () => dispatch(actions.flushOrders()),
+        fetchNotifications: (payload) => dispatch(actions.fetchNotifications(payload))
     };
 };
 

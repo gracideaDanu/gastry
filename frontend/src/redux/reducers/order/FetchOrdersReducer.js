@@ -1,4 +1,10 @@
 import {
+    FETCH_NOTIFICATION_START,
+    FETCH_NOTIFICATION_SUCCESS,
+    FETCH_NOTIFICATION_FAILED,
+    MODIFY_ORDER_START,
+    MODIFY_ORDER_SUCCESS,
+    MODIFY_ORDER_FAILED,
     FETCH_ORDERS_START,
     FETCH_ORDERS_SUCCESS,
     FETCH_ORDERS_FAILED, ORDERS_FLUSH
@@ -27,7 +33,52 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 error: action.error
-            };
+            }
+        case MODIFY_ORDER_START:
+            return {
+                ...state,
+                loading: true
+            }
+        case MODIFY_ORDER_SUCCESS:
+            let orderArray = state.orders
+            for(let order of orderArray) {
+                if(action.data.orderId === order._id){
+                    order.status = action.status
+                }
+            }
+            return {
+                ...state,
+                orders: orderArray,
+                loading: false
+            }
+        case MODIFY_ORDER_FAILED:
+            return {
+                ...state,
+                loading: false
+            }
+        case FETCH_NOTIFICATION_START:
+            return {
+                ...state,
+                loading: true,
+            }
+        case FETCH_NOTIFICATION_SUCCESS:
+            let orderArray2 = state.orders
+            for(let order of orderArray2) {
+                if(action.orderId === order._id){
+                    order.newMessages = action.data
+                }
+            }
+            return {
+                ...state,
+                orders: orderArray2,
+                loading: false,
+            }
+        case FETCH_NOTIFICATION_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            }
         case ORDERS_FLUSH:
             return initialState;
         default:
