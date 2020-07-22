@@ -350,7 +350,15 @@ class Catalog extends Component {
 
     ;
 
-    render() {
+    getCatArray = () =>  {
+        if (this.state.catalog){
+            if (this.state.catalog.length <= 0){
+                let empty = <div style={{'text-align':'center', 'margin-top': "3rem"}}>  <h5 style={{'margin-top':"8rem"}}>Du hast noch keine Produkte hinzugefügt </h5></div>
+
+                return empty
+            }
+
+        }
         const catArray = this.state.catalog.map((item, index) =>
             (
                 <SwipeableListItem
@@ -382,11 +390,15 @@ class Catalog extends Component {
                     <SupplierCatListView index={index} showModal={this.state.showModal} item={item}/>
                 </SwipeableListItem>
             ));
+        return catArray
+    };
+    render() {
+
         return (
             <SupplierLayout title="Catalog" location="catalog" description={"Mein Produktkatalog"}>
                 <div>
                     <SwipeableList>
-                        {catArray}
+                        {this.getCatArray()}
                     </SwipeableList>
 
                     <React.Fragment key={"bottom"}>

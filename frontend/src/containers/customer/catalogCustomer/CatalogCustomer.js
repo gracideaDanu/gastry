@@ -225,21 +225,19 @@ class CatalogCustomer extends Component {
                 ></SupplierCatList>
             }
             else {
-                return
+                return null
             }
         })
         ;
         console.log("if clause")
-        if (renderedListFiltered[0] === undefined){
-            console.log("No length");
-            return <div style={{'text-align':'center', 'margin-top': "3rem"}}> <h5 style={{'margin-top':"8rem"}}>Hier gibt es wohl noch keine Produkte</h5></div>
-        }
-        else {
+
+        console.log(renderedListFiltered)
+
             console.log(renderedListFiltered);
             console.log(renderedListFiltered.length)
             console.log("else case");
             return renderedListFiltered
-        }
+
     };
 
     tabChangeHandler = (index) => {

@@ -30,6 +30,7 @@ export class Basket extends Component {
             total += (element.price * element.amount)
 
         }
+        total = Math.round((parseFloat(total) + Number.EPSILON) * 100) / 100;
         this.setState({
             ...this.state,
             basket: basket,
