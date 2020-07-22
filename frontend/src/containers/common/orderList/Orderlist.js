@@ -7,29 +7,23 @@ import OrderListItem from "../../../components/orders/OrderListItem";
 import {Link} from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import gastry from "../../../assets/icons/logo.svg"
-import {Fade} from "@material-ui/core";
 import {SwipeableList, SwipeableListItem} from "@sandstreamdev/react-swipeable-list";
-import Card from "react-bootstrap/Card";
-import deleteIcon from "../../../assets/icons/bin.svg";
-import edit from "../../../assets/icons/pen.svg";
 import Row from "react-bootstrap/Row";
-
+import Card from "react-bootstrap/Card";
 
 class Orderlist extends Component {
-    state = {
-        orders: []
-    };
-
     componentDidMount() {
         let payload = {
             token: this.props.token,
         };
-        let fetchedOrders = this.props.fetchOrders(payload);
-        this.setState({
-                ...this.state,
-                orders: fetchedOrders
+        this.props.fetchOrders(payload);
+        for (let order of this.props.orders) {
+            let notificationpayload = {
+                token: this.props.token,
+                chatId: order._id
             }
-        )
+            this.props.fetchNotifications(notificationpayload)
+        }
     }
 
     changeStatus = (e, id) => {
@@ -71,7 +65,7 @@ class Orderlist extends Component {
                         name={item.supplier_id.company}
                         orderNr={item._id}
                         status={item.status}
-                        style={{color: "green"}}
+                        newMessages={item.newMessages}
                     />
                 ) : (
                     <SwipeableListItem
@@ -79,7 +73,7 @@ class Orderlist extends Component {
                             content:
                                 <Container style={{paddingRight: "0"}}>
                                     <Card style={{backgroundColor: "#ff8282", padding: "0.35rem 0.8rem"}}>
-                                        <Card.Header style={{backgroundColor: "transparent", border: "none"}}>
+                                        <Card.Header style={{backgroundColor: "transparent", border: "none",color:"white"}}>
                                             <Row className={"d-flex justify-content-end"}>
                                                 <p style={{marginBottom: "0"}}>Bestellung</p>
                                             </Row>
@@ -95,7 +89,7 @@ class Orderlist extends Component {
                             content:
                                 <Container style={{paddingLeft: "0"}}>
                                     <Card style={{backgroundColor: "#9CBB49", padding: "0.35rem 0.8rem"}}>
-                                        <Card.Header style={{backgroundColor: "transparent", border: "none"}}>
+                                        <Card.Header style={{backgroundColor: "transparent", border: "none",color:"white"}}>
                                             <Row className={"d-flex justify-content-start"}>
                                                 <p style={{marginBottom: "0"}}>Bestellung</p>
                                             </Row>
@@ -106,18 +100,17 @@ class Orderlist extends Component {
                                     </Card>
                                 </Container>,
                             action: () => this.changeStatus(1, item._id)
-                        }}
-                    >
+                        }}>
                         <OrderListItem
                             logo={gastry}
                             name={item.customer_id.company}
                             orderNr={item._id}
                             status={item.status}
+                            newMessages={item.hasOwnProperty('newMessages') ? item.newMessages: 0}
                         />
                     </SwipeableListItem>
                 )}
-            </Link>
-        ));
+            </Link>        ));
         return this.props.userType === "supplier" ? (
             <SupplierLayout title="Orders" location={"orders"} description={"Bestelleingänge"}>
                 <Container fluid>
@@ -145,7 +138,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrders: (payload) => dispatch(actions.fetchOrders(payload)),
         flush: () => dispatch(actions.flushOrders()),
-        modifyOrder: (payload) => dispatch(actions.modifyOrders(payload))
+        modifyOrder: (payload) => dispatch(actions.modifyOrders(payload)),
+        fetchNotifications: (payload) => dispatch(actions.fetchNotifications(payload))
     };
 };
 
