@@ -7,3 +7,31 @@
 button.button{
     width: 100%;
 }
+
+
+div.swipeWhite div.swipeable-list-item__content {
+    background-color: white;
+}
+
+@keyframes glowing {
+    0% { box-shadow: 0 0 0 #c4a300; }
+    40% { box-shadow: 0 0 20px #c4a300; }
+    60% { box-shadow: 0 0 20px #c4a300; }
+    100% { box-shadow: 0 0 0 #c4a300; }
+}
+
+div.button-glow div.swipeable-list-item__content {
+
+}
+
+button.button-glow {
+    animation: glowing 5000ms infinite;
+
+}
+div.button-glow {
+    animation: glowing 5000ms infinite;
+
+}
+
+
+
