@@ -6,6 +6,13 @@ import "./UserInfo.css"
 
 const UserInfo = (props) => {
     const { user, onEdit,onLogout } = props;
+    const offer = (category) => {
+        switch (category) {
+            case "food": return "Lebensmittel";
+            case "drinks": return "Getränke";
+            case "both": return "Beides"
+        }
+    };
     return (
         <div className="user-info-container">
             <ul className="list">
@@ -15,7 +22,7 @@ const UserInfo = (props) => {
                 <li className="item"> Bundesland: {user.address.state} </li>
                 <li className="item"> PLZ: {user.address.code} </li>
                 {user.userType === "Supplier"
-                    ? <li className="item"> Tag: {user.category} </li>
+                    ? <li className="item"> Angebot: {offer(user.category)} </li>
                     : null
                 }
             </ul>

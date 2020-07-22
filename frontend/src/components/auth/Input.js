@@ -13,13 +13,13 @@ const Input = (props) => {
         case "password":
             form.stateType = props.type;
             form.type = "password";
-            form.placeholder = "Password";
+            form.placeholder = "Passwort";
             break;
 
         case "passwordConfirm":
             form.stateType = props.type;
             form.type = "password";
-            form.placeholder = "Password";
+            form.placeholder = "Passwort wiederholen";
             break;
         case "email":
             form.stateType = props.type;

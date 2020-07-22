@@ -37,7 +37,7 @@ class OrderCustomer extends Component {
                                 className={"align-self-center"}
                             />
                         </Link>
-                        <p className={"supplierButtons text-center"}>Food</p>
+                        <p className={"supplierButtons text-center"}>Lebensmittel</p>
                     </Col>
                     <Col
                         className={"d-flex flex-column justify-content-center"}
@@ -55,7 +55,7 @@ class OrderCustomer extends Component {
                                 className={"align-self-center"}
                             />
                         </Link>
-                        <p className={"supplierButtons text-center"}>Drinks</p>
+                        <p className={"supplierButtons text-center"}>Getränke</p>
                     </Col>
                 </Row>
                 <Row
@@ -82,7 +82,7 @@ class OrderCustomer extends Component {
                             />
                         </Link>
                         <p className={"supplierButtons text-center"}>
-                            Food and Drinks
+                            Lebensmittel & Getränke
                         </p>
                     </Col>
                 </Row>

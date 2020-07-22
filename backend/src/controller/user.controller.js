@@ -108,7 +108,7 @@ class UserController {
          this.model.findOne({ email }).then(user => {
             // Check if user exists
             if (!user) {
-                return res.status(404).json({ message: "Email not found" });
+                return res.status(404).json({ message: "Email nicht gefunden" });
             }
             // Check password
             bcrypt.compare(password, user.password).then(isMatch => {
@@ -138,7 +138,7 @@ class UserController {
                 } else {
                     return res
                         .status(401)
-                        .json({ message: "Password incorrect" });
+                        .json({ message: "Passwort falsch" });
                 }
             });
         });

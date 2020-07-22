@@ -13,18 +13,18 @@ const signUpCState = {
         restaurant: {
             value: "",
             type: "restaurant",
-            name: "Restaurant name",
+            name: "Restaurant",
         },
 
         firstName: {
             value: "",
             type: "firstName",
-            name: "First Name",
+            name: "Vorname",
         },
         lastName: {
             value: "",
             type: "lastName",
-            name: "Last Name",
+            name: "Nachname",
         },
 
         email: {
@@ -44,12 +44,12 @@ const signUpCState = {
         value: "customer",
     },
     errors: {
-        restaurant: "Restaurant name is required",
-        firstName: "First name is required",
-        lastName: "Last name is required",
-        email: "E-Mail is required",
-        password: "Password is required",
-        passwordConfirm: "Please confirm password",
+        restaurant: "Restaurantbezeichnung fehlt",
+        firstName: "Vorname fehlt",
+        lastName: "Nachname fehlt",
+        email: "E-Mail fehlt",
+        password: "Password fehlt",
+        passwordConfirm: "Bitte bestätigen Sie ihr Passwort",
     },
     exists: null,
     display: false
@@ -60,18 +60,18 @@ const signUpSState = {
         company: {
             value: "",
             type: "company",
-            name: "Company name",
+            name: "Firmenname",
         },
 
         firstName: {
             value: "",
             type: "firstName",
-            name: "First Name",
+            name: "Vorname",
         },
         lastName: {
             value: "",
             type: "lastName",
-            name: "Last Name",
+            name: "Nachname",
         },
 
         email: {
@@ -91,12 +91,12 @@ const signUpSState = {
         value: "supplier",
     },
     errors: {
-        company: "Company name is required",
-        firstName: "First name is required",
-        lastName: "Last name is required",
-        email: "E-Mail is required",
-        password: "Password is required",
-        passwordConfirm: "Please confirm password",
+        company: "Firmenname wird benötigt",
+        firstName: "Vorname fehlt",
+        lastName: "Nachname fehlt",
+        email: "E-Mail fehlt",
+        password: "Password fehlt",
+        passwordConfirm: "Bitte bestätigen Sie ihr Passwort",
     },
     exists: null,
     tag: "both",
@@ -335,16 +335,16 @@ class Signup extends Component {
                         
                         <label className="form-options-label">
                             <select className="form-options" defaultValue="0" onChange={(e) =>this.getOffer(e)}>
-                                <option value="0" disabled>What do you offer?</option>
-                                <option value="Food">Food</option>
-                                <option value="Drinks">Drinks</option>
-                                <option value="Both">Both</option>
+                                <option value="0" disabled>Was bietest du an?</option>
+                                <option value="Food">Lebensmittel</option>
+                                <option value="Drinks">Getränke</option>
+                                <option value="Both">Beides</option>
                             </select>
                         </label>
                         
                     ) : null}
                     <Container fluid>
-                        <CustomButton type="submit" label="Register" className="button yellow-btn"/>
+                        <CustomButton type="submit" label="Registrieren" className="button yellow-btn"/>
                     </Container>
                 </form>
 

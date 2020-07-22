@@ -83,21 +83,21 @@ class Catalog extends Component {
             case 'name':
                 errors.name =
                     value.length < 2
-                        ? 'Product name must be 2 characters long!'
+                        ? 'Produktname muss länger als zwei Zeichen sein!'
                         : '';
                 break;
 
             case 'size':
                 errors.size =
                     value.length < 2
-                        ? 'Product size must be 2 characters long!'
+                        ? 'Produktgröße muss mindestens als zwei Zeichen sein!'
                         : '';
                 break;
 
             case 'price':
                 errors.price =
                     value.length < 1
-                        ? 'Product price is required!'
+                        ? 'Produktpreis wird benötigt'
                         : '';
                 const priceRegex = new RegExp("[0-9]+([./,][0-9]+)?");
                 priceRegex.test(value) ? errors.price = errors.price : errors.price = errors.price + " Nutzen Sie nur Zahlen und ein Komma"
@@ -106,14 +106,14 @@ class Catalog extends Component {
                 errors.tags =
                     value === "Food" || value === "Drink"
                         ? ''
-                        : 'Product tags must either be "Food" or "Drink"';
+                        : 'Art muss entweder Lebensmittel oder Getränk sein';
                 break;
-            case 'description':
+            /*case 'description':
                 errors.description =
                     value.length < 10
                         ? 'Product description must be at least 10 characters long'
                         : '';
-                break;
+                break; */
             default:
                 break;
         }
@@ -187,14 +187,14 @@ class Catalog extends Component {
         }
         const errors = {
 
-            name: 'Product name is required',
-            price: 'Product price is required',
-            size: 'Product size is required',
-            tags: 'Product tag is required' ,
-            description:  'Product description is required' ,
+            name: 'Produktname muss länger als zwei Zeichen sein!',
+            price: 'Produktpreis wird benötigt',
+            size: 'Produktgröße muss mindestens als zwei Zeichen sein!',
+            tags: 'Art muss entweder Lebensmittel oder Getränk sein' ,
 
 
-        }
+
+        };
         console.log("why no error")
 
         this.setState({...this.state, anchor: open, errors: errors})
@@ -224,14 +224,16 @@ class Catalog extends Component {
         else if(!this.state.anchor && i < 0) {
             console.log("im in there elsing"
             )
-            errors = {
-                name: 'Product name is required',
-                price: 'Product price is required',
-                size: 'Product size is required',
-                tags: 'Product tag is required' ,
-                description:  'Product description is required' ,
+             errors = {
 
-            }
+                name: 'Produktname muss länger als zwei Zeichen sein!',
+                price: 'Produktpreis wird benötigt',
+                size: 'Produktgröße muss mindestens als zwei Zeichen sein!',
+                tags: 'Art muss entweder Lebensmittel oder Getränk sein' ,
+
+
+
+            };
             option = "add"
         }
 
@@ -257,7 +259,7 @@ class Catalog extends Component {
         >
             <div className="row centerRow">
                 <div className="col-8">
-                    <h4>Add Item</h4>
+                    <h4>Produkt hinzufügen</h4>
 
                 </div>
                 <div className="col-4 sheet">
@@ -315,7 +317,7 @@ class Catalog extends Component {
             <div className="errorMessage">
                 <p>{this.state.errors.price}</p>
             </div>
-            <label style={{"margin-left":"1.2em"}}>Description</label>
+            <label style={{"margin-left":"1.2em"}}>Beschreibung</label>
             <div className={ this.state.errors.description === "" ? "formGroup item setMargin" : "formGroup item unsetMargin"}>
                 <textarea value={this.state.currentItem['description']} onChange={(e) => this.onChange(e, this.state.index)} className="form-control" rows="3" maxLength="100" name="description"/>
             </div>

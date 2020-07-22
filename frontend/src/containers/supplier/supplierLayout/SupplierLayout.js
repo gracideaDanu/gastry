@@ -31,7 +31,7 @@ const SupplierLayout = ({
         },
         {
             picref: (location === "catalog" ? produktKatalogActive  : produktKatalogInactive),
-            name: "Productkatalog",
+            name: "Produktkatalog",
             link: "/catalog",
         },
         {
