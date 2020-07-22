@@ -50,6 +50,7 @@ export {
 
 export {
     fetchOrders,
+    modifyOrders,
     flushOrders
 } from './orders/fetchOrders'
 

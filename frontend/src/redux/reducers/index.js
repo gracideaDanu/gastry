@@ -20,7 +20,7 @@ const  appReducer =combineReducers({
     customerCatalog: catalogCustomerReducer,
     basket: basketReducer,
     placeOrder: placeOrderReducer,
-    fetchOrders: fetchOrdersReducer,
+    orders: fetchOrdersReducer,
     chat: chatReducer
 });
 

@@ -11,6 +11,39 @@ border-style: none;
 box-shadow: 2px 5px 5px -1px rgba(176,176,176,1);
 }
 
+div.supplier-card{
+    width: 100%;
+}
+
 .orderNr {
     font-weight: 300;
+}
+
+div.canceled::after{
+    position: absolute;
+    background-color: var(--color-red-button);
+    content: "Canceled";
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    color: white;
+}
+div.closed::after{
+    position: absolute;
+    background-color: gray;
+    content: "Closed";
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    color: white;
 }
