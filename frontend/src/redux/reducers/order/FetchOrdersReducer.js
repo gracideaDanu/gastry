@@ -6,7 +6,6 @@ import {
     FETCH_ORDERS_SUCCESS,
     FETCH_ORDERS_FAILED, ORDERS_FLUSH
 } from "../../actions/actionTypes";
-import {forEach} from "react-bootstrap/cjs/ElementChildren";
 
 const initialState = {
     orders: [],
@@ -38,12 +37,18 @@ export default function (state = initialState, action) {
                 loading: true
             }
         case MODIFY_ORDER_SUCCESS:
-            let orderArray = state.orders
-            for(let order of orderArray) {
-                if(action.data.orderId === order._id){
+            let orderArray = [...state.orders]
+            for (let i = 0; i < orderArray.length; i++) {
+                const order = {
+                    ...orderArray[i]
+                };
+                if (action.data.orderId === order._id) {
                     order.status = action.status
+                    orderArray[i] = order
+
                 }
             }
+
             return {
                 ...state,
                 orders: orderArray,

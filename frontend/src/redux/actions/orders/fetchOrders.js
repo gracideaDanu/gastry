@@ -79,6 +79,7 @@ export const modifyOrders = (payload) => async (dispatch) => {
         const response = await axios.patch(`/supplier/order/${payload.orderId}`,payload.data,config);
         dispatch(modifyOrdersSuccess(response.data,payload.data.status));
     } catch (err) {
+        console.log("err:" + err)
         dispatch(modifyOrdersFailed(err));
     }
 };
