@@ -1,5 +1,5 @@
 const app = require('./app');
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.SERVER_PORT || 4000;
 let jwt = require('jsonwebtoken');
 const chatRouter = require('./routers/api/chat.router');
 const chatController = require('./controller/chat.controller')
