@@ -48,7 +48,7 @@ const SupplierLayout = ({
         <>
             <Topbar backButton={() => history.goBack()} showBack={showBack}/>
             <Navigation pagelist={navbuttons}/>
-            <Container fluid className={"d-flex flex-column min-vh-100"}>
+            <Container fluid fluid className={"h-100  d-flex flex-column"} style={{minHeight: "100vh", padding: "0px"}}>
                 <Row style={{marginTop: "20%"}}>
                     {description !== "" &&
                     <Container fluid style={{marginBottom: "1rem"}}>

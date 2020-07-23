@@ -260,10 +260,10 @@ class Catalog extends Component {
             <div className="row centerRow">
 
 
-                <div className="col-7">
+                <div className="col-6">
                     <h5>Produkt hinzufügen</h5>
                 </div>
-                <div className="col-5 sheet">
+                <div className="col-6 sheet">
                     <button className="button red-btn" onClick={() => this.toggle(false, -1)}>Abbrechen</button>
                 </div>
             </div>
@@ -396,7 +396,7 @@ class Catalog extends Component {
 
         return (
             <SupplierLayout title="Catalog" location="catalog" description={"Mein Produktkatalog"}>
-                <div>
+                <Container fluid>
                     <SwipeableList>
                         {this.getCatArray()}
                     </SwipeableList>
@@ -413,7 +413,7 @@ class Catalog extends Component {
                     </React.Fragment>
 
 
-                </div>
+                </Container>
                 <footer className="fixed-bottom fab">
                     <Container>
                         <Fab onClick={() => this.toggle(true, -1)}> <AddIcon></AddIcon> </Fab>
