@@ -39,7 +39,4 @@ app.use('/supplier',supplierRouter);
 app.use('/customer',customerRouter);
 app.use('/user',userRouter);
 
-
-
-
 module.exports = app;
