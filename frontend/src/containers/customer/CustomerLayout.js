@@ -25,7 +25,8 @@ const CustomerLayout = ({
                             children,
                             basketState,
                             showBack = false,
-                            location = ""
+                            location = "",
+                            marginBottom="18%"
 
                         }) => {
         let history = useHistory();
@@ -66,7 +67,7 @@ const CustomerLayout = ({
                     </Row>
                     <Row className={"flex-grow-1 content"}>
                         <Fade in={true}>
-                            <div style={{marginBottom: "18%", width: "100%"}}>
+                            <div style={{marginBottom: marginBottom, width: "100%"}}>
                                 {children}
                             </div>
                         </Fade>

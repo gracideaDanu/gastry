@@ -2,13 +2,22 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { withStyles } from '@material-ui/core/styles';
+
 
 import "./OrderListItem.scss"
 import {Badge} from "@material-ui/core";
+const StyledBadge = withStyles((theme) => ({
+    badge: {
+        right: 15,
+        top: 3,
+        padding: '0 4px',
+    },
+}))(Badge);
 
 const OrderListItem = ({name, orderNr, logo, status,newMessages}) => {
     return (
-        <Badge badgeContent={newMessages} color={"secondary"} style={{width: "100%"}}>
+        <StyledBadge badgeContent={newMessages} color={"secondary"} style={{width: "100%",padding:"0.5rem 1rem"}}>
             <Card className={"supplier-card order-list " + status}>
                 <Card.Body>
                     <Row className="align-items-center">
@@ -29,7 +38,7 @@ const OrderListItem = ({name, orderNr, logo, status,newMessages}) => {
                     </Row>
                 </Card.Body>
             </Card>
-        </Badge>
+        </StyledBadge>
     );
 };
 

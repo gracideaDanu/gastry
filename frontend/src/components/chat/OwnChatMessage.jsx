@@ -10,7 +10,7 @@ const OwnChatMessage = (props) => {
     return (
         <div className="messageRow d-flex justify-content-end">
             <div className={"messageframe ownMessage"}>
-                <p style={{textAlign: "right", fontSize: "18px"}}>
+                <p style={{fontSize: "18px"}}>
                     {props.text}
                 </p>
                 <footer className={"float-right"} style={{fontSize: "12px"}}>

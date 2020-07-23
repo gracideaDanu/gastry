@@ -3,19 +3,17 @@ import OwnChatMessage from "../../../components/chat/OwnChatMessage";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Navbar from "react-bootstrap/Navbar";
 import "./chat.scss"
-import Topbar from "../../../components/navigation/TopBar";
 import OtherChatMessage from "../../../components/chat/OtherChatmessage";
-import axiosInstance from "../../../redux/axiosInstance";
 import io from "socket.io-client";
 import {connect} from "react-redux";
 import * as actions from '../../../redux/actions';
 import CustomerLayout from "../CustomerLayout";
 import sendbutton from "../../../assets/icons/send.svg"
 import SupplierLayout from '../../supplier/supplierLayout/SupplierLayout';
+import Accordion from "react-bootstrap/Accordion";
+import Card from "react-bootstrap/Card";
 
 let socket;
 let messagesEnd;
@@ -57,6 +55,7 @@ class Chat extends Component {
             userId: userId,
             chatId: chatId
         });
+
 
         this.fetchChat();
 
@@ -233,10 +232,7 @@ class Chat extends Component {
             this.newMessage(message)
         } else {
             console.log(this.state.typeError)
-
         }
-
-
     }
 
     renderMessages = () => {
@@ -260,9 +256,21 @@ class Chat extends Component {
         messagesEnd.scrollIntoView({behavior: "smooth"});
     };
 
+    renderItems = () => {
+        console.log("order: "+ this.state.order)
+
+        const wholeitems = this.state.order.products.map((item,key) =>
+            <p>{item.name}</p>
+        );
+        return(
+            <Container>
+                {wholeitems}
+            </Container>
+        )
+    }
 
     render() {
-        const { userType } = this.props.user;
+        const {userType} = this.props.user;
         let Layout = userType === "Supplier" ? SupplierLayout : CustomerLayout;
         return (
             <Layout
@@ -271,9 +279,16 @@ class Chat extends Component {
             >
                 <div className={"orderNrChat"}>
                     <div className={"d-flex justify-content-center"}>
-                        <p>
-                            Bestellnummer: {this.state.chatId.toString().substr(this.state.chatId.toString().length - 5).toUpperCase()}
-                        </p>
+                        <Accordion className={"orderitems"}>
+                            <Accordion.Toggle eventKey={1}>
+                                <p style={{fontWeight: "bold"}}>
+                                    Bestellnummer: {this.state.chatId.toString().substr(this.state.chatId.toString().length - 5).toUpperCase()}
+                                </p>
+                            </Accordion.Toggle>
+                            <Accordion.Collapse eventKey={1}>
+                                <p></p>
+                            </Accordion.Collapse>
+                        </Accordion>
                     </div>
                 </div>
                 <Container className="Containerli">

@@ -21,7 +21,7 @@ class SuppliersList extends Component {
         filteredList: [],
         searchInputValue: "",
         page: 0,
-        limit: 2,
+        limit: 10,
     };
 
     componentDidMount() {

@@ -11,8 +11,11 @@ div.orderNrChat{
   margin-top: -6%;
   background-color: var(--color-second-background);
   border-bottom: darkgray solid 1px;
-  p {
-    font-weight: bold;
+  div.orderitems {
+    p{
+      margin-bottom: 0rem;
+    }
+    margin-bottom: 1rem;
     padding: 0.5rem 3rem;
     background-color: white;
     border-radius: 0.8rem;
@@ -25,8 +28,8 @@ div.orderNrChat{
 
 
 .Containerli {
-  padding-top: 6rem;
-  padding-bottom: 7rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   background-color: var(--color-second-background);
 }
 

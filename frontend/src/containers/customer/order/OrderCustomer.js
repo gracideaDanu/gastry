@@ -19,11 +19,12 @@ class OrderCustomer extends Component {
                 className="container-fluid"
                 description={`Was möchtest \n du bestellen?`}
                 location={"home"}
+                marginBottom={"0"}
             >
-                <Row style={{ width: "100%", height: "50%", marginTop: "5vh" }}>
+                <Row style={{ width: "100%", height: "40%" }}>
                     <Col
                         className={"d-flex flex-column justify-content-center "}
-                        style={{ height: "100%", marginTop: "1em" }}
+                        style={{ height: "100%" }}
                     >
                         <Link
                             className="supplierLink"
@@ -41,7 +42,7 @@ class OrderCustomer extends Component {
                     </Col>
                     <Col
                         className={"d-flex flex-column justify-content-center"}
-                        style={{ height: "100%", marginTop: "1em" }}
+                        style={{ height: "100%"}}
                     >
                         <Link
                             className="supplierLink"
@@ -61,13 +62,12 @@ class OrderCustomer extends Component {
                 <Row
                     style={{
                         width: "100%",
-                        height: "50%",
-                        marginBottom: "10vh",
+                        height: "60%"
                     }}
                 >
                     <Col
                         className={"d-flex flex-column justify-content-center "}
-                        style={{ height: "100%" }}
+                        style={{ height: "60%" }}
                     >
                         <Link
                             className="supplierLink"
@@ -78,7 +78,6 @@ class OrderCustomer extends Component {
                                 width="150"
                                 height="150"
                                 alt={"foodAndDrinks"}
-                                className={"align-self-center"}
                             />
                         </Link>
                         <p className={"supplierButtons text-center"}>

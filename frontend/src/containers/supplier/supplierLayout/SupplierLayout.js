@@ -15,15 +15,18 @@ import bestelleingangActive from "../../../assets/icons/BestelleingangAusgewähl
 
 import "./SupplierLayout.css";
 import {Fade} from "@material-ui/core";
+import {useHistory} from "react-router-dom";
 
 const SupplierLayout = ({
                             title = "Title",
                             className,
                             children,
                             description = "",
-                            onClicklogout,
+                            showBack = false,
                             location = ""
                         }) => {
+    let history = useHistory();
+
     const navbuttons = [
         {
             picref: (location === "orders" ? bestelleingangActive : bestelleingangInactive),
@@ -43,7 +46,7 @@ const SupplierLayout = ({
     ];
     return (
         <>
-            <Topbar onClick={onClicklogout}/>
+            <Topbar backButton={() => history.goBack()} showBack={showBack}/>
             <Navigation pagelist={navbuttons}/>
             <Container fluid className={"d-flex flex-column min-vh-100"}>
                 <Row style={{marginTop: "20%"}}>
