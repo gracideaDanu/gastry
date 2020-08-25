@@ -12,7 +12,7 @@ import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import supplier from "../../../assets/icons/logistics.svg";
 
-class Orderlist extends Component {
+export class Orderlist extends Component {
     componentDidMount() {
         let payload = {
             token: this.props.token,
@@ -37,6 +37,7 @@ class Orderlist extends Component {
     }
 
     changeStatus = (e, id) => {
+        console.log("Hi")
         if (e === 1) {
             let payload = {
                 token: this.props.token,

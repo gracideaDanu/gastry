@@ -2,13 +2,13 @@ import React from "react";
 import {shallow} from 'enzyme';
 import configureStore from 'redux-mock-store' //ES6 modules
 import thunk from 'redux-thunk';
-
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
 import  Login  from "./Login";
 import * as actions from "../../../redux/actions/authorization/login"
 import Input from "../../../components/auth/Input";
 import {login} from "../../../redux/actions/authorization/login";
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
 
 
 
@@ -56,6 +56,7 @@ describe('<Login/>', function () {
             value: "E-mail", type: "mail"
 
             }});
+
 
         expect(spy).toBeCalledWith({target: {
                 value: "E-mail", type: "mail"

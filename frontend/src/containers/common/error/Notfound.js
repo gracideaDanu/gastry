@@ -3,9 +3,7 @@ import {connect} from "react-redux";
 import * as actions from "../../../redux/actions";
 class Notfound extends Component {
 
-    componentDidMount() {
-        //this.props.onClicklogout()
-    }
+
 
     render() {
         return (

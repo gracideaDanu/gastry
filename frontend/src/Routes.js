@@ -84,7 +84,6 @@ class Routes extends Component {
 
 
 
-            //privateRoutes.push(<Route exact path={"/catalog/:supplierName"} component={CatalogCustomer}></Route>)
 
         }
         return (
