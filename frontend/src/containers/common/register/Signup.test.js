@@ -56,5 +56,61 @@ describe('<Signup/>',() => {
         select.prop('onChange')(event)
         expect(spy).toBeCalledWith(event)
         expect(wrapper.state('tag')).toBe('food')
+        spy.mockRestore()
+    });
+
+    it('should fire onSubmit with correct values', function () {
+        let spy = jest.spyOn(wrapper.instance(),'onSubmit')
+
+        wrapper.setState({
+            form: {
+                company: {
+                    value: "BIODIO",
+                    type: "company",
+                    name: "Firmenname",
+                },
+
+                firstName: {
+                    value: "Domenico",
+                    type: "firstName",
+                    name: "Vorname",
+                },
+                lastName: {
+                    value: "Ferrari",
+                    type: "lastName",
+                    name: "Nachname",
+                },
+
+                email: {
+                    value: "dodo@dodo.de",
+                    type: "email",
+                },
+                password: {
+                    value: "test123",
+                    type: "password",
+                },
+                passwordConfirm: {
+                    value: "test123",
+                    type: "passwordConfirm",
+                },
+            },
+            tag: "both",
+            errors: {
+                company: "",
+                firstName: "",
+                lastName: "",
+                email: "",
+                password: "",
+                passwordConfirm: "",
+            }
+        })
+
+        let form = wrapper.find('form')
+        form.prop('onSubmit')({preventDefault() {
+           }})
+
+
+        expect(spy).toBeCalledTimes(1)
+        spy.mockRestore()
     });
 })
