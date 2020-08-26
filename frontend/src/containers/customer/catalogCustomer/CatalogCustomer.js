@@ -194,6 +194,7 @@ class CatalogCustomer extends Component {
         if (searchInputValue !== "") {
             const filteredList = this.props.catalog.filter((row) => {
                 const nameToLowerCase = row.name.toLowerCase();
+                console.log(searchInputValue + " hi test")
                 const filter = searchInputValue.toLowerCase();
                 return nameToLowerCase.includes(filter);
             });
@@ -204,6 +205,7 @@ class CatalogCustomer extends Component {
     renderCatalog = (tab) => {
         const {catalog} = this.props;
         const {searchInputValue, filteredList} = this.state;
+        console.log(this.state)
         const renderedList = searchInputValue.length > 0 ? filteredList : catalog;
 
         if (!catalog) return <div>loading</div>;
