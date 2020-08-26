@@ -15,10 +15,12 @@ import SupplierLayout from '../../supplier/supplierLayout/SupplierLayout';
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 
-let socket;
-let messagesEnd;
 
+let messagesEnd;
+let socket;
 class Chat extends Component {
+
+
 
     state = {
         chatId: 0,
@@ -33,6 +35,7 @@ class Chat extends Component {
     constructor(props) {
         super(props);
         console.log(this.props.token)
+
 
     }
 
@@ -254,6 +257,7 @@ class Chat extends Component {
 
     scrollToBottom = () => {
         messagesEnd.scrollIntoView({behavior: "smooth"});
+
     };
 
     renderItems = () => {
